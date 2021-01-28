@@ -1,31 +1,58 @@
 from typing import Dict
 import random
+import pandas as pd
+
+
 def modify(tel):
     tel['guido'] = 4127
     del tel['sape']
+
+def discard_white_space(old, new):
+    file = open(old, "r")
+    file_mod = open(new, "w")
+    for line in file:
+        line = ' '.join(line.split())
+        file_mod.write(line)
+        file_mod.write("\n")
+    file.close()
+    file_mod.close()
+    return
+
+def put_comma(old, new):
+    file = open(old, "r")
+    file_mod = open(new, "w")
+    for line in file:
+        line = line.replace(" ", ",")
+        file_mod.write(line)
+        file_mod.write("\n")
+    file.close()
+    file_mod.close()
+    return
+
+
+def convert_to_csv(old,new):
+    text = pd.read_csv(old, header=None)
+    text.columns = ['id', 'S_ime', 'W_time', 'R_time', 'Processors', 'Avg_CPU', 'Memory', 'Req_proc', 'Req_time'
+                    , 'Req_mem', 'Status', 'U_id', 'G_id', 'Exe_num', 'Q_num', 'Part_num', 'Proc_job_no', 'Irre']
+    text.to_csv(new, index=None)
+    return
+
+
 def main():
-    x = random.uniform(0.5, 0.85)
-    print(x)
+    #discard_white_space("workload_modified.txt", "workload_wspace.txt")
+    #put_comma("workload_wspace.txt", "workload_final.txt")
+    #convert_to_csv("workload_final.txt", "workload_all.csv")
+    dataframe = pd.read_csv("workload_all.csv")
+    dataframe = dataframe[['id', 'S_ime', 'W_time', 'R_time', 'Processors']]
+    dataframe.insert(5, "type", 1)
+    dataframe.insert(6, "Max_resource", dataframe['Processors'])
+    dataframe.insert(7, "Min_resource", dataframe['Processors'])
+    #print(dataframe.head())
+    #dataframe.to_csv('workload_final.csv', index=False)
 
-def find_agreement(queued_job_list, running_malleable_job, job_to_start_list, state, event_list, sim_clock):
-    agreement_list = []
-    agreement_to_be = []
-    for key, value in queued_job_list.items():
-        needed = value.current_resources
-        for i in running_malleable_job:
-            if (needed == 0):
-                break
-            if (i.remaining_resources >= needed and needed != 0):
-                a = Agreement('s', needed, i)
-                agreement_to_be.append(a)
-                i.remaining_resources = i.remaining_resources - needed
-                needed = 0
-                state.cores = state.cores + needed
-                e = find_event(event_list, value)
-                event_counter = 0
-                state, event_counter = jobEntry(job_to_start_list, value, e, state, event_counter, event_list,
-                                                sim_clock)
-        running_malleable_job = sorted(running_malleable_job, key=operator.attrgetter('remaining_resources'))
 
-    return agreement_list, job_to_start_list
+
+
+
+
 main()
