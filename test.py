@@ -43,12 +43,16 @@ def main():
     #put_comma("workload_wspace.txt", "workload_final.txt")
     #convert_to_csv("workload_final.txt", "workload_all.csv")
     dataframe = pd.read_csv("workload_all.csv")
-    dataframe = dataframe[['id', 'S_ime', 'W_time', 'R_time', 'Processors']]
+    dataframe = dataframe[['S_ime', 'W_time', 'R_time', 'Processors']]
+    dataframe.insert(4, 'id', dataframe.index+1)
     dataframe.insert(5, "type", 1)
     dataframe.insert(6, "Max_resource", dataframe['Processors'])
     dataframe.insert(7, "Min_resource", dataframe['Processors'])
-    #print(dataframe.head())
-    #dataframe.to_csv('workload_final.csv', index=False)
+    print(dataframe.head())
+    dataframe.to_csv('workload_final1.csv', index=False)
+
+
+
 
 
 

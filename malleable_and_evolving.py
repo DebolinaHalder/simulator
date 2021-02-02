@@ -3,11 +3,20 @@
 # Press Shift+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 import pandas as pd
-from Class import Job, Event, System, Agreement
+from Class import Job, Event, System, Agreement, Phase
 import queue as q
 from typing import Dict
 import operator
 import random
+
+submission_event = 0
+expansion_event = 1
+shrinkage_event = 2
+completion_event = 3
+
+rigid = 1
+malleable = 2
+evolving = 3
 
 
 def jobEntry(job_to_start_list, job, event, state, event_counter, event_list, sim_clock):
@@ -104,19 +113,19 @@ def find_agreement(queued_job_list, running_malleable_job, job_to_start_list, st
             agreement_to_be.clear()
         running_malleable_job = sorted(running_malleable_job, key=operator.attrgetter('remaining_resources'))
     sim_clock = sim_clock + negotiation_overhead
-    if len(agreement_list) == 0:
-        if state.cores != 0:
-            for i in running_malleable_job:
-                if i.extra_resources != 0:
-                    cores = i.extra_resources if i.extra_resources < state.cores else state.cores
-                    a = Agreement('e', cores, i)
-                    agreement_list.append(a)
-                    index = running_malleable_job.index(i)
-                    running_malleable_job[index].extra_resources = running_malleable_job[
-                                                                       index].remaining_resources - a.modify_cores
-                    state.cores = state.cores - a.modify_cores
-                    if state.cores == 0:
-                        break
+
+    if state.cores != 0:
+        for i in running_malleable_job:
+            if i.extra_resources != 0:
+                cores = i.extra_resources if i.extra_resources < state.cores else state.cores
+                a = Agreement('e', cores, i)
+                agreement_list.append(a)
+                index = running_malleable_job.index(i)
+                running_malleable_job[index].extra_resources = running_malleable_job[
+                                                                   index].remaining_resources - a.modify_cores
+                state.cores = state.cores - a.modify_cores
+                if state.cores == 0:
+                    break
     return agreement_list, job_to_start_list, sim_clock, negotiation_overhead, state
 
 
@@ -145,25 +154,48 @@ def find_event(event_list, job):
             return i
 
 
+def expansion(cores, sim_clk, running_job_list, negotiation_overhead, job, event_list):
+    id = job.id
+    p = Phase('e', cores, sim_clk)
+    running_job_list[id].phase_list.append(p)
+    running_job_list[id].no_of_expansion = running_job_list[id].no_of_expansion + 1
+    time = running_job_list[id].updateExpansion(cores, sim_clk, negotiation_overhead)
+    event = find_event(event_list, job)
+    index = event_list.index(event)
+    event_list[index].job.c_time = time
+    event_list[index].job.phase_list.append(p)
+    event_list[index].job.no_of_expansion = running_job_list[id].no_of_expansion
+    event_list[index].time = event_list[index].job.c_time
+    print("job expansion", job.id,"with cores", cores)
+    print("type of event", event_list[index].typ)
+    return event_list
+
+
+def shrinkage(cores, sim_clk, running_job_list, negotiation_overhead, job, event_list):
+    id = job.id
+    p = Phase('s', cores, sim_clk)
+    running_job_list[id].phase_list.append(p)
+    running_job_list[id].no_of_shrinkage = running_job_list[id].no_of_shrinkage + 1
+    time = running_job_list[id].updateSkrinkage(cores, sim_clk, negotiation_overhead)
+    event = find_event(event_list, job)
+    index = event_list.index(event)
+    event_list[index].job.c_time = time
+    event_list[index].job.phase_list.append(p)
+    event_list[index].job.no_of_expansion = running_job_list[id].no_of_expansion
+    event_list[index].time = event_list[index].job.c_time
+    print("job skrinked", job.id, cores)
+    return event_list
+
+
 def dispatcher(job_to_start_list, pending_job_list, running_job_list, event_list, agreement_list, queued_job_list,
                sim_clock, negotiation_overhead):
     for i in agreement_list:
         id = i.job.id
         if i.type == 'e':
-            time = running_job_list[id].updateExpansion(i.modify_cores, sim_clock, negotiation_overhead)
-            event = find_event(event_list, i.job)
-            index = event_list.index(event)
-            event_list[index].job.c_time = time
-            event_list[index].time = event_list[index].job.c_time
-            print("job expansion", i.job.id, i.modify_cores)
+            event_list = expansion(i.modify_cores, sim_clock, running_job_list, negotiation_overhead, i.job, event_list)
 
         elif i.type == 's':
-            time = running_job_list[id].updateSkrinkage(i.modify_cores, sim_clock, negotiation_overhead)
-            event = find_event(event_list, i.job)
-            index = event_list.index(event)
-            event_list[index].job.c_time = time
-            event_list[index].time = event_list[index].job.c_time
-            print("job skrinked", i.job.id, i.modify_cores)
+            event_list = shrinkage(i.modify_cores, sim_clock, running_job_list, negotiation_overhead, i.job, event_list)
 
     for key, value in job_to_start_list.items():
         value.updateStatus("running")
@@ -199,7 +231,30 @@ def create_evolving_events(event_list, J):
     return event_list
 
 
-# Press the green button in the gutter to run the script.
+def initialize_event(fileName, pending_job_list, event_list):
+    data = pd.read_csv(fileName)
+    for index, row in data.iterrows():
+        J = Job(row['type'], row['a_time'], row['cores'], row['exe_time'], row['id'], row['min_resource'],
+                row['max_resource'])
+        pending_job_list[J.id] = J
+        e = Event(J, row['a_time'], 0)
+        event_list.append(e)
+    event_list = sorted(event_list, key=operator.attrgetter('time'))
+    return pending_job_list, event_list
+
+
+def initialize_system(cores):
+    state = System(cores)
+    return state
+
+
+def clear_list(event_list, job):
+    for i in event_list:
+        if i.job == job:
+            event_list.remove(i)
+    return event_list
+
+
 def main():
     pending_job_list: Dict[int, Job] = {}
     event_list = []
@@ -207,16 +262,8 @@ def main():
     complete_job_list: Dict[int, Job] = {}
     queued_job_list: Dict[int, Job] = {}
     job_to_start_list: Dict[int, Job] = {}
-    data = pd.read_csv("workload.csv")
-    for index, row in data.iterrows():
-        J = Job(row['type'], row['a_time'], row['cores'], row['exe_time'], row['id'], row['min_resource'],
-                row['max_resource'])
-        pending_job_list[J.id] = J
-        e = Event(J, row['a_time'], 0)
-
-        event_list.append(e)
-    event_list = sorted(event_list, key=operator.attrgetter('time'))
-    state = System(16)
+    pending_job_list, event_list = initialize_event("workload.csv", pending_job_list, event_list)
+    state = initialize_system(12)
 
     sim_clock = 0
     event_counter = 0
@@ -229,14 +276,15 @@ def main():
                 event_list, sim_clock, state = scheduler(job_to_start_list, pending_job_list, running_job_list, event_list,
                                               queued_job_list, state, sim_clock)
                 sim_clock = event.time
-            if event.typ == 1 and event.core <= state.cores:
-                time = running_job_list[event.job.id].updateExpansion(event.core, sim_clock, 0)
-                index = event_list.index(event)
-                event_list[index].job.c_time = time
-                event_list[index].time = event_list[index].job.c_time
-                print("job expansion, end_time", event.job.id, time, event.core)
-
+            cores = event.core
+            job = event.job
             event_list.remove(event)
+            if event.typ == 1 and event.core <= state.cores:
+                expansion(cores, sim_clock, running_job_list, 0, job, event_list)
+                state.cores = state.cores - event.core
+            if event.typ == 2:
+                shrinkage(cores, sim_clock, running_job_list, 0, job, event_list)
+                state.cores = state.cores + event.core
             print("removed event", event.typ, event.job.id)
 
         elif event.typ == 3:
@@ -244,8 +292,9 @@ def main():
             running_job_list, complete_job_list = runningToComplete(running_job_list, complete_job_list, event)
             state.update_cores(state.cores + event.job.cores)
             event_list.remove(event)
+            event_list = clear_list(event_list, event.job)
             event_list = sorted(event_list, key=operator.attrgetter('time'))
-            print("event finished", event.job.id)
+            print("event finished", event.job.id, "at time", event.time)
             event_counter = 0
             if len(event_list) == 0 and len(job_to_start_list) != 0:
                 agreement_list = []
@@ -264,7 +313,7 @@ def main():
                                                                            event_counter, event_list, queued_job_list,
                                                                            pending_job_list, running_job_list)
     for key, value in complete_job_list.items():
-        print(value.id, value.a_time, value.s_time, value.c_time)
+        print(value.id, value.a_time, value.s_time, value.c_time, value.no_of_expansion, value.no_of_shrinkage)
 
 
 if __name__ == '__main__':

@@ -37,11 +37,10 @@ def create_intitial_schedule(event, state, job_to_start_list, sim_clock, event_c
             queued_job_list[job.id] = job
             print("job queued", job.id)
             event_counter = event_counter + 1
-    if(len(event_list) == 0):
+    if len(event_list) == 0:
         event_list = schedular(job_to_start_list, pending_job_list, running_job_list, event_list)
         event_counter = 0
     return state, event_counter, event_list
-
 
 
 def schedular(job_to_start_list, pending_job_list, running_job_list, event_list):
@@ -58,8 +57,6 @@ def schedular(job_to_start_list, pending_job_list, running_job_list, event_list)
     return event_list
 
 
-
-
 def runningToComplete(running_job_list, complete_job_list, event):
     Job = event.job
     Job.updateStatus("completed")
@@ -68,12 +65,23 @@ def runningToComplete(running_job_list, complete_job_list, event):
     return running_job_list, complete_job_list
 
 
+def initialize_event(fileName, pending_job_list, event_list):
+    data = pd.read_csv(fileName)
+    for index, row in data.iterrows():
+        J = Job(row['type'], row['a_time'], row['cores'], row['exe_time'], row['id'], row['min_resource'],
+                row['max_resource'])
+        pending_job_list[J.id] = J
+        e = Event(J, row['a_time'], 0)
+        event_list.append(e)
+    event_list = sorted(event_list, key=operator.attrgetter('time'))
+    return pending_job_list, event_list
 
 
+def initialize_system(cores):
+    state = System(cores)
+    return state
 
 
-
-# Press the green button in the gutter to run the script.
 def main():
     pending_job_list: Dict[int, Job] = {}
     event_list = []
@@ -81,21 +89,15 @@ def main():
     complete_job_list: Dict[int, Job] = {}
     queued_job_list: Dict[int, Job] = {}
     job_to_start_list: Dict[int, Job] = {}
-    data = pd.read_csv("workload.csv")
-    for index, row in data.iterrows():
-        J = Job(row['type'], row['a_time'], row['cores'], row['exe_time'], row['id'], row['min_resource'], row['max_resource'])
-        pending_job_list[J.id] = J
-        e = Event(J, row['a_time'], 0)
-        event_list.append(e)
-    event_list = sorted(event_list, key=operator.attrgetter('time'))
-    state = System(12)
+    pending_job_list, event_list = initialize_event("workload.csv", pending_job_list, event_list)
+    state = initialize_system(12)
     sim_clock = 0
     event_counter = 0
     event: Event
 
-    while(len(event_list) != 0):
+    while len(event_list) != 0:
         event = event_list[event_counter]
-        if(event.typ == 3):
+        if event.typ == 3:
             sim_clock = event.time
             running_job_list, complete_job_list = runningToComplete(running_job_list, complete_job_list, event)
             state.update_cores(state.cores + event.job.cores)
@@ -103,19 +105,19 @@ def main():
             event_list = sorted(event_list, key=operator.attrgetter('time'))
             print("event finished", event.job.id)
             event_counter = 0
-            if(len(event_list) == 0 and len(job_to_start_list) != 0):
+            if len(event_list) == 0 and len(job_to_start_list) != 0:
                 event_list = schedular(job_to_start_list, pending_job_list, running_job_list, event_list)
         else:
-            if(sim_clock >= event.time):
+            if sim_clock >= event.time:
                 state, event_counter, event_list = create_intitial_schedule(event, state, job_to_start_list, sim_clock, event_counter, event_list, queued_job_list,pending_job_list, running_job_list)
-            elif(sim_clock < event.time):
+            elif sim_clock < event.time:
                 event_list = schedular(job_to_start_list, pending_job_list, running_job_list, event_list)
                 sim_clock = event.time
                 state, event_counter, event_list = create_intitial_schedule(event, state, job_to_start_list, sim_clock, event_counter, event_list, queued_job_list, pending_job_list, running_job_list)
 
-
     for key, value in complete_job_list.items():
         print(value.id, value.a_time, value.s_time, value.c_time)
+
 
 if __name__ == '__main__':
     main()
