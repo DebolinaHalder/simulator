@@ -67,10 +67,12 @@ class Job:
         total_work = self.current_resources * self.c_time
         remaining_work = total_work - work_done
         adaptation_cost = self.get_adaptationCost('s', remaining_work)
+        #print("remaining work", remaining_work, "adaptation cost", adaptation_cost)
         time_required = adaptation_cost / (self.current_resources - cores)
-        datadistribution_cost = self.get_dataRedistributionCost('e')
-        self.c_time = sim_clock+ time_required + datadistribution_cost
+        datadistribution_cost = self.get_dataRedistributionCost('s')
+        self.c_time = sim_clock + time_required + datadistribution_cost
         self.current_resources = self.current_resources - cores
+        #print("completion time", self.c_time)
         return self.c_time
 
 

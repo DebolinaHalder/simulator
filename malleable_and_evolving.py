@@ -4,23 +4,35 @@
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 import pandas as pd
 from Class import Job, Event, System, Agreement, Phase
-import queue as q
 from typing import Dict
 import operator
 import random
+import numpy as np
+
+
+max_no_of_phase = 4
+min_no_of_phase = 1
+max_time = 80
+min_time = 10
+max_cores = 5
+min_cores = 2
+exp_probability = 0.7
 
 submission_event = 0
 expansion_event = 1
 shrinkage_event = 2
 completion_event = 3
 
+
+
 rigid = 1
 malleable = 2
 evolving = 3
 
+np.random.seed(12)
 
 def jobEntry(job_to_start_list, job, event, state, event_counter, event_list, sim_clock):
-    print("job added in job to start list", job.id)
+    print("job added in job to start list", job.id, "at time", sim_clock)
     job_to_start_list[job.id] = job
     state.update_cores(state.cores - job.current_resources)
     job.updateCompletion(sim_clock)
@@ -38,6 +50,30 @@ def find_malleable(running_job_list):
     running_malleable_job = sorted(running_malleable_job, key=operator.attrgetter('remaining_resources'))
     return running_malleable_job
 
+
+def create_phases():
+    no_of_phase = random.randint(1, 4)
+    phase = []
+    for i in range(no_of_phase):
+        s = np.random.binomial(1, exp_probability)
+        time = random.randint(min_time, max_time)
+        cores = random.randint(min_cores, max_cores)
+        if s == 1:
+            p = Phase(expansion_event, cores, time)
+        else:
+            p = Phase(shrinkage_event, cores, time)
+        phase.append(p)
+    return phase
+
+
+def create_phases_static():
+    no_of_phase = 2
+    phase = []
+    p = Phase(shrinkage_event, 2, 35)
+    phase.append(p)
+    q = Phase(expansion_event, 4, 10)
+    phase.append(q)
+    return phase
 
 def getNegotiationCost():
     min = 0.05
@@ -156,7 +192,7 @@ def find_event(event_list, job):
 
 def expansion(cores, sim_clk, running_job_list, negotiation_overhead, job, event_list):
     id = job.id
-    p = Phase('e', cores, sim_clk)
+    p = Phase(expansion_event, cores, sim_clk)
     running_job_list[id].phase_list.append(p)
     running_job_list[id].no_of_expansion = running_job_list[id].no_of_expansion + 1
     time = running_job_list[id].updateExpansion(cores, sim_clk, negotiation_overhead)
@@ -173,7 +209,7 @@ def expansion(cores, sim_clk, running_job_list, negotiation_overhead, job, event
 
 def shrinkage(cores, sim_clk, running_job_list, negotiation_overhead, job, event_list):
     id = job.id
-    p = Phase('s', cores, sim_clk)
+    p = Phase(shrinkage_event, cores, sim_clk)
     running_job_list[id].phase_list.append(p)
     running_job_list[id].no_of_shrinkage = running_job_list[id].no_of_shrinkage + 1
     time = running_job_list[id].updateSkrinkage(cores, sim_clk, negotiation_overhead)
@@ -183,7 +219,7 @@ def shrinkage(cores, sim_clk, running_job_list, negotiation_overhead, job, event
     event_list[index].job.phase_list.append(p)
     event_list[index].job.no_of_expansion = running_job_list[id].no_of_expansion
     event_list[index].time = event_list[index].job.c_time
-    print("job skrinked", job.id, cores)
+    print("job skrinked", job.id, cores, "new complition time", time)
     return event_list
 
 
@@ -202,9 +238,8 @@ def dispatcher(job_to_start_list, pending_job_list, running_job_list, event_list
         running_job_list[value.id] = value
         e = Event(value, value.c_time, 3)
         event_list.append(e)
-        if value.type == 3:
-            event_list = create_evolving_events(event_list, value)
-            print("expansion event created for", value.id, "at time", value.s_time + (value.c_time-value.s_time)//2)
+        if value.type == evolving:
+            event_list = create_evolving_events(event_list, value, sim_clock)
         print("completion event created with id & time", e.job.id, e.job.c_time)
         pending_job_list.pop(value.id)
         if value.id in queued_job_list:
@@ -222,12 +257,25 @@ def runningToComplete(running_job_list, complete_job_list, event):
     return running_job_list, complete_job_list
 
 
-def create_evolving_events(event_list, J):
-    time, type, cores = 15, 1, 2
-    e = Event(J, time, type)
-    e.setCore(cores)
-    event_list.append(e)
-    event_list = sorted(event_list, key=operator.attrgetter('time'))
+def create_evolving_events(event_list, J, sim_clk):
+    phase_rq = J.phase_req
+    if len(phase_rq) != 0:
+        phase = phase_rq[0]
+        phase_rq.remove(phase)
+        perc, type, cores = phase.time, phase.type, phase.cores
+        rem_time = J.c_time - sim_clk
+        time = rem_time * perc / 100
+        time = sim_clk + time
+        e = Event(J, time, type)
+        if phase.type == shrinkage_event:
+            cores = random.randint(1, J.current_resources - 1)
+        e.setCore(cores)
+        event_list.append(e)
+        event_list = sorted(event_list, key=operator.attrgetter('time'))
+        if phase.type == expansion_event:
+            print("expansion event created for", J.id, "at time", time)
+        elif phase.type == shrinkage_event:
+            print("shrinkage event created for", J.id, "at time", time)
     return event_list
 
 
@@ -236,6 +284,9 @@ def initialize_event(fileName, pending_job_list, event_list):
     for index, row in data.iterrows():
         J = Job(row['type'], row['a_time'], row['cores'], row['exe_time'], row['id'], row['min_resource'],
                 row['max_resource'])
+        if J.type == evolving:
+            phase_rq = create_phases_static()
+            J.phase_req = phase_rq
         pending_job_list[J.id] = J
         e = Event(J, row['a_time'], 0)
         event_list.append(e)
@@ -263,7 +314,7 @@ def main():
     queued_job_list: Dict[int, Job] = {}
     job_to_start_list: Dict[int, Job] = {}
     pending_job_list, event_list = initialize_event("workload.csv", pending_job_list, event_list)
-    state = initialize_system(12)
+    state = initialize_system(100)
 
     sim_clock = 0
     event_counter = 0
@@ -271,23 +322,29 @@ def main():
 
     while len(event_list) != 0:
         event = event_list[event_counter]
-        if event.typ == 1 or event.typ == 2:
+        if event.typ == expansion_event or event.typ == shrinkage_event:
             if len(job_to_start_list) != 0:
                 event_list, sim_clock, state = scheduler(job_to_start_list, pending_job_list, running_job_list, event_list,
-                                              queued_job_list, state, sim_clock)
-                sim_clock = event.time
+                                            queued_job_list, state, sim_clock)
+            print("came upto here")
+            sim_clock = event.time
             cores = event.core
             job = event.job
             event_list.remove(event)
-            if event.typ == 1 and event.core <= state.cores:
+            if event.typ == expansion_event and event.core <= state.cores:
                 expansion(cores, sim_clock, running_job_list, 0, job, event_list)
                 state.cores = state.cores - event.core
-            if event.typ == 2:
+            else:
+                print("couldn't expand job", job.id, "at time", sim_clock)
+            if event.typ == shrinkage_event:
                 shrinkage(cores, sim_clock, running_job_list, 0, job, event_list)
                 state.cores = state.cores + event.core
+                print("shrinked job", event.job.id, "at time", sim_clock)
+                event_counter = 0
+            event_list = create_evolving_events(event_list, running_job_list[event.job.id], sim_clock)
             print("removed event", event.typ, event.job.id)
 
-        elif event.typ == 3:
+        elif event.typ == completion_event:
             sim_clock = event.time
             running_job_list, complete_job_list = runningToComplete(running_job_list, complete_job_list, event)
             state.update_cores(state.cores + event.job.cores)
