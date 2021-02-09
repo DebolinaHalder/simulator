@@ -48,8 +48,9 @@ def main():
     dataframe.insert(5, "type", 1)
     dataframe.insert(6, "Max_resource", dataframe['Processors'])
     dataframe.insert(7, "Min_resource", dataframe['Processors'])
+    dataframe.insert(8, "Total_cost", dataframe['Processors']*dataframe['R_time'])
     print(dataframe.head())
-    dataframe.to_csv('workload_final1.csv', index=False)
+    dataframe.to_csv('workload_final.csv', index=False)
 
 
 

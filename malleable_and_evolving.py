@@ -47,17 +47,17 @@ def find_malleable(running_job_list):
         if value.type == 2:
             value.calculateRemaining()
             running_malleable_job.append(value)
-    running_malleable_job = sorted(running_malleable_job, key=operator.attrgetter('remaining_resources'))
+    running_malleable_job = sorted(running_malleable_job, key=operator.attrgetter('no_of_expansion'))
     return running_malleable_job
 
 
-def create_phases():
-    no_of_phase = random.randint(1, 4)
+def create_phases(job):
+    no_of_phase = random.randint(min_no_of_phase, max_no_of_phase)
     phase = []
     for i in range(no_of_phase):
         s = np.random.binomial(1, exp_probability)
         time = random.randint(min_time, max_time)
-        cores = random.randint(min_cores, max_cores)
+        cores = random.randint(job.min_resource, job.max_resource)
         if s == 1:
             p = Phase(expansion_event, cores, time)
         else:
@@ -89,6 +89,9 @@ def create_initial_schedule(event, state, job_to_start_list, sim_clock, event_co
         print("job allocation", job.id)
         state, event_counter, event_list = jobEntry(job_to_start_list, job, event, state, event_counter, event_list,
                                                     sim_clock)
+        for key in job_to_start_list:
+            if key in queued_job_list:
+                queued_job_list.pop(key)
     else:
         if job.type == 2:
             if job.min_resource <= state.cores:
@@ -97,6 +100,9 @@ def create_initial_schedule(event, state, job_to_start_list, sim_clock, event_co
                 state, event_counter, event_list = jobEntry(job_to_start_list, job, event, state, event_counter,
                                                             event_list,
                                                             sim_clock)
+                for key in job_to_start_list:
+                    if key in queued_job_list:
+                        queued_job_list.pop(key)
             else:
                 queued_job_list[job.id] = job
                 print("job queued", job.id, event.typ)
@@ -104,7 +110,7 @@ def create_initial_schedule(event, state, job_to_start_list, sim_clock, event_co
 
         else:
             queued_job_list[job.id] = job
-            print("job queued", job.id, event.typ)
+            print("job queued", job.id, event.typ, sim_clock)
             event_counter = event_counter + 1
     if len(event_list) == 0:
         agreement_list = []
@@ -115,12 +121,48 @@ def create_initial_schedule(event, state, job_to_start_list, sim_clock, event_co
     return state, event_counter, event_list
 
 
+def find_agreement_evolving(running_malleable_job, sim_clock, event, state):
+    negotiation_overhead = 0
+    agreement_list = []
+    agreement_to_be = []
+    needed = event.core - state.cores
+    for i in running_malleable_job:
+        if needed == 0:
+            break
+        if i.remaining_resources != 0:
+            if i.remaining_resources >= needed:
+                cores = needed
+            else:
+                cores = i.remaining_resources
+            a = Agreement('s', cores, i)
+            agreement_to_be.append(a)
+            needed = needed - cores
+
+    if needed == 0:
+        for i in agreement_to_be:
+            agreement_list.append(i)
+            negotiation_overhead = negotiation_overhead + getNegotiationCost()
+            index = running_malleable_job.index(i.job)
+            running_malleable_job[index].remaining_resources = running_malleable_job[
+                                                                   index].remaining_resources - i.modify_cores
+        a = Agreement('e', needed, event.job)
+        state.cores = 0
+    else:
+        agreement_to_be.clear()
+    running_malleable_job = sorted(running_malleable_job, key=operator.attrgetter('remaining_resources'))
+    return sim_clock, negotiation_overhead, agreement_list, state
+
+
+
 def find_agreement(queued_job_list, running_malleable_job, job_to_start_list, state, event_list, sim_clock):
     agreement_list = []
     agreement_to_be = []
     negotiation_overhead = 0
     for key, value in queued_job_list.items():
-        needed = value.current_resources - state.cores
+        if value.current_resources > state.cores:
+            needed = value.current_resources - state.cores
+        else:
+            needed = 0
         for i in running_malleable_job:
             if needed == 0:
                 break
@@ -132,7 +174,6 @@ def find_agreement(queued_job_list, running_malleable_job, job_to_start_list, st
                 a = Agreement('s', cores, i)
                 agreement_to_be.append(a)
                 needed = needed - cores
-
         if needed == 0:
             for i in agreement_to_be:
                 agreement_list.append(i)
@@ -141,15 +182,19 @@ def find_agreement(queued_job_list, running_malleable_job, job_to_start_list, st
                 running_malleable_job[index].remaining_resources = running_malleable_job[
                                                                        index].remaining_resources - i.modify_cores
                 state.cores = state.cores + i.modify_cores
+            sim_clock = sim_clock + negotiation_overhead
             e = find_event(event_list, value)
             event_counter = 0
             state, event_counter, event_list = jobEntry(job_to_start_list, value, e, state, event_counter, event_list,
                                                         sim_clock)
+            agreement_to_be.clear()
         else:
             agreement_to_be.clear()
         running_malleable_job = sorted(running_malleable_job, key=operator.attrgetter('remaining_resources'))
-    sim_clock = sim_clock + negotiation_overhead
-
+    for key in job_to_start_list:
+        if key in queued_job_list:
+            queued_job_list.pop(key)
+    running_malleable_job = sorted(running_malleable_job, key=operator.attrgetter('no_of_shrinkage'))
     if state.cores != 0:
         for i in running_malleable_job:
             if i.extra_resources != 0:
@@ -202,8 +247,8 @@ def expansion(cores, sim_clk, running_job_list, negotiation_overhead, job, event
     event_list[index].job.phase_list.append(p)
     event_list[index].job.no_of_expansion = running_job_list[id].no_of_expansion
     event_list[index].time = event_list[index].job.c_time
-    print("job expansion", job.id,"with cores", cores)
-    print("type of event", event_list[index].typ)
+    print("job expansion", job.id,"with cores", cores, "at time", sim_clk)
+    print("new completion time", time)
     return event_list
 
 
@@ -219,7 +264,8 @@ def shrinkage(cores, sim_clk, running_job_list, negotiation_overhead, job, event
     event_list[index].job.phase_list.append(p)
     event_list[index].job.no_of_expansion = running_job_list[id].no_of_expansion
     event_list[index].time = event_list[index].job.c_time
-    print("job skrinked", job.id, cores, "new complition time", time)
+    print("job skrinked", job.id, "with cores", cores, "at time", sim_clk)
+    print("new completion time", time)
     return event_list
 
 
@@ -266,9 +312,11 @@ def create_evolving_events(event_list, J, sim_clk):
         rem_time = J.c_time - sim_clk
         time = rem_time * perc / 100
         time = sim_clk + time
-        e = Event(J, time, type)
+
         if phase.type == shrinkage_event:
             cores = random.randint(1, J.current_resources - 1)
+            time = 19.6
+        e = Event(J, time, type)
         e.setCore(cores)
         event_list.append(e)
         event_list = sorted(event_list, key=operator.attrgetter('time'))
@@ -282,13 +330,13 @@ def create_evolving_events(event_list, J, sim_clk):
 def initialize_event(fileName, pending_job_list, event_list):
     data = pd.read_csv(fileName)
     for index, row in data.iterrows():
-        J = Job(row['type'], row['a_time'], row['cores'], row['exe_time'], row['id'], row['min_resource'],
-                row['max_resource'])
+        J = Job(row['type'], row['S_time'], row['Processors'], row['R_time'], row['id'], row['Min_resource'],
+                row['Max_resource'])
         if J.type == evolving:
             phase_rq = create_phases_static()
             J.phase_req = phase_rq
         pending_job_list[J.id] = J
-        e = Event(J, row['a_time'], 0)
+        e = Event(J, row['S_time'], 0)
         event_list.append(e)
     event_list = sorted(event_list, key=operator.attrgetter('time'))
     return pending_job_list, event_list
@@ -313,8 +361,8 @@ def main():
     complete_job_list: Dict[int, Job] = {}
     queued_job_list: Dict[int, Job] = {}
     job_to_start_list: Dict[int, Job] = {}
-    pending_job_list, event_list = initialize_event("workload.csv", pending_job_list, event_list)
-    state = initialize_system(100)
+    pending_job_list, event_list = initialize_event("workload_mal_evol.csv", pending_job_list, event_list)
+    state = initialize_system(650)
 
     sim_clock = 0
     event_counter = 0
@@ -322,41 +370,52 @@ def main():
 
     while len(event_list) != 0:
         event = event_list[event_counter]
+        print("current time", sim_clock, "time", event.time, "job", event.job.id)
         if event.typ == expansion_event or event.typ == shrinkage_event:
             if len(job_to_start_list) != 0:
                 event_list, sim_clock, state = scheduler(job_to_start_list, pending_job_list, running_job_list, event_list,
                                             queued_job_list, state, sim_clock)
-            print("came upto here")
             sim_clock = event.time
             cores = event.core
             job = event.job
             event_list.remove(event)
-            if event.typ == expansion_event and event.core <= state.cores:
-                expansion(cores, sim_clock, running_job_list, 0, job, event_list)
-                state.cores = state.cores - event.core
-            else:
-                print("couldn't expand job", job.id, "at time", sim_clock)
             if event.typ == shrinkage_event:
                 shrinkage(cores, sim_clock, running_job_list, 0, job, event_list)
                 state.cores = state.cores + event.core
-                print("shrinked job", event.job.id, "at time", sim_clock)
-                event_counter = 0
+
+            elif event.typ == expansion_event:
+                if event.core <= state.cores:
+                    expansion(cores, sim_clock, running_job_list, 0, job, event_list)
+                    state.cores = state.cores - event.core
+                else:
+                    running_malleable_job = find_malleable(running_job_list)
+                    sim_clock, negotiation_overhead, agreement_list, state = find_agreement_evolving(running_malleable_job, sim_clock, event, state)
+                    event_list = dispatcher(job_to_start_list, pending_job_list, running_job_list, event_list,
+                                            agreement_list, queued_job_list, sim_clock, negotiation_overhead)
+            else:
+                print("couldn't expand job", job.id, "at time", sim_clock)
             event_list = create_evolving_events(event_list, running_job_list[event.job.id], sim_clock)
-            print("removed event", event.typ, event.job.id)
+            event_counter = 0
 
         elif event.typ == completion_event:
-            sim_clock = event.time
-            running_job_list, complete_job_list = runningToComplete(running_job_list, complete_job_list, event)
-            state.update_cores(state.cores + event.job.cores)
-            event_list.remove(event)
-            event_list = clear_list(event_list, event.job)
-            event_list = sorted(event_list, key=operator.attrgetter('time'))
-            print("event finished", event.job.id, "at time", event.time)
-            event_counter = 0
-            if len(event_list) == 0 and len(job_to_start_list) != 0:
-                agreement_list = []
-                event_list = dispatcher(job_to_start_list, pending_job_list, running_job_list, event_list,
-                                        agreement_list, queued_job_list, sim_clock, 0)
+            if len(job_to_start_list) != 0:
+                event_list, sim_clock, state = scheduler(job_to_start_list, pending_job_list, running_job_list,
+                                                         event_list,
+                                                         queued_job_list, state, sim_clock)
+                event_counter = 0
+            else:
+                sim_clock = event.time
+                running_job_list, complete_job_list = runningToComplete(running_job_list, complete_job_list, event)
+                state.update_cores(state.cores + event.job.cores)
+                event_list.remove(event)
+                event_list = clear_list(event_list, event.job)
+                event_list = sorted(event_list, key=operator.attrgetter('time'))
+                print("event finished", event.job.id, "at time", sim_clock)
+                event_counter = 0
+                if len(event_list) == 0 and len(job_to_start_list) != 0:
+                    agreement_list = []
+                    event_list = dispatcher(job_to_start_list, pending_job_list, running_job_list, event_list,
+                                            agreement_list, queued_job_list, sim_clock, 0)
         else:
             if sim_clock >= event.time:
                 state, event_counter, event_list = create_initial_schedule(event, state, job_to_start_list, sim_clock,
@@ -366,9 +425,7 @@ def main():
                 event_list, sim_clock, state = scheduler(job_to_start_list, pending_job_list, running_job_list, event_list,
                                                   queued_job_list, state, sim_clock)
                 sim_clock = event.time
-                state, event_counter, event_list = create_initial_schedule(event, state, job_to_start_list, sim_clock,
-                                                                           event_counter, event_list, queued_job_list,
-                                                                           pending_job_list, running_job_list)
+                event_counter = 0
     for key, value in complete_job_list.items():
         print(value.id, value.a_time, value.s_time, value.c_time, value.no_of_expansion, value.no_of_shrinkage)
 

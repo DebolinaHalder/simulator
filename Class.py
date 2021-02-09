@@ -96,6 +96,7 @@ class Event:
         self.typ = typ
         self.job = job
         self.time = time
+        self.core = 0
 
     def getTime(self):
         return self.time
