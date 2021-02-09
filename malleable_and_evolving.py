@@ -286,7 +286,7 @@ def dispatcher(job_to_start_list, pending_job_list, running_job_list, event_list
         event_list.append(e)
         if value.type == evolving:
             event_list = create_evolving_events(event_list, value, sim_clock)
-        print("completion event created with id & time", e.job.id, e.job.c_time)
+        print("completion event created with id & time", e.job.id, e.time)
         pending_job_list.pop(value.id)
         if value.id in queued_job_list:
             queued_job_list.pop(value.id)
@@ -312,10 +312,8 @@ def create_evolving_events(event_list, J, sim_clk):
         rem_time = J.c_time - sim_clk
         time = rem_time * perc / 100
         time = sim_clk + time
-
-        if phase.type == shrinkage_event:
-            cores = random.randint(1, J.current_resources - 1)
-            time = 19.6
+        #if phase.type == shrinkage_event:
+        #   cores = random.randint(1, J.current_resources - 1)
         e = Event(J, time, type)
         e.setCore(cores)
         event_list.append(e)
@@ -362,19 +360,29 @@ def main():
     queued_job_list: Dict[int, Job] = {}
     job_to_start_list: Dict[int, Job] = {}
     pending_job_list, event_list = initialize_event("workload_mal_evol.csv", pending_job_list, event_list)
-    state = initialize_system(650)
+    state = initialize_system(600)
 
     sim_clock = 0
     event_counter = 0
     event: Event
 
     while len(event_list) != 0:
-        event = event_list[event_counter]
+        try:
+            event = event_list[event_counter]
+        except IndexError:
+            if len(job_to_start_list) != 0:
+                event_list, sim_clock, state = scheduler(job_to_start_list, pending_job_list, running_job_list,
+                                                         event_list,
+                                                         queued_job_list, state, sim_clock)
+                event_counter = 0
+            else:
+                print("check what is wrong")
         print("current time", sim_clock, "time", event.time, "job", event.job.id)
         if event.typ == expansion_event or event.typ == shrinkage_event:
             if len(job_to_start_list) != 0:
                 event_list, sim_clock, state = scheduler(job_to_start_list, pending_job_list, running_job_list, event_list,
                                             queued_job_list, state, sim_clock)
+                event_counter = 0
             sim_clock = event.time
             cores = event.core
             job = event.job
@@ -402,11 +410,12 @@ def main():
                 event_list, sim_clock, state = scheduler(job_to_start_list, pending_job_list, running_job_list,
                                                          event_list,
                                                          queued_job_list, state, sim_clock)
+                event_list = sorted(event_list, key=operator.attrgetter('time'))
                 event_counter = 0
             else:
                 sim_clock = event.time
                 running_job_list, complete_job_list = runningToComplete(running_job_list, complete_job_list, event)
-                state.update_cores(state.cores + event.job.cores)
+                state.cores = state.cores + event.job.cores
                 event_list.remove(event)
                 event_list = clear_list(event_list, event.job)
                 event_list = sorted(event_list, key=operator.attrgetter('time'))
@@ -427,7 +436,7 @@ def main():
                 sim_clock = event.time
                 event_counter = 0
     for key, value in complete_job_list.items():
-        print(value.id, value.a_time, value.s_time, value.c_time, value.no_of_expansion, value.no_of_shrinkage)
+       print(value.id, value.a_time, value.s_time, value.c_time, value.no_of_expansion, value.no_of_shrinkage)
 
 
 if __name__ == '__main__':

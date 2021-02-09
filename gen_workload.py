@@ -32,7 +32,7 @@ def main():
     dataframe = pd.read_csv("workload_final.csv")
     #print(len(dataframe))
     dataframe = dataframe.iloc[:100:]
-    dataframe = gen_malleable(8, 10, 30, dataframe, 25)
+    dataframe = gen_malleable(10, 10, 100, dataframe, 25)
     #dataframe = dataframe.sort_values(by='Processors', ascending=False)
 
     dataframe.to_csv('workload_mal_evol.csv', index=False)
