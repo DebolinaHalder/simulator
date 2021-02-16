@@ -123,6 +123,8 @@ def create_initial_schedule(event, state, job_to_start_list, sim_clock, event_co
 
 def find_agreement_evolving(running_malleable_job, sim_clock, event, state):
     negotiation_overhead = 0
+    print("core needed", event.core)
+    print("core existing", state.cores)
     agreement_list = []
     agreement_to_be = []
     needed = event.core - state.cores
@@ -145,11 +147,14 @@ def find_agreement_evolving(running_malleable_job, sim_clock, event, state):
             index = running_malleable_job.index(i.job)
             running_malleable_job[index].remaining_resources = running_malleable_job[
                                                                    index].remaining_resources - i.modify_cores
-        a = Agreement('e', needed, event.job)
-        state.cores = 0
+            state.cores = state.cores + i.modify_cores
+        a = Agreement('e', event.core, event.job)
+        agreement_list.append(a)
+        state.cores = state.cores - event.core
+        print("core current", state.cores)
     else:
         agreement_to_be.clear()
-    running_malleable_job = sorted(running_malleable_job, key=operator.attrgetter('remaining_resources'))
+    #running_malleable_job = sorted(running_malleable_job, key=operator.attrgetter('remaining_resources'))
     return sim_clock, negotiation_overhead, agreement_list, state
 
 
@@ -360,7 +365,7 @@ def main():
     queued_job_list: Dict[int, Job] = {}
     job_to_start_list: Dict[int, Job] = {}
     pending_job_list, event_list = initialize_event("workload_mal_evol.csv", pending_job_list, event_list)
-    state = initialize_system(600)
+    state = initialize_system(1024)
 
     sim_clock = 0
     event_counter = 0
@@ -377,7 +382,8 @@ def main():
                 event_counter = 0
             else:
                 print("check what is wrong")
-        print("current time", sim_clock, "time", event.time, "job", event.job.id)
+                break
+        print("current time", sim_clock, "event time", event.time, "job", event.job.id)
         if event.typ == expansion_event or event.typ == shrinkage_event:
             if len(job_to_start_list) != 0:
                 event_list, sim_clock, state = scheduler(job_to_start_list, pending_job_list, running_job_list, event_list,
@@ -400,6 +406,7 @@ def main():
                     sim_clock, negotiation_overhead, agreement_list, state = find_agreement_evolving(running_malleable_job, sim_clock, event, state)
                     event_list = dispatcher(job_to_start_list, pending_job_list, running_job_list, event_list,
                                             agreement_list, queued_job_list, sim_clock, negotiation_overhead)
+                    print("core current", state.cores)
             else:
                 print("couldn't expand job", job.id, "at time", sim_clock)
             event_list = create_evolving_events(event_list, running_job_list[event.job.id], sim_clock)
@@ -415,11 +422,12 @@ def main():
             else:
                 sim_clock = event.time
                 running_job_list, complete_job_list = runningToComplete(running_job_list, complete_job_list, event)
-                state.cores = state.cores + event.job.cores
+                state.cores = state.cores + event.job.current_resources
                 event_list.remove(event)
                 event_list = clear_list(event_list, event.job)
                 event_list = sorted(event_list, key=operator.attrgetter('time'))
                 print("event finished", event.job.id, "at time", sim_clock)
+                print("remaining cores", state.cores)
                 event_counter = 0
                 if len(event_list) == 0 and len(job_to_start_list) != 0:
                     agreement_list = []
@@ -435,10 +443,14 @@ def main():
                                                   queued_job_list, state, sim_clock)
                 sim_clock = event.time
                 event_counter = 0
-    result_df = df = pd.DataFrame(columns = ['id', 'Arrival', 'Start','Completion','No_of_expansion', 'No_of_shrinkage'])
+    print("length of complete job list", len(complete_job_list))
+    print("length of running job list", len(running_job_list))
+    result_df = pd.DataFrame(columns = ['id', 'Arrival', 'Start','Completion','No_of_expansion', 'No_of_shrinkage'])
     for key, value in complete_job_list.items():
-        result_df.append({'id':value.id, 'Arrival': value.a_time, 'Start': value.s_time, 'Completion': value.c_time, 'No_of_expansion': value.no_of_expansion, 'No_of_shrinkage': value.no_of_shrinkage}, ignore_index = True)
-        result_df.to_csv('result_mal_evol.csv', index=False)
+        #print(value.id, value.a_time, value.s_time)
+        result_df=result_df.append({'id': value.id, 'Arrival': value.a_time, 'Start': value.s_time, 'Completion': value.c_time, 'No_of_expansion': value.no_of_expansion, 'No_of_shrinkage': value.no_of_shrinkage}, ignore_index=True)
+    print(len(result_df))
+    result_df.to_csv('result_mal_evol.csv', index=False)
 
 
 if __name__ == '__main__':
