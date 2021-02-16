@@ -435,8 +435,10 @@ def main():
                                                   queued_job_list, state, sim_clock)
                 sim_clock = event.time
                 event_counter = 0
+    result_df = df = pd.DataFrame(columns = ['id', 'Arrival', 'Start','Completion','No_of_expansion', 'No_of_shrinkage'])
     for key, value in complete_job_list.items():
-       print(value.id, value.a_time, value.s_time, value.c_time, value.no_of_expansion, value.no_of_shrinkage)
+        result_df.append({'id':value.id, 'Arrival': value.a_time, 'Start': value.s_time, 'Completion': value.c_time, 'No_of_expansion': value.no_of_expansion, 'No_of_shrinkage': value.no_of_shrinkage}, ignore_index = True)
+        result_df.to_csv('result_mal_evol.csv', index=False)
 
 
 if __name__ == '__main__':
