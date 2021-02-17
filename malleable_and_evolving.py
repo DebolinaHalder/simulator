@@ -96,7 +96,7 @@ def create_initial_schedule(event, state, job_to_start_list, sim_clock, event_co
         if job.type == 2:
             if job.min_resource <= state.cores:
                 job.current_resources = job.min_resource
-                print("job allocation", job.id)
+                print("job allocation with min resource", job.id)
                 state, event_counter, event_list = jobEntry(job_to_start_list, job, event, state, event_counter,
                                                             event_list,
                                                             sim_clock)
@@ -291,7 +291,7 @@ def dispatcher(job_to_start_list, pending_job_list, running_job_list, event_list
         event_list.append(e)
         if value.type == evolving:
             event_list = create_evolving_events(event_list, value, sim_clock)
-        print("completion event created with id & time", e.job.id, e.time)
+        print("completion event created with id & time", e.job.id, e.time, "with resource", value.current_resources)
         pending_job_list.pop(value.id)
         if value.id in queued_job_list:
             queued_job_list.pop(value.id)
@@ -445,11 +445,13 @@ def main():
                 event_counter = 0
     print("length of complete job list", len(complete_job_list))
     print("length of running job list", len(running_job_list))
+    print("length of pending job list", len(pending_job_list))
+    print("length of queued job list", len(queued_job_list))
+    print("length of event list", len(event_list))
     result_df = pd.DataFrame(columns = ['id', 'Arrival', 'Start','Completion','No_of_expansion', 'No_of_shrinkage'])
     for key, value in complete_job_list.items():
         #print(value.id, value.a_time, value.s_time)
         result_df=result_df.append({'id': value.id, 'Arrival': value.a_time, 'Start': value.s_time, 'Completion': value.c_time, 'No_of_expansion': value.no_of_expansion, 'No_of_shrinkage': value.no_of_shrinkage}, ignore_index=True)
-    print(len(result_df))
     result_df.to_csv('result_mal_evol.csv', index=False)
 
 
