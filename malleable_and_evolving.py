@@ -154,6 +154,7 @@ def find_agreement_evolving(running_malleable_job, sim_clock, event, state):
         print("core current", state.cores)
     else:
         agreement_to_be.clear()
+    negotiation_overhead = negotiation_overhead + getNegotiationCost()
     #running_malleable_job = sorted(running_malleable_job, key=operator.attrgetter('remaining_resources'))
     return sim_clock, negotiation_overhead, agreement_list, state
 
@@ -365,7 +366,7 @@ def main():
     queued_job_list: Dict[int, Job] = {}
     job_to_start_list: Dict[int, Job] = {}
     pending_job_list, event_list = initialize_event("workload_mal_evol.csv", pending_job_list, event_list)
-    state = initialize_system(1024)
+    state = initialize_system(600)
 
     sim_clock = 0
     event_counter = 0
@@ -393,13 +394,14 @@ def main():
             cores = event.core
             job = event.job
             event_list.remove(event)
+            negotiation_overhead = getNegotiationCost()
             if event.typ == shrinkage_event:
-                shrinkage(cores, sim_clock, running_job_list, 0, job, event_list)
+                shrinkage(cores, sim_clock, running_job_list, negotiation_overhead, job, event_list)
                 state.cores = state.cores + event.core
 
             elif event.typ == expansion_event:
                 if event.core <= state.cores:
-                    expansion(cores, sim_clock, running_job_list, 0, job, event_list)
+                    expansion(cores, sim_clock, running_job_list, negotiation_overhead, job, event_list)
                     state.cores = state.cores - event.core
                 else:
                     running_malleable_job = find_malleable(running_job_list)

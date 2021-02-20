@@ -2,6 +2,14 @@ import random
 
 max_adaptation_cost = 1.15
 min_adaptation_cost = 1.05
+max_alpha = 0.1
+min_alpha = 0.05
+max_beta = 10.0
+min_beta = 8.0
+submission_event = 0
+expansion_event = 1
+shrinkage_event = 2
+completion_event = 3
 
 
 
@@ -51,13 +59,14 @@ class Job:
         elif typ == 's':
             return cost/x
 
-    def get_dataRedistributionCost(self, type) -> float:
-        if type == 'e':
-            x = random.uniform(1.25, 1.75)
-            return x
-        elif type == 's':
-            x = random.uniform(0.5, 0.85)
-            return x
+    def get_dataRedistributionCost(self, cores) -> float:
+        alpha = random.uniform(min_alpha, max_alpha)
+        beta = random.uniform(min_beta, max_beta)
+        difference = abs(self.current_resources - cores)
+        total = self.current_resources + cores
+        x = alpha*difference + beta/total
+        return x
+
 
 
 
@@ -69,7 +78,7 @@ class Job:
         adaptation_cost = self.get_adaptationCost('s', remaining_work)
         #print("remaining work", remaining_work, "adaptation cost", adaptation_cost)
         time_required = adaptation_cost / (self.current_resources - cores)
-        datadistribution_cost = self.get_dataRedistributionCost('s')
+        datadistribution_cost = self.get_dataRedistributionCost(cores)
         self.c_time = sim_clock + time_required + datadistribution_cost
         self.current_resources = self.current_resources - cores
         #print("completion time", self.c_time)
@@ -85,7 +94,7 @@ class Job:
         remaining_work = total_work - work_done
         adaptation_cost = self.get_adaptationCost('e', remaining_work)
         time_required = adaptation_cost / (self.current_resources + cores)
-        datadistribution_cost = self.get_dataRedistributionCost('e')
+        datadistribution_cost = self.get_dataRedistributionCost(cores)
         self.c_time = sim_clock + time_required + datadistribution_cost
         self.current_resources = self.current_resources + cores
         return self.c_time
@@ -125,6 +134,7 @@ class Phase:
         self.type = type
         self.cores = cores
         self.time = time
+        self.rem_time = 0
 
 
 class Phase_req:
@@ -132,3 +142,4 @@ class Phase_req:
         self.type = type
         self.cores = cores
         self.time = time
+        self. rem_time = 0

@@ -6,7 +6,7 @@ malleable = 2
 evolving = 3
 
 
-def gen_malleable(m, e, k, df, y):
+def gen_malleable(m, e, k, df, exp, shrk):
     sorted_df = df.sort_values(by='Total_cost', ascending=False)
     total_num = len(sorted_df) * k//100
     mal_num = len(sorted_df) * m//100
@@ -20,13 +20,13 @@ def gen_malleable(m, e, k, df, y):
     for index in df.index:
         if df.loc[index, 'id'] in malleable_df.id:
             df.loc[index, 'type'] = malleable
-            df.loc[index, 'Max_resource'] = int(df.loc[index, 'Processors'] * (1 + y/ 100))
-            df.loc[index, 'Min_resource'] = int(df.loc[index, 'Processors'] * (1 - y / 100))
+            df.loc[index, 'Max_resource'] = int(df.loc[index, 'Processors'] * (1 + exp/ 100))
+            df.loc[index, 'Min_resource'] = int(df.loc[index, 'Processors'] * (1 - shrk / 100))
     for index in df.index:
         if df.loc[index, 'id'] in evolving_df.id:
             df.loc[index, 'type'] = evolving
-            df.loc[index, 'Max_resource'] = int(df.loc[index, 'Processors'] * (1 + y / 100))
-            df.loc[index, 'Min_resource'] = int(df.loc[index, 'Processors'] * (1 - y / 100))
+            df.loc[index, 'Max_resource'] = int(df.loc[index, 'Processors'] * (1 + exp / 100))
+            df.loc[index, 'Min_resource'] = int(df.loc[index, 'Processors'] * (1 -  shrk/ 100))
     return df
 
 
@@ -34,7 +34,7 @@ def main():
     dataframe = pd.read_csv("workload_final.csv")
     #print(len(dataframe))
     dataframe = dataframe.iloc[:100:]
-    dataframe = gen_malleable(10, 10, 30, dataframe, 25)
+    dataframe = gen_malleable(20, 10, 40, dataframe, 25, 10)
     #dataframe = dataframe.sort_values(by='Processors', ascending=False)
 
     dataframe.to_csv('workload_mal_evol.csv', index=False)
