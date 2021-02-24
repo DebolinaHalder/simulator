@@ -244,9 +244,11 @@ def find_event(event_list, job):
 def expansion(cores, sim_clk, running_job_list, negotiation_overhead, job, event_list):
     id = job.id
     p = Phase(expansion_event, cores, sim_clk)
-    running_job_list[id].phase_list.append(p)
+    #running_job_list[id].phase_list.append(p)
     running_job_list[id].no_of_expansion = running_job_list[id].no_of_expansion + 1
     time = running_job_list[id].updateExpansion(cores, sim_clk, negotiation_overhead)
+    p.set_remaining(time - sim_clk)
+    running_job_list[id].phase_list.append(p)
     event = find_event(event_list, job)
     index = event_list.index(event)
     event_list[index].job.c_time = time
@@ -261,9 +263,11 @@ def expansion(cores, sim_clk, running_job_list, negotiation_overhead, job, event
 def shrinkage(cores, sim_clk, running_job_list, negotiation_overhead, job, event_list):
     id = job.id
     p = Phase(shrinkage_event, cores, sim_clk)
-    running_job_list[id].phase_list.append(p)
+    #running_job_list[id].phase_list.append(p)
     running_job_list[id].no_of_shrinkage = running_job_list[id].no_of_shrinkage + 1
     time = running_job_list[id].updateSkrinkage(cores, sim_clk, negotiation_overhead)
+    p.set_remaining(time - sim_clk)
+    running_job_list[id].phase_list.append(p)
     event = find_event(event_list, job)
     index = event_list.index(event)
     event_list[index].job.c_time = time
@@ -290,6 +294,9 @@ def dispatcher(job_to_start_list, pending_job_list, running_job_list, event_list
         running_job_list[value.id] = value
         e = Event(value, value.c_time, 3)
         event_list.append(e)
+        p = Phase(submission_event, value.cores, sim_clock)
+        p.set_remaining(value.c_time - sim_clock)
+        running_job_list[value.id].phase_list.append(p)
         if value.type == evolving:
             event_list = create_evolving_events(event_list, value, sim_clock)
         print("completion event created with id & time", e.job.id, e.time, "with resource", value.current_resources)
@@ -454,7 +461,7 @@ def main():
     for key, value in complete_job_list.items():
         #print(value.id, value.a_time, value.s_time)
         result_df=result_df.append({'id': value.id, 'Arrival': value.a_time, 'Start': value.s_time, 'Completion': value.c_time, 'No_of_expansion': value.no_of_expansion, 'No_of_shrinkage': value.no_of_shrinkage}, ignore_index=True)
-    result_df.to_csv('result_mal_evol.csv', index=False)
+    #result_df.to_csv('result_rigid_only.csv', index=False)
 
 
 if __name__ == '__main__':

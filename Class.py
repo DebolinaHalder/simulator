@@ -71,9 +71,9 @@ class Job:
 
 
     def updateSkrinkage(self, cores, sim_clock, negotiation_overhead):
-        time_elasped = sim_clock - negotiation_overhead
+        time_elasped = sim_clock - negotiation_overhead - self.phase_list[-1].time
         work_done = self.current_resources * time_elasped
-        total_work = self.current_resources * self.c_time
+        total_work = self.current_resources*self.phase_list[-1].rem_time
         remaining_work = total_work - work_done
         adaptation_cost = self.get_adaptationCost('s', remaining_work)
         #print("remaining work", remaining_work, "adaptation cost", adaptation_cost)
@@ -88,9 +88,9 @@ class Job:
 
 
     def updateExpansion(self, cores, sim_clock, negotiation_overhead):
-        time_elasped = sim_clock - negotiation_overhead
+        time_elasped = sim_clock - negotiation_overhead - self.phase_list[-1].time
         work_done = self.current_resources*time_elasped
-        total_work = self.current_resources*self.c_time
+        total_work = self.current_resources*self.phase_list[-1].rem_time
         remaining_work = total_work - work_done
         adaptation_cost = self.get_adaptationCost('e', remaining_work)
         time_required = adaptation_cost / (self.current_resources + cores)
@@ -135,6 +135,9 @@ class Phase:
         self.cores = cores
         self.time = time
         self.rem_time = 0
+
+    def set_remaining(self, remaining_time):
+        self.rem_time = remaining_time
 
 
 class Phase_req:
