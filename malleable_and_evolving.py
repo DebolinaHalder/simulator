@@ -57,10 +57,12 @@ def create_phases(job):
     for i in range(no_of_phase):
         s = np.random.binomial(1, exp_probability)
         time = random.randint(min_time, max_time)
-        cores = random.randint(job.min_resource, job.max_resource)
+
         if s == 1:
+            cores = random.randint(1, job.max_resource - job.cores)
             p = Phase(expansion_event, cores, time)
         else:
+            cores = random.randint(1, job.cores - job.min_resource)
             p = Phase(shrinkage_event, cores, time)
         phase.append(p)
     return phase
@@ -243,7 +245,7 @@ def find_event(event_list, job):
 
 def expansion(cores, sim_clk, running_job_list, negotiation_overhead, job, event_list):
     id = job.id
-    p = Phase(expansion_event, cores, sim_clk)
+    p = Phase(expansion_event, cores+job.current_resources, sim_clk)
     #running_job_list[id].phase_list.append(p)
     running_job_list[id].no_of_expansion = running_job_list[id].no_of_expansion + 1
     time = running_job_list[id].updateExpansion(cores, sim_clk, negotiation_overhead)
@@ -262,7 +264,7 @@ def expansion(cores, sim_clk, running_job_list, negotiation_overhead, job, event
 
 def shrinkage(cores, sim_clk, running_job_list, negotiation_overhead, job, event_list):
     id = job.id
-    p = Phase(shrinkage_event, cores, sim_clk)
+    p = Phase(shrinkage_event, job.current_resources - cores, sim_clk)
     #running_job_list[id].phase_list.append(p)
     running_job_list[id].no_of_shrinkage = running_job_list[id].no_of_shrinkage + 1
     time = running_job_list[id].updateSkrinkage(cores, sim_clk, negotiation_overhead)
@@ -325,8 +327,9 @@ def create_evolving_events(event_list, J, sim_clk):
         rem_time = J.c_time - sim_clk
         time = rem_time * perc / 100
         time = sim_clk + time
-        #if phase.type == shrinkage_event:
-        #   cores = random.randint(1, J.current_resources - 1)
+        total_cores = cores+J.current_resources
+        if total_cores < J.min_resource or total_cores > J.max_resource:
+            return event_list
         e = Event(J, time, type)
         e.setCore(cores)
         event_list.append(e)
@@ -344,7 +347,7 @@ def initialize_event(fileName, pending_job_list, event_list):
         J = Job(row['type'], row['S_time'], row['Processors'], row['R_time'], row['id'], row['Min_resource'],
                 row['Max_resource'])
         if J.type == evolving:
-            phase_rq = create_phases_static()
+            phase_rq = create_phases(J)
             J.phase_req = phase_rq
         pending_job_list[J.id] = J
         e = Event(J, row['S_time'], 0)
@@ -461,7 +464,8 @@ def main():
     for key, value in complete_job_list.items():
         #print(value.id, value.a_time, value.s_time)
         result_df=result_df.append({'id': value.id, 'Arrival': value.a_time, 'Start': value.s_time, 'Completion': value.c_time, 'No_of_expansion': value.no_of_expansion, 'No_of_shrinkage': value.no_of_shrinkage}, ignore_index=True)
-    #result_df.to_csv('result_rigid_only.csv', index=False)
+    result_df.to_csv('result_rigid_only.csv', index=False)
+
 
 
 if __name__ == '__main__':

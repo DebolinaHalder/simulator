@@ -31,13 +31,13 @@ def gen_malleable(m, e, k, df, exp, shrk):
 
 
 def main():
-    dataframe = pd.read_csv("workload_final.csv")
+    dataframe = pd.read_csv("workload_final_2016.csv")
     #print(len(dataframe))
-    dataframe = dataframe.iloc[:200:]
-    #dataframe = gen_malleable(20, 5, 40, dataframe, 25, 10)
+    dataframe = dataframe.iloc[10000:35000:]
+    dataframe = gen_malleable(100, 0, 100, dataframe, 25, 10)
     #dataframe = dataframe.sort_values(by='Processors', ascending=False)
 
-    dataframe.to_csv('workload_mal_evol.csv', index=False)
+    dataframe.to_csv('workload/rigid/workload_mal100_2016_25k.csv', index=False)
 
 
 if __name__ == '__main__':
