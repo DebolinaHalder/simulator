@@ -346,7 +346,7 @@ def create_evolving_events(event_list, J, sim_clk):
 
 def initialize_event(fileName, pending_job_list, event_list):
     data = pd.read_csv(fileName)
-    data = data.iloc[:6000:]
+    #data = data.iloc[:6000:]
     for index, row in data.iterrows():
         J = Job(row['type'], row['S_ime'], row['Processors'], row['R_time'], row['id'], row['Min_resource'],
                 row['Max_resource'])
@@ -400,8 +400,8 @@ def main():
     event_counter = 0
     event: Event
 
-    f = open('filename.txt', 'w')
-    sys.stdout = f
+    #f = open('filename.txt', 'w')
+    #sys.stdout = f
 
     while len(event_list) != 0:
         try:
