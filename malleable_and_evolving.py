@@ -8,6 +8,7 @@ from typing import Dict
 import operator
 import random
 import numpy as np
+import sys
 
 
 max_no_of_phase = 4
@@ -28,6 +29,9 @@ completion_event = 3
 rigid = 1
 malleable = 2
 evolving = 3
+
+input_location = "workload/rigid"
+output_location = "result/rigid"
 
 np.random.seed(12)
 
@@ -95,7 +99,7 @@ def create_initial_schedule(event, state, job_to_start_list, sim_clock, event_co
             if key in queued_job_list:
                 queued_job_list.pop(key)
     else:
-        if job.type == 2:
+        if job.type == malleable:
             if job.min_resource <= state.cores:
                 job.current_resources = job.min_resource
                 print("job allocation with min resource", job.id)
@@ -107,12 +111,12 @@ def create_initial_schedule(event, state, job_to_start_list, sim_clock, event_co
                         queued_job_list.pop(key)
             else:
                 queued_job_list[job.id] = job
-                print("job queued", job.id, event.typ)
+                print("job queued malleable", job.id, job.type)
                 event_counter = event_counter + 1
 
         else:
             queued_job_list[job.id] = job
-            print("job queued", job.id, event.typ, sim_clock)
+            print("job queued", job.id, job.type, sim_clock)
             event_counter = event_counter + 1
     if len(event_list) == 0:
         agreement_list = []
@@ -250,6 +254,7 @@ def expansion(cores, sim_clk, running_job_list, negotiation_overhead, job, event
     running_job_list[id].no_of_expansion = running_job_list[id].no_of_expansion + 1
     time = running_job_list[id].updateExpansion(cores, sim_clk, negotiation_overhead)
     p.set_remaining(time - sim_clk)
+    print("remaining time", p.rem_time)
     running_job_list[id].phase_list.append(p)
     event = find_event(event_list, job)
     index = event_list.index(event)
@@ -264,16 +269,13 @@ def expansion(cores, sim_clk, running_job_list, negotiation_overhead, job, event
 
 def shrinkage(cores, sim_clk, running_job_list, negotiation_overhead, job, event_list):
     id = job.id
-    p = Phase(shrinkage_event, job.current_resources - cores, sim_clk)
     #running_job_list[id].phase_list.append(p)
     running_job_list[id].no_of_shrinkage = running_job_list[id].no_of_shrinkage + 1
     time = running_job_list[id].updateSkrinkage(cores, sim_clk, negotiation_overhead)
-    p.set_remaining(time - sim_clk)
-    running_job_list[id].phase_list.append(p)
     event = find_event(event_list, job)
     index = event_list.index(event)
     event_list[index].job.c_time = time
-    event_list[index].job.phase_list.append(p)
+    event_list[index].job.phase_list = running_job_list[id].phase_list
     event_list[index].job.no_of_expansion = running_job_list[id].no_of_expansion
     event_list[index].time = event_list[index].job.c_time
     print("job skrinked", job.id, "with cores", cores, "at time", sim_clk)
@@ -294,6 +296,7 @@ def dispatcher(job_to_start_list, pending_job_list, running_job_list, event_list
     for key, value in job_to_start_list.items():
         value.updateStatus("running")
         running_job_list[value.id] = value
+        print("here", value.id)
         e = Event(value, value.c_time, 3)
         event_list.append(e)
         p = Phase(submission_event, value.cores, sim_clock)
@@ -328,8 +331,8 @@ def create_evolving_events(event_list, J, sim_clk):
         time = rem_time * perc / 100
         time = sim_clk + time
         total_cores = cores+J.current_resources
-        if total_cores < J.min_resource or total_cores > J.max_resource:
-            return event_list
+        #if total_cores < J.min_resource or total_cores > J.max_resource:
+        #    return event_list
         e = Event(J, time, type)
         e.setCore(cores)
         event_list.append(e)
@@ -343,14 +346,15 @@ def create_evolving_events(event_list, J, sim_clk):
 
 def initialize_event(fileName, pending_job_list, event_list):
     data = pd.read_csv(fileName)
+    data = data.iloc[:6000:]
     for index, row in data.iterrows():
-        J = Job(row['type'], row['S_time'], row['Processors'], row['R_time'], row['id'], row['Min_resource'],
+        J = Job(row['type'], row['S_ime'], row['Processors'], row['R_time'], row['id'], row['Min_resource'],
                 row['Max_resource'])
         if J.type == evolving:
-            phase_rq = create_phases(J)
+            phase_rq = create_phases_static()
             J.phase_req = phase_rq
         pending_job_list[J.id] = J
-        e = Event(J, row['S_time'], 0)
+        e = Event(J, row['S_ime'], 0)
         event_list.append(e)
     event_list = sorted(event_list, key=operator.attrgetter('time'))
     return pending_job_list, event_list
@@ -368,6 +372,18 @@ def clear_list(event_list, job):
     return event_list
 
 
+def get_average_result(dataframe):
+    W_time = dataframe['Wait_time']
+    Turn_time = dataframe['Turn_around_time']
+    C_time = dataframe['Completion']
+    A_time = dataframe['Arrival']
+    avg_w_time = W_time.mean()
+    avg_t_time = Turn_time.mean()
+    span = C_time.max() - A_time.min()
+    value = (avg_w_time, avg_t_time, span)
+    return value
+
+
 def main():
     pending_job_list: Dict[int, Job] = {}
     event_list = []
@@ -375,12 +391,17 @@ def main():
     complete_job_list: Dict[int, Job] = {}
     queued_job_list: Dict[int, Job] = {}
     job_to_start_list: Dict[int, Job] = {}
-    pending_job_list, event_list = initialize_event("workload_mal_evol.csv", pending_job_list, event_list)
-    state = initialize_system(600)
+    pending_job_list, event_list = initialize_event("workload/flexible/workload_mal10_2016_25k.csv", pending_job_list, event_list)
+    res_proc = open(r"result/flexible/processors_mal10_2016_25k.txt", "w")
+    res_avg = open(r"result/flexible/average_mal10_2016_25k.txt", "w")
+    state = initialize_system(24048)
 
     sim_clock = 0
     event_counter = 0
     event: Event
+
+    f = open('filename.txt', 'w')
+    sys.stdout = f
 
     while len(event_list) != 0:
         try:
@@ -396,6 +417,7 @@ def main():
                 break
         print("current time", sim_clock, "event time", event.time, "job", event.job.id)
         if event.typ == expansion_event or event.typ == shrinkage_event:
+            print("evolving event")
             if len(job_to_start_list) != 0:
                 event_list, sim_clock, state = scheduler(job_to_start_list, pending_job_list, running_job_list, event_list,
                                             queued_job_list, state, sim_clock)
@@ -453,19 +475,27 @@ def main():
             elif sim_clock < event.time:
                 event_list, sim_clock, state = scheduler(job_to_start_list, pending_job_list, running_job_list, event_list,
                                                   queued_job_list, state, sim_clock)
-                sim_clock = event.time
+                if sim_clock < event.time:
+                    sim_clock = event.time
                 event_counter = 0
+        event_list = sorted(event_list, key=operator.attrgetter('time'))
+        value = (state.total-state.cores, sim_clock)
+        res_proc.write(str(value))
+        res_proc.write("\n")
     print("length of complete job list", len(complete_job_list))
     print("length of running job list", len(running_job_list))
     print("length of pending job list", len(pending_job_list))
     print("length of queued job list", len(queued_job_list))
     print("length of event list", len(event_list))
-    result_df = pd.DataFrame(columns = ['id', 'Arrival', 'Start','Completion','No_of_expansion', 'No_of_shrinkage'])
+    result_df = pd.DataFrame(columns = ['id', 'Arrival', 'Start','Completion','No_of_expansion', 'No_of_shrinkage', 'Wait_time', 'Turn_around_time'])
     for key, value in complete_job_list.items():
         #print(value.id, value.a_time, value.s_time)
-        result_df=result_df.append({'id': value.id, 'Arrival': value.a_time, 'Start': value.s_time, 'Completion': value.c_time, 'No_of_expansion': value.no_of_expansion, 'No_of_shrinkage': value.no_of_shrinkage}, ignore_index=True)
-    result_df.to_csv('result_rigid_only.csv', index=False)
-
+        result_df=result_df.append({'id': value.id, 'Arrival': value.a_time, 'Start': value.s_time, 'Completion': value.c_time, 'No_of_expansion': value.no_of_expansion, 'No_of_shrinkage': value.no_of_shrinkage, 'Wait_time': value.s_time - value.a_time, 'Turn_around_time': value.c_time - value.a_time}, ignore_index=True)
+    result_df.to_csv('result/flexible/mal10_2016_25k.csv', index=False)
+    results = get_average_result(result_df)
+    res_avg.write(str(results))
+    res_avg.close()
+    res_proc.close()
 
 
 if __name__ == '__main__':
