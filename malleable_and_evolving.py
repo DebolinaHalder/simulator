@@ -391,9 +391,9 @@ def main():
     complete_job_list: Dict[int, Job] = {}
     queued_job_list: Dict[int, Job] = {}
     job_to_start_list: Dict[int, Job] = {}
-    pending_job_list, event_list = initialize_event("workload/flexible/workload_mal10_2016_25k.csv", pending_job_list, event_list)
-    res_proc = open(r"result/flexible/processors_mal10_2016_25k.txt", "w")
-    res_avg = open(r"result/flexible/average_mal10_2016_25k.txt", "w")
+    pending_job_list, event_list = initialize_event("workload/flexible/workload_mal30_2016_25k.csv", pending_job_list, event_list)
+    res_proc = open(r"result/flexible/processors_mal30_2016_25k.txt", "w")
+    res_avg = open(r"result/flexible/average_mal30_2016_25k.txt", "w")
     state = initialize_system(24048)
 
     sim_clock = 0
@@ -480,8 +480,7 @@ def main():
                 event_counter = 0
         event_list = sorted(event_list, key=operator.attrgetter('time'))
         value = (state.total-state.cores, sim_clock)
-        res_proc.write(str(value))
-        res_proc.write("\n")
+        res_proc.write(str(value) + '\n')
     print("length of complete job list", len(complete_job_list))
     print("length of running job list", len(running_job_list))
     print("length of pending job list", len(pending_job_list))
@@ -491,7 +490,7 @@ def main():
     for key, value in complete_job_list.items():
         #print(value.id, value.a_time, value.s_time)
         result_df=result_df.append({'id': value.id, 'Arrival': value.a_time, 'Start': value.s_time, 'Completion': value.c_time, 'No_of_expansion': value.no_of_expansion, 'No_of_shrinkage': value.no_of_shrinkage, 'Wait_time': value.s_time - value.a_time, 'Turn_around_time': value.c_time - value.a_time}, ignore_index=True)
-    result_df.to_csv('result/flexible/mal10_2016_25k.csv', index=False)
+    result_df.to_csv('result/flexible/mal30_2016_25k.csv', index=False)
     results = get_average_result(result_df)
     res_avg.write(str(results))
     res_avg.close()

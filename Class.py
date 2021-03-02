@@ -81,7 +81,7 @@ class Job:
 
 
     def updateSkrinkage(self, cores, sim_clock, negotiation_overhead):
-        time_rem = self.c_time - sim_clock
+        time_rem = self.c_time - sim_clock - negotiation_overhead
         remaining_work = time_rem * self.current_resources
         adaptation_cost = self.get_adaptationCost('s', remaining_work)
         #print("remaining work", remaining_work, "adaptation cost", adaptation_cost)
@@ -103,7 +103,7 @@ class Job:
 
 
     def updateExpansion(self, cores, sim_clock, negotiation_overhead):
-        time_rem = self.c_time - sim_clock
+        time_rem = self.c_time - sim_clock - negotiation_overhead
         remaining_work = time_rem * self.current_resources
         adaptation_cost = self.get_adaptationCost('e', remaining_work)
         print(remaining_work)

@@ -8,8 +8,8 @@ evolving = 3
 
 
 def gen_malleable(m, e, k, df, exp, shrk):
-    df_order = df.drop(df[df.Processors < 10].index)
-    sorted_df = df_order.sort_values(by='Total_cost', ascending= False)
+    #df_order = df.drop(df[df.Processors < 10].index)
+    sorted_df = df.sort_values(by='Total_cost', ascending= False)
     total_num = len(sorted_df) * k//100
     mal_num = len(sorted_df) * m//100
     evol_num = len(sorted_df) * e//100
@@ -37,10 +37,10 @@ def main():
     dataframe = pd.read_csv("workload_final_2016.csv")
     #print(len(dataframe))
     dataframe = dataframe.iloc[10000:35000:]
-    #dataframe = gen_malleable(10, 0, 10, dataframe, 25, 10)
+    dataframe = gen_malleable(100, 0, 100, dataframe, 25, 10)
     #dataframe = dataframe.sort_values(by='Processors', ascending=False)
 
-    dataframe.to_csv('workload/rigid/workload_rigid_2016_25k.csv', index=False)
+    dataframe.to_csv('workload/flexible/workload_mal100_2016_25k.csv', index=False)
     #dataframe.to_csv('sample.csv', index=False)
 
 

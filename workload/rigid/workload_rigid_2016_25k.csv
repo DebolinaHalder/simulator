@@ -1,4 +1,4 @@
-S_time,W_time,R_time,Processors,id,type,Max_resource,Min_resource,Total_cost
+S_ime,W_time,R_time,Processors,id,type,Max_resource,Min_resource,Total_cost
 15340149,8,237,320,10001,1,320,320,75840
 15340547,2,222,320,10002,1,320,320,71040
 15341035,0,488,240,10003,1,240,240,117120
