@@ -7,7 +7,7 @@ malleable = 2
 evolving = 3
 
 
-def gen_malleable(m, e, k, df, exp, shrk):
+def gen_malleable(m, e, k, df, exp_m, shrk_m, exp_e, shrk_e):
     #df_order = df.drop(df[df.Processors < 10].index)
     sorted_df = df.sort_values(by='Total_cost', ascending= False)
     total_num = len(sorted_df) * k//100
@@ -23,24 +23,25 @@ def gen_malleable(m, e, k, df, exp, shrk):
     for index in df.index:
         if df.loc[index, 'id'] in malleable_df.id:
             df.loc[index, 'type'] = malleable
-            df.loc[index, 'Max_resource'] = math.ceil(df.loc[index, 'Processors'] * (1 + exp/ 100))
-            df.loc[index, 'Min_resource'] = math.ceil(df.loc[index, 'Processors'] * (1 - shrk / 100))
+            df.loc[index, 'Max_resource'] = math.ceil(df.loc[index, 'Processors'] * (1 + exp_m/ 100))
+            df.loc[index, 'Min_resource'] = math.ceil(df.loc[index, 'Processors'] * (1 - shrk_m / 100))
     for index in df.index:
         if df.loc[index, 'id'] in evolving_df.id:
             df.loc[index, 'type'] = evolving
-            df.loc[index, 'Max_resource'] = math.ceil(df.loc[index, 'Processors'] * (1 + exp / 100))
-            df.loc[index, 'Min_resource'] = math.ceil(df.loc[index, 'Processors'] * (1 -  shrk/ 100))
+            df.loc[index, 'Max_resource'] = math.ceil(df.loc[index, 'Processors'] * (1 + exp_e / 100))
+            df.loc[index, 'Min_resource'] = math.ceil(df.loc[index, 'Processors'] * (1 -  shrk_e/ 100))
     return df
 
 
 def main():
     dataframe = pd.read_csv("workload_final_2016.csv")
     #print(len(dataframe))
-    dataframe = dataframe.iloc[1000:26000:]
-    dataframe = gen_malleable(100, 0, 100, dataframe, 25, 10)
+    #dataframe = dataframe.iloc[15000:40000:]
+    dataframe = dataframe.iloc[1:10:]
+    dataframe = gen_malleable(30, 30, 60, dataframe, 35, 40, 60, 20)
     #dataframe = dataframe.sort_values(by='Processors', ascending=False)
 
-    dataframe.to_csv('workload/rigid/workload_mal100_1k_2016_25k.csv', index=False)
+    dataframe.to_csv('workload_rigid_test.csv', index=False)
     #dataframe.to_csv('sample.csv', index=False)
 
 

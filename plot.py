@@ -8,7 +8,7 @@ from numpy import inexact, ndarray
 def draw_plot(malleable, rigid, label, name):
     difference = []
     for i in malleable:
-        difference.append(i)
+        difference.append(rigid - i)
     y = np.array(difference)
     x = np.linspace(10, 100, 10)
     fig, ax = plt.subplots(1, 1, figsize=(8, 8))
@@ -54,9 +54,9 @@ def main():
         wait_time.append(float(lines[0]))
         turn_around_time.append(float(lines[1]))
         span.append(float(lines[2]))
-    draw_plot(wait_time, wait_time_rigid, "avg_wait_time (rigid) - average_wait_time (x% malleable)", "wait_time")
+    draw_plot(wait_time, wait_time_rigid, "avg_wait_time (rigid) - average_wait_time (x% malleable)", "wait_time_difference")
     draw_plot(turn_around_time, turn_around_time_rigid,
-              "avg_turnaround_time (rigid) - average_turnaround_time (x%malleable)", "turnaround_time")
+              "avg_turnaround_time (rigid) - average_turnaround_time (x%malleable)", "turnaround_time_difference")
 
 if __name__ == '__main__':
     main()
