@@ -39,7 +39,7 @@ total_processor = 24048
 
 input_location = "workload/rigid"
 output_location = "result/rigid"
-res_proc = open(r"result2/flexible/processors_mal80_10k_30k.txt", "w")
+#res_proc = open(r"result3/mal/mal10_2016_15k_40k.txt", "w")
 
 np.random.seed(12)
 
@@ -99,7 +99,7 @@ def getNegotiationCost():
 
 
 def create_initial_schedule(event, state, job_to_start_list, sim_clock, event_counter, event_list, queued_job_list,
-                            pending_job_list, running_job_list):
+                            pending_job_list, running_job_list, processor_df):
     job = event.job
     if job.current_resources <= state.cores:
         print("job allocation", job.id)
@@ -131,8 +131,8 @@ def create_initial_schedule(event, state, job_to_start_list, sim_clock, event_co
     if len(event_list) == 0:
         agreement_list = []
         negotiation_overhead = 0
-        event_list = dispatcher(job_to_start_list, pending_job_list, running_job_list, event_list, agreement_list,
-                                queued_job_list, sim_clock, negotiation_overhead, state)
+        event_list, processor_df = dispatcher(job_to_start_list, pending_job_list, running_job_list, event_list, agreement_list,
+                                queued_job_list, sim_clock, negotiation_overhead, state, processor_df)
         event_counter = 0
     return state, event_counter, event_list
 
@@ -231,7 +231,7 @@ def find_agreement(queued_job_list, running_malleable_job, job_to_start_list, st
     return agreement_list, job_to_start_list, sim_clock, negotiation_overhead, state
 
 
-def scheduler(job_to_start_list, pending_job_list, running_job_list, event_list, queued_job_list, state, sim_clock):
+def scheduler(job_to_start_list, pending_job_list, running_job_list, event_list, queued_job_list, state, sim_clock, processor_df):
     idle_processes = state.total - state.cores
     agreement_list = []
     negotiation_overhead = 0
@@ -245,9 +245,9 @@ def scheduler(job_to_start_list, pending_job_list, running_job_list, event_list,
                                                                                                 state, event_list,
                                                                                                 sim_clock)
 
-    event_list = dispatcher(job_to_start_list, pending_job_list, running_job_list, event_list, agreement_list,
-                            queued_job_list, sim_clock, negotiation_overhead, state)
-    return event_list, sim_clock, state
+    event_list, processor_df = dispatcher(job_to_start_list, pending_job_list, running_job_list, event_list, agreement_list,
+                            queued_job_list, sim_clock, negotiation_overhead, state, processor_df)
+    return event_list, sim_clock, state, processor_df
 
 
 def find_event(event_list, job):
@@ -296,7 +296,7 @@ def shrinkage(cores, sim_clk, running_job_list, negotiation_overhead, job, event
 
 
 def dispatcher(job_to_start_list, pending_job_list, running_job_list, event_list, agreement_list, queued_job_list,
-               sim_clock, negotiation_overhead, state):
+               sim_clock, negotiation_overhead, state, processor_df):
     for i in agreement_list:
         id = i.job.id
         if i.type == 'e':
@@ -322,9 +322,11 @@ def dispatcher(job_to_start_list, pending_job_list, running_job_list, event_list
             queued_job_list.pop(value.id)
     event_list = sorted(event_list, key=operator.attrgetter('time'))
     job_to_start_list.clear()
-    value = (state.total - state.cores, sim_clock)
-    res_proc.write(str(value) + '\n')
-    return event_list
+    value = (state.total - state.cores, sim_clock, len(running_job_list))
+    processor_df = processor_df.append(
+        {'cores': state.total - state.cores, 'time': sim_clock, 'running_job_len': len(running_job_list)}, ignore_index=True)
+    #res_proc.write(str(value) + '\n')
+    return event_list, processor_df
 
 
 def runningToComplete(running_job_list, complete_job_list, event):
@@ -365,7 +367,7 @@ def create_evolving_events(event_list, J, sim_clk):
 
 def initialize_event(fileName, pending_job_list, event_list):
     data = pd.read_csv(fileName)
-    #data = data.iloc[5000:6000:]
+    #data = data.iloc[0:20:]
     for index, row in data.iterrows():
         J = Job(row['type'], row['S_ime'], row['Processors'], row['R_time'], row['id'], row['Min_resource'],
                 row['Max_resource'])
@@ -414,13 +416,15 @@ def calculate_utilization(complete_job_list, span):
 
             if i == (len(value.phase_list) - 1):
                 time = value.c_time - value.phase_list[i].time
-                print(value.c_time)
+                print("end time", value.c_time)
             else:
                 time = value.phase_list[i+1].time - value.phase_list[i].time
                 print(value.phase_list[i+1].time)
             print(time)
             cost = cost + value.phase_list[i].cores * time
+            print("cost", cost)
         total_cost = total_cost + cost
+        print("total cost", total_cost)
     return total_cost/total_clk_cycle
 
 
@@ -433,9 +437,9 @@ def main():
     complete_job_list: Dict[int, Job] = {}
     queued_job_list: Dict[int, Job] = {}
     job_to_start_list: Dict[int, Job] = {}
-    pending_job_list, event_list = initialize_event("workload_rigid_test.csv", pending_job_list, event_list)
+    pending_job_list, event_list = initialize_event("workload3/mal_evol/workload_malevol60_2016_15k_40k.csv", pending_job_list, event_list)
 
-    res_avg = open(r"result2/flexible/average_mal80_10k_30k.txt", "w")
+    res_avg = open(r"result3/mal_evol/average_malevol60_2016_15k_40k.txt", "w")
     state = initialize_system(24048)
 
     sim_clock = 0
@@ -445,14 +449,16 @@ def main():
     #f = open('debug.txt', 'w')
     #sys.stdout = f
 
+    processor_df = pd.DataFrame(columns=['cores', 'time', 'running_job_len'])
+
     while len(event_list) != 0:
         try:
             event = event_list[event_counter]
         except IndexError:
             if len(job_to_start_list) != 0:
-                event_list, sim_clock, state = scheduler(job_to_start_list, pending_job_list, running_job_list,
+                event_list, sim_clock, state, processor_df = scheduler(job_to_start_list, pending_job_list, running_job_list,
                                                          event_list,
-                                                         queued_job_list, state, sim_clock)
+                                                         queued_job_list, state, sim_clock, processor_df)
                 event_counter = 0
             else:
                 print("check what is wrong")
@@ -461,8 +467,8 @@ def main():
         if event.typ == expansion_event or event.typ == shrinkage_event:
             print("evolving event")
             if len(job_to_start_list) != 0:
-                event_list, sim_clock, state = scheduler(job_to_start_list, pending_job_list, running_job_list, event_list,
-                                            queued_job_list, state, sim_clock)
+                event_list, sim_clock, state, processor_df = scheduler(job_to_start_list, pending_job_list, running_job_list, event_list,
+                                            queued_job_list, state, sim_clock, processor_df)
                 event_counter = 0
             sim_clock = event.time
             cores = event.core
@@ -480,8 +486,8 @@ def main():
                 else:
                     running_malleable_job = find_malleable(running_job_list)
                     sim_clock, negotiation_overhead, agreement_list, state = find_agreement_evolving(running_malleable_job, sim_clock, event, state)
-                    event_list = dispatcher(job_to_start_list, pending_job_list, running_job_list, event_list,
-                                            agreement_list, queued_job_list, sim_clock, negotiation_overhead, state)
+                    event_list, processor_df = dispatcher(job_to_start_list, pending_job_list, running_job_list, event_list,
+                                            agreement_list, queued_job_list, sim_clock, negotiation_overhead, state, processor_df)
                     print("core current", state.cores)
             else:
                 print("couldn't expand job", job.id, "at time", sim_clock)
@@ -490,9 +496,9 @@ def main():
 
         elif event.typ == completion_event:
             if len(job_to_start_list) != 0:
-                event_list, sim_clock, state = scheduler(job_to_start_list, pending_job_list, running_job_list,
+                event_list, sim_clock, state, processor_df = scheduler(job_to_start_list, pending_job_list, running_job_list,
                                                          event_list,
-                                                         queued_job_list, state, sim_clock)
+                                                         queued_job_list, state, sim_clock, processor_df)
                 event_list = sorted(event_list, key=operator.attrgetter('time'))
                 event_counter = 0
             else:
@@ -507,40 +513,48 @@ def main():
                 event_counter = 0
                 if len(event_list) == 0 and len(job_to_start_list) != 0:
                     agreement_list = []
-                    event_list = dispatcher(job_to_start_list, pending_job_list, running_job_list, event_list,
-                                            agreement_list, queued_job_list, sim_clock, 0, state)
+                    event_list, processor_df = dispatcher(job_to_start_list, pending_job_list, running_job_list, event_list,
+                                            agreement_list, queued_job_list, sim_clock, 0, state, processor_df)
+                else:
+                    processor_df = processor_df.append({'cores': state.total - state.cores, 'time': sim_clock,
+                                                        'running_job_len': len(running_job_list)}, ignore_index=True)
         else:
             if sim_clock >= event.time:
                 state, event_counter, event_list = create_initial_schedule(event, state, job_to_start_list, sim_clock,
                                                                            event_counter, event_list, queued_job_list,
-                                                                           pending_job_list, running_job_list)
+                                                                           pending_job_list, running_job_list, processor_df)
             elif sim_clock < event.time:
-                event_list, sim_clock, state = scheduler(job_to_start_list, pending_job_list, running_job_list, event_list,
-                                                  queued_job_list, state, sim_clock)
+                if len(job_to_start_list) != 0:
+                    event_list, sim_clock, state, processor_df = scheduler(job_to_start_list, pending_job_list, running_job_list, event_list,
+                                                  queued_job_list, state, sim_clock, processor_df)
                 if sim_clock < event.time:
                     sim_clock = event.time
                 event_counter = 0
         event_list = sorted(event_list, key=operator.attrgetter('time'))
+
 
     print("length of complete job list", len(complete_job_list))
     print("length of running job list", len(running_job_list))
     print("length of pending job list", len(pending_job_list))
     print("length of queued job list", len(queued_job_list))
     print("length of event list", len(event_list))
+    processor_df_all = processor_df.drop_duplicates()
+    processor_df = processor_df_all.drop_duplicates(subset='time', keep='last')
     result_df = pd.DataFrame(columns = ['id', 'Arrival', 'Start','Completion','No_of_expansion', 'No_of_shrinkage', 'Wait_time', 'Turn_around_time'])
     for key, value in complete_job_list.items():
         #print(value.id, value.a_time, value.s_time)
         result_df=result_df.append({'id': value.id, 'Arrival': value.a_time, 'Start': value.s_time, 'Completion': value.c_time, 'No_of_expansion': value.no_of_expansion, 'No_of_shrinkage': value.no_of_shrinkage, 'Wait_time': value.s_time - value.a_time, 'Turn_around_time': value.c_time - value.a_time}, ignore_index=True)
-    #result_df.to_csv('result2/flexible/mal80_10k_35k.csv', index=False)
+    result_df.to_csv('result3/mal_evol/malevol60_2016_15k_40k.csv', index=False)
+    processor_df.to_csv('result3/mal_evol/processor_malevol60_2016_15k_40k.csv', index=False)
     avg_wait_time, avg_turn_time, span = get_average_result(result_df)
     utilization = calculate_utilization(complete_job_list, span)
-    #res_avg.write(str(avg_wait_time)+'\n')
-    #res_avg.write(str(avg_turn_time)+'\n')
-    #res_avg.write(str(span)+'\n')
-    #res_avg.write(str(utilization)+'\n')
+    res_avg.write(str(avg_wait_time)+'\n')
+    res_avg.write(str(avg_turn_time)+'\n')
+    res_avg.write(str(span)+'\n')
+    res_avg.write(str(utilization)+'\n')
     print(avg_wait_time, avg_turn_time, span, utilization)
     res_avg.close()
-    res_proc.close()
+    #res_proc.close()
 
 
 if __name__ == '__main__':
