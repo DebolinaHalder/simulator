@@ -6,6 +6,8 @@ rigid = 1
 malleable = 2
 evolving = 3
 
+random.seed(123)
+
 
 def gen_malleable(m, e, k, df, exp_m, shrk_m, exp_e, shrk_e):
     #df_order = df.drop(df[df.Processors < 10].index)
@@ -36,7 +38,7 @@ def main():
     dataframe = pd.read_csv("workload_final_2016.csv")
     #print(len(dataframe))
     #dataframe = dataframe.iloc[15000:40000:]
-    dataframe = dataframe.iloc[15000:40000:]
+    dataframe = dataframe.iloc[15000:60000:]
     dataframe = gen_malleable(50, 50, 100, dataframe, 35, 40, 60, 20)
     #dataframe = dataframe.sort_values(by='Processors', ascending=False)
 
