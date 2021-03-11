@@ -30,10 +30,10 @@ rigid = 1
 malleable = 2
 evolving = 3
 
-max_expansion_percentage = 50
+max_expansion_percentage = 31
 min_expansion_percentage = 30
-max_shrinkage_percentage = 8
-mim_shrinkage_percentage = 5
+max_shrinkage_percentage = 31
+mim_shrinkage_percentage = 30
 
 total_processor = 24048
 
@@ -352,7 +352,7 @@ def create_evolving_events(event_list, J, sim_clk):
             if cores == J.current_resources:
                 return event_list
             total_cores = J.current_resources - cores
-        if total_cores < J.min_resource or total_cores > J.max_resource:
+        if total_cores < J.min_resource:
             return event_list
         e = Event(J, time, type)
         e.setCore(cores)
@@ -437,9 +437,9 @@ def main():
     complete_job_list: Dict[int, Job] = {}
     queued_job_list: Dict[int, Job] = {}
     job_to_start_list: Dict[int, Job] = {}
-    pending_job_list, event_list = initialize_event("workload3/mal/workload_mal90_2016_15k_40k.csv", pending_job_list, event_list)
+    pending_job_list, event_list = initialize_event("workload3/mal_evol/workload_malevol90_2016_15k_40k.csv", pending_job_list, event_list)
 
-    res_avg = open(r"result3/mal/average_mal90_2016_15k_40k.txt", "w")
+    res_avg = open(r"result3/mal_evol/average_new_malevol90_2016_15k_40k.txt", "w")
     state = initialize_system(24048)
 
     sim_clock = 0
@@ -544,8 +544,8 @@ def main():
     for key, value in complete_job_list.items():
         #print(value.id, value.a_time, value.s_time)
         result_df=result_df.append({'id': value.id, 'Arrival': value.a_time, 'Start': value.s_time, 'Completion': value.c_time, 'No_of_expansion': value.no_of_expansion, 'No_of_shrinkage': value.no_of_shrinkage, 'Wait_time': value.s_time - value.a_time, 'Turn_around_time': value.c_time - value.a_time}, ignore_index=True)
-    result_df.to_csv('result3/mal/mal90_2016_15k_40k.csv', index=False)
-    processor_df.to_csv('result3/mal/processor_mal90_2016_15k_40k.csv', index=False)
+    result_df.to_csv('result3/mal_evol/malevol_new90_2016_15k_40k.csv', index=False)
+    processor_df.to_csv('result3/mal_evol/processor_malevolnew90_2016_15k_40k.csv', index=False)
     avg_wait_time, avg_turn_time, span = get_average_result(result_df)
     utilization = calculate_utilization(complete_job_list, span)
     res_avg.write(str(avg_wait_time)+'\n')
