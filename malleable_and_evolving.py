@@ -367,7 +367,7 @@ def create_evolving_events(event_list, J, sim_clk):
 
 def initialize_event(fileName, pending_job_list, event_list):
     data = pd.read_csv(fileName)
-    data = data.iloc[0:3000:]
+    #data = data.iloc[0:3000:]
     for index, row in data.iterrows():
         J = Job(row['type'], row['S_ime'], row['Processors'], row['R_time'], row['id'], row['Min_resource'],
                 row['Max_resource'])
@@ -398,10 +398,12 @@ def get_average_result(dataframe):
     Turn_time = dataframe['Turn_around_time']
     C_time = dataframe['Completion']
     A_time = dataframe['Arrival']
+    E_time = dataframe['Exe_time']
     avg_w_time = W_time.mean()
     avg_t_time = Turn_time.mean()
+    avg_e_time = E_time.mean()
     span = C_time.max() - A_time.min()
-    return avg_w_time, avg_t_time, span
+    return avg_w_time, avg_t_time, span, avg_e_time
 
 
 def calculate_utilization(complete_job_list, span):
@@ -429,9 +431,8 @@ def main():
     complete_job_list: Dict[int, Job] = {}
     queued_job_list: Dict[int, Job] = {}
     job_to_start_list: Dict[int, Job] = {}
-    pending_job_list, event_list = initialize_event("test.csv", pending_job_list,
-                                                    event_list)
-    #pending_job_list, event_list = initialize_event("shrinked/workload/rigid/rigid_2016_15k_40k.csv", pending_job_list, event_list)
+    #pending_job_list, event_list = initialize_event("test.csv", pending_job_list, event_list)
+    pending_job_list, event_list = initialize_event("shrinked/workload/rigid/rigid_2016_15k_40k.csv", pending_job_list, event_list)
 
 
     state = initialize_system(24048)
@@ -534,19 +535,20 @@ def main():
     print("length of event list", len(event_list))
     processor_df_all = processor_df.drop_duplicates()
     processor_df = processor_df_all.drop_duplicates(subset='time', keep='last')
-    result_df = pd.DataFrame(columns = ['id', 'Arrival', 'Start','Completion','No_of_expansion', 'No_of_shrinkage', 'Wait_time', 'Turn_around_time'])
+    result_df = pd.DataFrame(columns = ['id', 'Arrival', 'Start','Completion','No_of_expansion', 'No_of_shrinkage', 'Wait_time', 'Turn_around_time', 'Exe_time'])
     for key, value in complete_job_list.items():
         #print(value.id, value.a_time, value.s_time)
-        result_df=result_df.append({'id': value.id, 'Arrival': value.a_time, 'Start': value.s_time, 'Completion': value.c_time, 'No_of_expansion': value.no_of_expansion, 'No_of_shrinkage': value.no_of_shrinkage, 'Wait_time': value.s_time - value.a_time, 'Turn_around_time': value.c_time - value.a_time}, ignore_index=True)
-    #result_df.to_csv('shrinked/result/rigid/rigid_2016_15k_40k.csv', index=False)
-    #processor_df.to_csv('shrinked/result/rigid/processor_rigid_2016_15k_40k.csv', index=False)
-    #res_avg = open(r"shrinked/result/rigid/average_rigid_2016_15k_40k.txt", "w")
-    avg_wait_time, avg_turn_time, span = get_average_result(result_df)
+        result_df=result_df.append({'id': value.id, 'Arrival': value.a_time, 'Start': value.s_time, 'Completion': value.c_time, 'No_of_expansion': value.no_of_expansion, 'No_of_shrinkage': value.no_of_shrinkage, 'Wait_time': value.s_time - value.a_time, 'Turn_around_time': value.c_time - value.a_time, 'Exe_time':value.c_time - value.s_time}, ignore_index=True)
+    result_df.to_csv('shrinked/result/rigid/rigid_2016_15k_40k.csv', index=False)
+    processor_df.to_csv('shrinked/result/rigid/processor_rigid_2016_15k_40k.csv', index=False)
+    res_avg = open(r"shrinked/result/rigid/average_rigid_2016_15k_40k.txt", "w")
+    avg_wait_time, avg_turn_time, span, avg_run_time = get_average_result(result_df)
     utilization = calculate_utilization(complete_job_list, span)
-    #res_avg.write(str(avg_wait_time)+'\n')
-    #res_avg.write(str(avg_turn_time)+'\n')
-    #res_avg.write(str(span)+'\n')
-    #res_avg.write(str(utilization)+'\n')
+    res_avg.write(str(avg_wait_time)+'\n')
+    res_avg.write(str(avg_turn_time)+'\n')
+    res_avg.write(str(span)+'\n')
+    res_avg.write(str(utilization)+'\n')
+    res_avg.write(str(avg_run_time) + '\n')
     print(avg_wait_time, avg_turn_time, span, utilization)
     #res_avg.close()
     #res_proc.close()
