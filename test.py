@@ -32,7 +32,7 @@ def put_comma(old, new):
 
 def convert_to_csv(old,new):
     text = pd.read_csv(old, header=None)
-    text.columns = ['id', 'S_ime', 'W_time', 'R_time', 'Processors', 'Avg_CPU', 'Memory', 'Req_proc', 'Req_time'
+    text.columns = ['id', 'S_time', 'W_time', 'R_time', 'Processors', 'Avg_CPU', 'Memory', 'Req_proc', 'Req_time'
                     , 'Req_mem', 'Status', 'U_id', 'G_id', 'Exe_num', 'Q_num', 'Part_num', 'Proc_job_no', 'Irre']
     text.to_csv(new, index=None)
     return
@@ -43,7 +43,7 @@ def main():
     put_comma("workload_wspace.txt", "workload_final.txt")
     convert_to_csv("workload_final.txt", "workload_all_2016.csv")
     dataframe = pd.read_csv("workload_all_2016.csv")
-    dataframe = dataframe[['S_ime', 'W_time', 'R_time', 'Processors']]
+    dataframe = dataframe[['S_time', 'W_time', 'R_time', 'Processors']]
     dataframe.insert(4, 'id', dataframe.index+1)
     dataframe.insert(5, "type", 1)
     dataframe.insert(6, "Max_resource", dataframe['Processors'])

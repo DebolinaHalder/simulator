@@ -35,6 +35,7 @@ class Job:
         self.phase_req = []
         self.requested_expansion = 0
         self.requested_shrinkage = 0
+        self.priority = 0
 
 
     def updateStatus(self, status):

@@ -8,6 +8,11 @@ evolving = 3
 
 random.seed(123)
 
+def shrinkinterval(dataframe, rate):
+    #value = dataframe.iloc[0]
+    #dataframe['S_ime'] = dataframe['S_ime'] - value['S_ime']
+    dataframe['S_ime'] = dataframe['S_ime'] * rate
+    return dataframe
 
 def gen_malleable(m, e, k, df, exp_m, shrk_m, exp_e, shrk_e):
     #df_order = df.drop(df[df.Processors < 10].index)
@@ -37,13 +42,15 @@ def gen_malleable(m, e, k, df, exp_m, shrk_m, exp_e, shrk_e):
 def main():
     dataframe = pd.read_csv("workload_final_2016.csv")
     #print(len(dataframe))
-    #dataframe = dataframe.iloc[15000:40000:]
-    dataframe = dataframe.iloc[15000:40000:]
-    dataframe = gen_malleable(20, 0, 20, dataframe, 35, 40, 60, 20)
+    dataframe = dataframe.iloc[0:25000:]
+    #dataframe = dataframe.iloc[1:25000:]
+    dataframe = shrinkinterval(dataframe, 0.75)
+    dataframe = gen_malleable(50, 50, 100, dataframe, 35, 40, 60, 20)
     #dataframe = dataframe.sort_values(by='Processors', ascending=False)
 
-    dataframe.to_csv('workload3/mal/workload_mal20_2016_15k_40k.csv', index=False)
-    #dataframe.to_csv('sample.csv', index=False)
+    #dataframe.to_csv('workload3/mal/workload_mal20_2016_15k_40k.csv', index=False)
+    dataframe.to_csv('shrinked/workload/mal_evol/mal_evol100_2016_15k_40k.csv', index=False)
+    dataframe.to_csv('test.csv', index=False)
 
 
 if __name__ == '__main__':

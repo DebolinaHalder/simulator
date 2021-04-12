@@ -121,9 +121,9 @@ def create_initial_schedule(event, state, job_to_start_list, sim_clock, event_co
                         queued_job_list.pop(key)
             else:
                 queued_job_list[job.id] = job
+                pending_job_list[job.id].priority += 1
                 print("job queued malleable", job.id, job.type)
                 event_counter = event_counter + 1
-
         else:
             queued_job_list[job.id] = job
             print("job queued", job.id, job.type, sim_clock)
@@ -367,7 +367,7 @@ def create_evolving_events(event_list, J, sim_clk):
 
 def initialize_event(fileName, pending_job_list, event_list):
     data = pd.read_csv(fileName)
-    data = data.iloc[0:3000:]
+    #data = data.iloc[0:20:]
     for index, row in data.iterrows():
         J = Job(row['type'], row['S_ime'], row['Processors'], row['R_time'], row['id'], row['Min_resource'],
                 row['Max_resource'])
@@ -409,14 +409,22 @@ def calculate_utilization(complete_job_list, span):
     total_clk_cycle = span * total_processor
     for key, value in complete_job_list.items():
         cost = 0
+        for phase in value.phase_list:
+            print(value.id, phase.cores, phase.time, phase.type)
         for i in range(0, len(value.phase_list)):
+            print("next phase time")
+
             if i == (len(value.phase_list) - 1):
                 time = value.c_time - value.phase_list[i].time
+                print("end time", value.c_time)
             else:
                 time = value.phase_list[i+1].time - value.phase_list[i].time
+                print(value.phase_list[i+1].time)
+            print(time)
             cost = cost + value.phase_list[i].cores * time
-
+            print("cost", cost)
         total_cost = total_cost + cost
+        print("total cost", total_cost)
     return total_cost/total_clk_cycle
 
 
@@ -429,9 +437,7 @@ def main():
     complete_job_list: Dict[int, Job] = {}
     queued_job_list: Dict[int, Job] = {}
     job_to_start_list: Dict[int, Job] = {}
-    pending_job_list, event_list = initialize_event("test.csv", pending_job_list,
-                                                    event_list)
-    #pending_job_list, event_list = initialize_event("shrinked/workload/rigid/rigid_2016_15k_40k.csv", pending_job_list, event_list)
+    pending_job_list, event_list = initialize_event("workload3/mal/workload_mal20_2016_15k_40k.csv", pending_job_list, event_list)
 
 
     state = initialize_system(24048)
@@ -538,17 +544,17 @@ def main():
     for key, value in complete_job_list.items():
         #print(value.id, value.a_time, value.s_time)
         result_df=result_df.append({'id': value.id, 'Arrival': value.a_time, 'Start': value.s_time, 'Completion': value.c_time, 'No_of_expansion': value.no_of_expansion, 'No_of_shrinkage': value.no_of_shrinkage, 'Wait_time': value.s_time - value.a_time, 'Turn_around_time': value.c_time - value.a_time}, ignore_index=True)
-    #result_df.to_csv('shrinked/result/rigid/rigid_2016_15k_40k.csv', index=False)
-    #processor_df.to_csv('shrinked/result/rigid/processor_rigid_2016_15k_40k.csv', index=False)
-    #res_avg = open(r"shrinked/result/rigid/average_rigid_2016_15k_40k.txt", "w")
+    result_df.to_csv('result3/mal/mal20_2016_15k_40k.csv', index=False)
+    processor_df.to_csv('result3/mal/processor_mal20_2016_15k_40k.csv', index=False)
+    res_avg = open(r"result3/mal/average_mal20_2016_15k_40k.txt", "w")
     avg_wait_time, avg_turn_time, span = get_average_result(result_df)
     utilization = calculate_utilization(complete_job_list, span)
-    #res_avg.write(str(avg_wait_time)+'\n')
-    #res_avg.write(str(avg_turn_time)+'\n')
-    #res_avg.write(str(span)+'\n')
-    #res_avg.write(str(utilization)+'\n')
+    res_avg.write(str(avg_wait_time)+'\n')
+    res_avg.write(str(avg_turn_time)+'\n')
+    res_avg.write(str(span)+'\n')
+    res_avg.write(str(utilization)+'\n')
     print(avg_wait_time, avg_turn_time, span, utilization)
-    #res_avg.close()
+    res_avg.close()
     #res_proc.close()
 
 
