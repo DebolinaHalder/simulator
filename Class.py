@@ -74,8 +74,9 @@ class Job:
     def get_adaptationCost(self, typ, cost, cores) -> float:
         perc = random.uniform(min_adaptation_cost, max_adaptation_cost)
         overhead = cost * perc
-        cost = cost - overhead
-        work_remaining = cost * self.current_resources
+        comp = cost - overhead
+        work_remaining = comp * self.current_resources
+        print(self.current_resources)
         if typ == 'e':
             overhead = (overhead/self.current_resources) * (self.current_resources + cores)
             new_time = work_remaining / (self.current_resources + cores)

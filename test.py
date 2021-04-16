@@ -39,10 +39,10 @@ def convert_to_csv(old,new):
 
 
 def main():
-    discard_white_space("modified.txt", "workload_wspace.txt")
+    discard_white_space("modified.txt", "LLNL_256.txt")
     put_comma("workload_wspace.txt", "workload_final.txt")
-    convert_to_csv("workload_final.txt", "workload_all_2016.csv")
-    dataframe = pd.read_csv("workload_all_2016.csv")
+    convert_to_csv("workload_final.txt", "workload_all_LLNL_256.csv")
+    dataframe = pd.read_csv("workload_all_LLNL_256.csv")
     dataframe = dataframe[['S_time', 'W_time', 'R_time', 'Processors']]
     dataframe.insert(4, 'id', dataframe.index+1)
     dataframe.insert(5, "type", 1)
@@ -50,7 +50,7 @@ def main():
     dataframe.insert(7, "Min_resource", dataframe['Processors'])
     dataframe.insert(8, "Total_cost", dataframe['Processors']*dataframe['R_time'])
     print(dataframe.head())
-    dataframe.to_csv('workload_final_2016.csv', index=False)
+    dataframe.to_csv('workload_all_LLNL_256.csv', index=False)
 
 
 

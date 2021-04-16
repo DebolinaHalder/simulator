@@ -35,7 +35,7 @@ min_expansion_percentage = 30
 max_shrinkage_percentage = 31
 mim_shrinkage_percentage = 30
 
-total_processor = 24048
+
 
 input_location = "workload/rigid"
 output_location = "result/rigid"
@@ -406,7 +406,7 @@ def get_average_result(dataframe):
     return avg_w_time, avg_t_time, span, avg_e_time
 
 
-def calculate_utilization(complete_job_list, span):
+def calculate_utilization(complete_job_list, span, total_processor):
     total_cost = 0
     total_clk_cycle = span * total_processor
     for key, value in complete_job_list.items():
@@ -432,10 +432,11 @@ def main():
     queued_job_list: Dict[int, Job] = {}
     job_to_start_list: Dict[int, Job] = {}
     #pending_job_list, event_list = initialize_event("test.csv", pending_job_list, event_list)
-    pending_job_list, event_list = initialize_event("shrinked/workload/mal/mal10_2016_15k_40k.csv", pending_job_list, event_list)
+    pending_job_list, event_list = initialize_event(sys.argv[1], pending_job_list, event_list)
 
 
-    state = initialize_system(24048)
+    state = initialize_system(int(sys.argv[5]))
+    total_processor = int(sys.argv[5])
 
     sim_clock = 0
     event_counter = 0
@@ -539,11 +540,11 @@ def main():
     for key, value in complete_job_list.items():
         #print(value.id, value.a_time, value.s_time)
         result_df=result_df.append({'id': value.id, 'Arrival': value.a_time, 'Start': value.s_time, 'Completion': value.c_time, 'No_of_expansion': value.no_of_expansion, 'No_of_shrinkage': value.no_of_shrinkage, 'Wait_time': value.s_time - value.a_time, 'Turn_around_time': value.c_time - value.a_time, 'Exe_time':value.c_time - value.s_time}, ignore_index=True)
-    result_df.to_csv('shrinked/result/mal/mal10_2016_15k_40k.csv', index=False)
-    processor_df.to_csv('shrinked/result/mal/processor_mal10_2016_15k_40k.csv', index=False)
-    res_avg = open(r"shrinked/result/mal/average_mal10_2016_15k_40k.txt", "w")
+    result_df.to_csv(sys.argv[2], index=False)
+    processor_df.to_csv(sys.argv[3], index=False)
+    res_avg = open(sys.argv[4], "w")
     avg_wait_time, avg_turn_time, span, avg_run_time = get_average_result(result_df)
-    utilization = calculate_utilization(complete_job_list, span)
+    utilization = calculate_utilization(complete_job_list, span, total_processor)
     res_avg.write(str(avg_wait_time)+'\n')
     res_avg.write(str(avg_turn_time)+'\n')
     res_avg.write(str(span)+'\n')
