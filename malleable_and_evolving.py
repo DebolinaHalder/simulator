@@ -36,7 +36,6 @@ max_shrinkage_percentage = 31
 mim_shrinkage_percentage = 30
 
 
-
 input_location = "workload/rigid"
 output_location = "result/rigid"
 #res_proc = open(r"result3/mal/mal10_2016_15k_40k.txt", "w")
@@ -367,7 +366,7 @@ def create_evolving_events(event_list, J, sim_clk):
 
 def initialize_event(fileName, pending_job_list, event_list):
     data = pd.read_csv(fileName)
-    #data = data.iloc[0:3000:]
+    data = data.iloc[0:2000:]
     for index, row in data.iterrows():
         J = Job(row['type'], row['S_ime'], row['Processors'], row['R_time'], row['id'], row['Min_resource'],
                 row['Max_resource'])
@@ -431,12 +430,11 @@ def main():
     complete_job_list: Dict[int, Job] = {}
     queued_job_list: Dict[int, Job] = {}
     job_to_start_list: Dict[int, Job] = {}
-    #pending_job_list, event_list = initialize_event("test.csv", pending_job_list, event_list)
-    pending_job_list, event_list = initialize_event(sys.argv[1], pending_job_list, event_list)
+    pending_job_list, event_list = initialize_event("test.csv", pending_job_list, event_list)
+    #pending_job_list, event_list = initialize_event("shrinked/workload/mal/mal20_2016_15k_40k.csv", pending_job_list, event_list)
 
-
-    state = initialize_system(int(sys.argv[5]))
-    total_processor = int(sys.argv[5])
+    total_processor = 256
+    state = initialize_system(total_processor)
 
     sim_clock = 0
     event_counter = 0
@@ -540,16 +538,16 @@ def main():
     for key, value in complete_job_list.items():
         #print(value.id, value.a_time, value.s_time)
         result_df=result_df.append({'id': value.id, 'Arrival': value.a_time, 'Start': value.s_time, 'Completion': value.c_time, 'No_of_expansion': value.no_of_expansion, 'No_of_shrinkage': value.no_of_shrinkage, 'Wait_time': value.s_time - value.a_time, 'Turn_around_time': value.c_time - value.a_time, 'Exe_time':value.c_time - value.s_time}, ignore_index=True)
-    result_df.to_csv(sys.argv[2], index=False)
-    processor_df.to_csv(sys.argv[3], index=False)
-    res_avg = open(sys.argv[4], "w")
+    #result_df.to_csv('shrinked/result/mal/mal20_2016_15k_40k.csv', index=False)
+    #processor_df.to_csv('shrinked/result/mal/processor_mal20_2016_15k_40k.csv', index=False)
+    #res_avg = open(r"shrinked/result/mal/average_mal20_2016_15k_40k.txt", "w")
     avg_wait_time, avg_turn_time, span, avg_run_time = get_average_result(result_df)
     utilization = calculate_utilization(complete_job_list, span, total_processor)
-    res_avg.write(str(avg_wait_time)+'\n')
-    res_avg.write(str(avg_turn_time)+'\n')
-    res_avg.write(str(span)+'\n')
-    res_avg.write(str(utilization)+'\n')
-    res_avg.write(str(avg_run_time) + '\n')
+    #res_avg.write(str(avg_wait_time)+'\n')
+    #res_avg.write(str(avg_turn_time)+'\n')
+    #res_avg.write(str(span)+'\n')
+    #res_avg.write(str(utilization)+'\n')
+    #res_avg.write(str(avg_run_time) + '\n')
     print(avg_wait_time, avg_turn_time, span, utilization)
     #res_avg.close()
     #res_proc.close()

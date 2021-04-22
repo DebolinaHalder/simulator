@@ -2,8 +2,8 @@ import pandas as pd
 
 
 def make_csv():
-    dataframe = pd.read_csv("synthetic/output.csv")
-    dataframe = dataframe[['S_time', 'R_time', 'Processors', 'sigma']]
+    dataframe = pd.read_csv("synthetic/output1.csv")
+    dataframe = dataframe[['S_ime', 'R_time', 'Processors', 'Sigma']]
     dataframe.insert(4, 'id', dataframe.index + 1)
     dataframe.insert(5, "type", 1)
     dataframe.insert(6, "Max_resource", dataframe['Processors'])

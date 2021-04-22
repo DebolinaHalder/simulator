@@ -22,7 +22,7 @@ def draw_plot(malleable, evolving, rigid, label, name):
     top_side = ax.spines["top"]
     top_side.set_visible(False)
     #plt.show()
-    name = "result3/plots/" + name + ".png"
+    name = "synthetic/result4/plots/" + name + ".png"
     plt.savefig(name)
     return
 
@@ -35,39 +35,46 @@ def main():
     turn_around_time = []
     span = []
     utilization = []
+    exe = []
     wait_time_evol = []
     turn_around_time_evol = []
     span_evol = []
     utilization_evol = []
-    rigid = open(r"result3/rigid/average_rigid_2016_15k_40k.txt", "r")
+    exe_evol = []
+    rigid = open(r"synthetic/result4/rigid/average_rigid_synthetic4_256.txt", "r")
     lines = rigid.readlines()
     wait_time_rigid = float(lines[0])
     turn_around_time_rigid = float(lines[1])
     span_rigid = float(lines[2])
     utilization_rigid = float(lines[3])
+    exe_rigid = float(lines[4])
     for i in range(10, 110, 10):
-        location = "result3/mal/" + "average_mal" + str(i) +"_2016_15k_40k.txt"
+        location = "synthetic/result4/mal/" + "average_mal" + str(i) +"_synthetic4_256.txt"
         malleable = open(location, "r")
         lines = malleable.readlines()
         wait_time.append(float(lines[0]))
         turn_around_time.append(float(lines[1]))
         span.append(float(lines[2]))
         utilization.append(float(lines[3]))
+        exe.append(float(lines[4]))
     for i in range(10, 110, 10):
-        location = "result3/mal_evol/" + "average_malevol" + str(i) +"_2016_15k_40k.txt"
+        location = "synthetic/result4/mal_evol/" + "average_mal_evol" + str(i) +"_synthetic4_256.txt"
         evol = open(location, "r")
         lines = evol.readlines()
         wait_time_evol.append(float(lines[0]))
         turn_around_time_evol.append(float(lines[1]))
         span_evol.append(float(lines[2]))
         utilization_evol.append(float(lines[3]))
-    draw_plot(turn_around_time, turn_around_time_evol, turn_around_time_rigid, "Average Turnaround Time","Turnaround time2")
+        exe_evol.append(float(lines[4]))
+    draw_plot(turn_around_time, turn_around_time_evol, turn_around_time_rigid, "Average Turnaround Time","Turnaround time")
     draw_plot(wait_time, wait_time_evol, wait_time_rigid, "Average wait Time",
-              "wait time2")
+              "wait time")
     draw_plot(span, span_evol, span_rigid, "Span",
-              "span2")
+              "span")
     draw_plot(utilization, utilization_evol, utilization_rigid, "Utilization",
-              "utilization2")
+              "utilization")
+    draw_plot(exe, exe_evol, exe_rigid, "Average Execution Time",
+              "execution")
 
 if __name__ == '__main__':
     main()
