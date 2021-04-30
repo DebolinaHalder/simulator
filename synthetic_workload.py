@@ -3,6 +3,7 @@ import pandas as pd
 
 def make_csv():
     dataframe = pd.read_csv("synthetic/output1.csv")
+    dataframe = dataframe.iloc[0:1000:]
     dataframe = dataframe[['S_ime', 'R_time', 'Processors', 'Sigma']]
     dataframe.insert(4, 'id', dataframe.index + 1)
     dataframe.insert(5, "type", 1)

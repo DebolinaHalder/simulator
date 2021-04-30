@@ -28,11 +28,13 @@ class Job:
         self.min_resource = min_resource
         self.max_resource = max_resource
         self.current_resources = cores
+        self.remaining_time = exe_time
         self.remaining_resources = self.current_resources - self.min_resource
         self.no_of_expansion = 0
         self.no_of_shrinkage = 0
         self.phase_list = []
         self.phase_req = []
+        self.overheads = []
         self.requested_expansion = 0
         self.requested_shrinkage = 0
         self.priority = 0
@@ -54,7 +56,9 @@ class Job:
             overhead = overhead * self.current_resources / self.cores
             work_remaining = cost * self.cores
             remaining_cost = work_remaining/self.current_resources + overhead
+
             self.c_time = sim_clk + remaining_cost
+            print(self.id, sim_clk, overhead)
         else:
             perc = random.uniform(min_adaptation_cost, max_adaptation_cost)
             overhead = self.exe_time * perc
@@ -63,6 +67,7 @@ class Job:
             work_remaining = cost * self.cores
             remaining_cost = work_remaining / self.current_resources + overhead
             self.c_time = sim_clk + remaining_cost
+            print(self.id, sim_clk, overhead)
 
     def updateStart(self, sim_clk):
         self.s_time = sim_clk
@@ -71,7 +76,7 @@ class Job:
         self.remaining_resources = self.current_resources - self.min_resource
         self.extra_resources = self.max_resource - self.remaining_resources
 
-    def get_adaptationCost(self, typ, cost, cores) -> float:
+    def get_adaptationCost(self, typ, cost, cores):
         perc = random.uniform(min_adaptation_cost, max_adaptation_cost)
         overhead = cost * perc
         comp = cost - overhead
@@ -83,7 +88,7 @@ class Job:
         elif typ == 's':
             overhead = (overhead / self.current_resources) * (self.current_resources - cores)
             new_time = work_remaining / (self.current_resources - cores)
-        return new_time + overhead
+        return new_time,  overhead
 
 
     def get_dataRedistributionCost(self, cores) -> float:
@@ -99,12 +104,14 @@ class Job:
 
     def updateSkrinkage(self, cores, sim_clock, negotiation_overhead):
         time_rem = self.c_time - sim_clock - negotiation_overhead
-        time_required = self.get_adaptationCost('s', time_rem, cores)
+        time, overhead = self.get_adaptationCost('s', time_rem, cores)
+        time_required = time + overhead
         datadistribution_cost = self.get_dataRedistributionCost(cores)
         synchronization_cost = random.uniform(min_synchronization_cost, max_synchronization_cost)
         self.c_time = sim_clock + time_required + datadistribution_cost + synchronization_cost
         self.current_resources = self.current_resources - cores
         #print("completion time", self.c_time)
+        print(self.id, sim_clock, overhead+datadistribution_cost+synchronization_cost)
         return self.c_time
 
 
@@ -112,11 +119,13 @@ class Job:
 
     def updateExpansion(self, cores, sim_clock, negotiation_overhead):
         time_rem = self.c_time - sim_clock - negotiation_overhead
-        time_required = self.get_adaptationCost('e', time_rem, cores)
+        time, overhead = self.get_adaptationCost('e', time_rem, cores)
+        time_required = time + overhead
         datadistribution_cost = self.get_dataRedistributionCost(cores)
         synchronization_cost = random.uniform(min_synchronization_cost, max_synchronization_cost)
         self.c_time = sim_clock + time_required + datadistribution_cost + synchronization_cost
         self.current_resources = self.current_resources + cores
+        print(self.id, sim_clock, overhead + datadistribution_cost + synchronization_cost)
         return self.c_time
 
 
@@ -154,10 +163,13 @@ class Phase:
         self.type = type
         self.cores = cores
         self.time = time
+        self.adaptation_cost = 0
 
     def set_remaining(self, remaining_time):
         self.rem_time = remaining_time
 
+    def get_adaptation_cost(self, cost):
+        self.adaptation_cost = cost
 
 class Phase_req:
     def __init__(self, type, cores, time):
@@ -165,3 +177,8 @@ class Phase_req:
         self.cores = cores
         self.time = time
         self. rem_time = 0
+
+class Overhead:
+    def __init__(self, cost, time):
+        self.cost = cost
+        self.time = time

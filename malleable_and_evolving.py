@@ -52,13 +52,14 @@ def jobEntry(job_to_start_list, job, event, state, event_counter, event_list, si
     return state, event_counter, event_list
 
 
-def find_malleable(running_job_list):
+def find_malleable(running_job_list, sim_clock):
     running_malleable_job = []
     for key, value in running_job_list.items():
         if value.type == 2:
             value.calculateRemaining()
+            value.remaining_time = value.remaining_time - (sim_clock - value.s_time)
             running_malleable_job.append(value)
-    running_malleable_job = sorted(running_malleable_job, key=operator.attrgetter('no_of_expansion'))
+    running_malleable_job = sorted(running_malleable_job, key=operator.attrgetter('remaining_time'))
     return running_malleable_job
 
 
@@ -210,7 +211,7 @@ def find_agreement(queued_job_list, running_malleable_job, job_to_start_list, st
             agreement_to_be.clear()
         else:
             agreement_to_be.clear()
-        running_malleable_job = sorted(running_malleable_job, key=operator.attrgetter('remaining_resources'))
+        running_malleable_job = sorted(running_malleable_job, key=operator.attrgetter('remaining_time'))
     for key in job_to_start_list:
         if key in queued_job_list:
             queued_job_list.pop(key)
@@ -236,7 +237,7 @@ def scheduler(job_to_start_list, pending_job_list, running_job_list, event_list,
     negotiation_overhead = 0
     if idle_processes:
         running_malleable_job = []
-        running_malleable_job = find_malleable(running_job_list)
+        running_malleable_job = find_malleable(running_job_list, sim_clock)
         if len(running_malleable_job) != 0:
             agreement_list, job_to_start_list, sim_clock, negotiation_overhead, state = find_agreement(queued_job_list,
                                                                                                 running_malleable_job,
@@ -366,7 +367,7 @@ def create_evolving_events(event_list, J, sim_clk):
 
 def initialize_event(fileName, pending_job_list, event_list):
     data = pd.read_csv(fileName)
-    data = data.iloc[0:2000:]
+    data = data.iloc[0:200:]
     for index, row in data.iterrows():
         J = Job(row['type'], row['S_ime'], row['Processors'], row['R_time'], row['id'], row['Min_resource'],
                 row['Max_resource'])
@@ -478,7 +479,7 @@ def main():
                     expansion(cores, sim_clock, running_job_list, negotiation_overhead, job, event_list)
                     state.cores = state.cores - event.core
                 else:
-                    running_malleable_job = find_malleable(running_job_list)
+                    running_malleable_job = find_malleable(running_job_list, sim_clock)
                     sim_clock, negotiation_overhead, agreement_list, state = find_agreement_evolving(running_malleable_job, sim_clock, event, state)
                     event_list, processor_df = dispatcher(job_to_start_list, pending_job_list, running_job_list, event_list,
                                             agreement_list, queued_job_list, sim_clock, negotiation_overhead, state, processor_df)

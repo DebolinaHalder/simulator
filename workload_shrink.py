@@ -42,14 +42,14 @@ def gen_malleable(m, e, k, df, exp_m, shrk_m, exp_e, shrk_e):
 def main():
     dataframe = pd.read_csv("synthetic/synthetic1.csv")
     #print(len(dataframe))
-    #dataframe = dataframe.iloc[15000:40000:]
+    #dataframe = dataframe.iloc[15000:16000:]
     #dataframe = dataframe.iloc[1:15000:]
     #dataframe = shrinkinterval(dataframe, 0.65)
-    dataframe = gen_malleable(50, 50, 100, dataframe, 35, 40, 60, 20)
+    dataframe = gen_malleable(50, 50, 100,dataframe, 35, 40, 60, 20)
     #dataframe = dataframe.sort_values(by='Processors', ascending=False)
 
-    #dataframe.to_csv("shrinked/workload4/mal/workload_mal70_Unilu_15k.csv", index=False)
-    dataframe.to_csv('synthetic/workload1/mal_evol/workload_mal_evol100_synthetic1_256.csv', index=False)
+    dataframe.to_csv("shrinked/workload5/mal_evol/workload_mal_evol100_2016_1k.csv", index=False)
+    #dataframe.to_csv('synthetic/workload1/mal_evol/workload_mal_evol100_synthetic1_256.csv', index=False)
     #dataframe.to_csv('test.csv', index=False)
 
 
