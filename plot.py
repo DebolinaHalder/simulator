@@ -14,6 +14,7 @@ def draw_plot(malleable1, malleable2, malleable3, rigid, label, name):
     ax.plot(perc, malleable1, linewidth=3, marker=".", markersize=14, label="remaining resources")
     ax.plot(perc, malleable2, linewidth=3, marker=".", markersize=14, color='r', label="no_of_expansion")
     ax.plot(perc, malleable3, linewidth=3, marker=".", markersize=14, label="remaining time")
+    #ax.plot(perc, malleable4, linewidth=3, marker=".", markersize=14, label="remaining time dec")
     ax.set_xticks(range(10, 110, 10))
     ax.set_xlabel('Percentage of elasticity')
     ax.set_ylabel(label)
@@ -24,7 +25,7 @@ def draw_plot(malleable1, malleable2, malleable3, rigid, label, name):
     top_side = ax.spines["top"]
     top_side.set_visible(False)
     #plt.show()
-    name = "shrinked/result5/plots_evol/" + name + ".png"
+    name = "synthetic/result8/plots/" + name + ".png"
     plt.savefig(name)
     return
 
@@ -48,7 +49,12 @@ def main():
     span3 = []
     utilization3 = []
     exe3 = []
-    rigid = open(r"shrinked/result5/resource/rigid/average_rigid_2016_1k.txt", "r")
+    wait_time4 = []
+    turn_around_time4 = []
+    span4 = []
+    utilization4 = []
+    exe4 = []
+    rigid = open(r"synthetic/result8/resource/rigid/average_rigid.txt", "r")
     lines = rigid.readlines()
     wait_time_rigid = float(lines[0])
     turn_around_time_rigid = float(lines[1])
@@ -56,7 +62,7 @@ def main():
     utilization_rigid = float(lines[3])
     exe_rigid = float(lines[4])
     for i in range(10, 110, 10):
-        location = "shrinked/result5/resource/mal_evol/" + "average_mal_evol" + str(i) +"_2016_1k.txt"
+        location = "synthetic/result8/resource/mal/" + "average_mal" + str(i) +".txt"
         malleable = open(location, "r")
         lines = malleable.readlines()
         wait_time.append(float(lines[0]))
@@ -65,7 +71,7 @@ def main():
         utilization.append(float(lines[3]))
         exe.append(float(lines[4]))
     for i in range(10, 110, 10):
-        location = "shrinked/result5/expansion/mal_evol/" + "average_mal_evol" + str(i) +"_2016_1k.txt"
+        location = "synthetic/result8/expansion/mal/" + "average_mal" + str(i) +".txt"
         evol = open(location, "r")
         lines = evol.readlines()
         wait_time2.append(float(lines[0]))
@@ -74,7 +80,7 @@ def main():
         utilization2.append(float(lines[3]))
         exe2.append(float(lines[4]))
     for i in range(10, 110, 10):
-        location = "shrinked/result5/time/mal_evol/" + "average_mal_evol" + str(i) +"_2016_1k.txt"
+        location = "synthetic/result8/time/mal/" + "average_mal" + str(i) +".txt"
         evol = open(location, "r")
         lines = evol.readlines()
         wait_time3.append(float(lines[0]))
@@ -82,6 +88,7 @@ def main():
         span3.append(float(lines[2]))
         utilization3.append(float(lines[3]))
         exe3.append(float(lines[4]))
+
     draw_plot(turn_around_time, turn_around_time2, turn_around_time3, turn_around_time_rigid, "Average Turnaround Time","Turnaround time")
     draw_plot(wait_time, wait_time2, wait_time3, wait_time_rigid, "Average wait Time",
               "wait time")
@@ -91,6 +98,7 @@ def main():
               "utilization")
     draw_plot(exe, exe2, exe3, exe_rigid, "Average Execution Time",
               "execution")
+
 
 if __name__ == '__main__':
     main()

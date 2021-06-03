@@ -54,7 +54,15 @@ def main():
 
 
 
-
+    for i in range(10, 110, 10):
+        location = "unshrinked/result1/expansion/mal/" + "average_mal" + str(i) +"_2016_1k.txt"
+        evol = open(location, "r")
+        lines = evol.readlines()
+        wait_time4.append(float(lines[0]))
+        turn_around_time4.append(float(lines[1]))
+        span4.append(float(lines[2]))
+        utilization4.append(float(lines[3]))
+        exe4.append(float(lines[4]))
 
 
 
