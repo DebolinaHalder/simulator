@@ -1,0 +1,2048 @@
+job allocation 1.0
+job added in job to start list 1.0 at time 0
+here 1.0
+completion event created with id & time 1.0 8497.339534 with resource 2.0
+job allocation 2.0
+job added in job to start list 2.0 at time 1546.268975
+here 2.0
+completion event created with id & time 2.0 1617.23253 with resource 2.0
+job allocation 3.0
+job added in job to start list 3.0 at time 2531.770434
+here 3.0
+completion event created with id & time 3.0 20540.870569 with resource 3.0
+job allocation 4.0
+job added in job to start list 4.0 at time 4557.200278
+here 4.0
+expansion event created for 4.0 at time 55071.34383918
+completion event created with id & time 4.0 127762.428476 with resource 7.0
+job allocation 5.0
+job added in job to start list 5.0 at time 8173.286770999999
+here 5.0
+completion event created with id & time 5.0 8204.30417 with resource 9.0
+job allocation 6.0
+job added in job to start list 6.0 at time 10097.353151000001
+here 6.0
+completion event created with id & time 6.0 10104.528883 with resource 6.0
+job allocation 7.0
+job added in job to start list 7.0 at time 24490.833475
+here 7.0
+expansion event created for 7.0 at time 24663.5242202
+completion event created with id & time 7.0 24922.560338 with resource 7.0
+7.0 24663.5242202 4.190945784500801 431.726863
+remaining time 184.27735849908277
+job expansion 7.0 with cores 3 at time 24663.5242202
+new completion time 24847.801578699084
+expansion event created for 7.0 at time 24739.077937184626
+7.0 24739.077937184626 2.718109013823791 431.726863
+remaining time 85.40515321384373
+job expansion 7.0 with cores 3 at time 24739.077937184626
+new completion time 24824.48309039847
+job allocation 8.0
+job added in job to start list 8.0 at time 32108.691970999997
+here 8.0
+completion event created with id & time 8.0 32118.616121999996 with resource 12.0
+job allocation 9.0
+job added in job to start list 9.0 at time 41858.397611
+here 9.0
+completion event created with id & time 9.0 43974.250297 with resource 2.0
+job allocation 10.0
+job added in job to start list 10.0 at time 47967.380732
+here 10.0
+completion event created with id & time 10.0 48727.13936 with resource 6.0
+4.0 55071.34383918 703.2726820419074 123205.228198
+remaining time 51242.89513701953
+job expansion 4.0 with cores 3 at time 55071.34383918
+new completion time 106314.23897619953
+expansion event created for 4.0 at time 76080.930845358
+job allocation 11.0
+job added in job to start list 11.0 at time 61835.327976
+here 11.0
+completion event created with id & time 11.0 185816.60065 with resource 2.0
+job allocation 12.0
+job added in job to start list 12.0 at time 64765.905015
+here 12.0
+completion event created with id & time 12.0 96993.351117 with resource 3.0
+4.0 76080.930845358 333.8788625037223 123205.228198
+remaining time 23393.850977372495
+job expansion 4.0 with cores 3 at time 76080.930845358
+new completion time 99474.7818227305
+job allocation 13.0
+job added in job to start list 13.0 at time 81885.077125
+here 13.0
+completion event created with id & time 13.0 83439.145924 with resource 3.0
+job allocation 14.0
+job added in job to start list 14.0 at time 84939.980839
+here 14.0
+completion event created with id & time 14.0 84974.771675 with resource 15.0
+job allocation 15.0
+job added in job to start list 15.0 at time 95517.66192
+here 15.0
+completion event created with id & time 15.0 327111.14447500004 with resource 3.0
+job allocation 16.0
+job added in job to start list 16.0 at time 95838.474605
+15.0 95838.474605 3865.163811483667 231593.48255500002
+remaining time 102272.38700763177
+job expansion 15.0 with cores 4.0 at time 95838.474605
+new completion time 198110.86161263176
+here 16.0
+expansion event created for 16.0 at time 95841.8231234
+completion event created with id & time 16.0 95846.845901 with resource 16.0
+16.0 95841.8231234 2.155710184738317 8.371296000000001
+remaining time 5.6194639122113585
+job expansion 16.0 with cores 5 at time 95841.8231234
+new completion time 95847.44258731221
+shrinkage event created for 16.0 at time 95844.127103604
+16.0 95844.127103604 2.7392030655032293 8.371296000000001
+job skrinked 16.0 with cores 5 at time 95844.127103604
+new completion time 95850.31474412262
+job allocation 17.0
+job added in job to start list 17.0 at time 100351.957049
+here 17.0
+completion event created with id & time 17.0 173925.740212 with resource 24.0
+job allocation 18.0
+job added in job to start list 18.0 at time 129215.42684300001
+here 18.0
+completion event created with id & time 18.0 129796.185635 with resource 3.0
+job allocation 19.0
+job added in job to start list 19.0 at time 148815.087216
+here 19.0
+completion event created with id & time 19.0 150006.86976700003 with resource 2.0
+job allocation 20.0
+job added in job to start list 20.0 at time 151907.230507
+here 20.0
+completion event created with id & time 20.0 151923.02088 with resource 4.0
+job allocation 21.0
+job added in job to start list 21.0 at time 178365.247238
+here 21.0
+completion event created with id & time 21.0 516391.09313399997 with resource 4.0
+job allocation 22.0
+job added in job to start list 22.0 at time 181012.34369
+here 22.0
+completion event created with id & time 22.0 181109.970489 with resource 5.0
+job allocation 23.0
+job added in job to start list 23.0 at time 186095.052545
+here 23.0
+completion event created with id & time 23.0 186135.246435 with resource 5.0
+job allocation 24.0
+job added in job to start list 24.0 at time 218987.375519
+here 24.0
+completion event created with id & time 24.0 226146.934168 with resource 3.0
+job allocation 25.0
+job added in job to start list 25.0 at time 221162.888344
+here 25.0
+completion event created with id & time 25.0 222070.39629200002 with resource 3.0
+job allocation 26.0
+job added in job to start list 26.0 at time 230305.32452199998
+here 26.0
+expansion event created for 26.0 at time 234104.98907806998
+completion event created with id & time 26.0 239572.799049 with resource 25.0
+26.0 234104.98907806998 39.480375900212685 9267.474527
+remaining time 4159.957971726282
+job expansion 26.0 with cores 8 at time 234104.98907806998
+new completion time 238264.94704979626
+expansion event created for 26.0 at time 235768.97226676048
+26.0 235768.97226676048 31.55391552519473 9267.474527
+remaining time 2021.9221464763104
+job expansion 26.0 with cores 8 at time 235768.97226676048
+new completion time 237790.8944132368
+shrinkage event created for 26.0 at time 236577.741125351
+26.0 236577.741125351 11.661644637316156 9267.474527
+job skrinked 26.0 with cores 8 at time 236577.741125351
+new completion time 238085.6503510306
+job allocation 27.0
+job added in job to start list 27.0 at time 237560.24503899997
+here 27.0
+completion event created with id & time 27.0 399891.774247 with resource 24.0
+job allocation 28.0
+job added in job to start list 28.0 at time 249816.01005799999
+here 28.0
+completion event created with id & time 28.0 264075.836778 with resource 4.0
+job allocation 29.0
+job added in job to start list 29.0 at time 278799.545185
+here 29.0
+completion event created with id & time 29.0 279093.655235 with resource 4.0
+job allocation 30.0
+job added in job to start list 30.0 at time 295855.854139
+here 30.0
+completion event created with id & time 30.0 302008.050275 with resource 4.0
+job allocation 31.0
+job added in job to start list 31.0 at time 311060.113114
+here 31.0
+completion event created with id & time 31.0 311096.248358 with resource 3.0
+job allocation 32.0
+job added in job to start list 32.0 at time 344422.08899099997
+here 32.0
+completion event created with id & time 32.0 758789.1676439999 with resource 9.0
+job allocation 33.0
+job added in job to start list 33.0 at time 348190.32976500003
+here 33.0
+expansion event created for 33.0 at time 348660.7594272
+completion event created with id & time 33.0 349337.71918500005 with resource 4.0
+33.0 348660.7594272 8.670941298529918 1147.38942
+remaining time 456.6401002551429
+job expansion 33.0 with cores 2 at time 348660.7594272
+new completion time 349117.39952745516
+expansion event created for 33.0 at time 348847.9818683046
+33.0 348847.9818683046 3.661658180572904 1147.38942
+remaining time 203.99685683654388
+job expansion 33.0 with cores 2 at time 348847.9818683046
+new completion time 349051.97872514115
+job allocation 34.0
+job added in job to start list 34.0 at time 356715.464288
+here 34.0
+completion event created with id & time 34.0 963312.650151 with resource 22.0
+job allocation 35.0
+job added in job to start list 35.0 at time 386598.377942
+34.0 386598.377942 7283.655731423162 606597.185863
+remaining time 293820.2040825786
+job expansion 34.0 with cores 22.0 at time 386598.377942
+new completion time 680418.5820245786
+here 35.0
+completion event created with id & time 35.0 558358.5564840001 with resource 27.0
+job allocation 36.0
+job added in job to start list 36.0 at time 389033.640244
+35.0 389033.640244 2506.511766813435 171760.178542
+remaining time 86542.70867189823
+job expansion 35.0 with cores 27.0 at time 389033.640244
+new completion time 475576.34891589824
+here 36.0
+completion event created with id & time 36.0 397823.689111 with resource 20.0
+job allocation 37.0
+job added in job to start list 37.0 at time 392892.25996399997
+here 37.0
+expansion event created for 37.0 at time 393156.49061599997
+completion event created with id & time 37.0 393552.836594 with resource 2.0
+37.0 393156.49061599997 4.2582776093764245 660.57663
+remaining time 267.022985231597
+job expansion 37.0 with cores 1 at time 393156.49061599997
+new completion time 393423.51360123156
+expansion event created for 37.0 at time 393265.9700399449
+37.0 393265.9700399449 2.56494044406293 660.57663
+remaining time 119.46908613131382
+job expansion 37.0 with cores 1 at time 393265.9700399449
+new completion time 393385.43912607623
+shrinkage event created for 37.0 at time 393313.75767439744
+37.0 393313.75767439744 1.8276768502764507 660.57663
+job skrinked 37.0 with cores 1 at time 393313.75767439744
+new completion time 393410.1338272512
+job allocation 38.0
+job added in job to start list 38.0 at time 410910.40978499997
+here 38.0
+completion event created with id & time 38.0 1885634.0672 with resource 12.0
+job allocation 39.0
+job added in job to start list 39.0 at time 423895.913052
+here 39.0
+completion event created with id & time 39.0 425362.981057 with resource 4.0
+job allocation 40.0
+job added in job to start list 40.0 at time 428985.51196
+here 40.0
+completion event created with id & time 40.0 428990.52400399995 with resource 24.0
+job allocation 41.0
+job added in job to start list 41.0 at time 435202.75090200006
+here 41.0
+completion event created with id & time 41.0 439624.1547540001 with resource 7.0
+job allocation 42.0
+job added in job to start list 42.0 at time 436647.91018199996
+here 42.0
+expansion event created for 42.0 at time 436689.55512962997
+completion event created with id & time 42.0 436749.483225 with resource 6.0
+42.0 436689.55512962997 1.8487063386735778 101.573043
+remaining time 46.03706338314805
+job expansion 42.0 with cores 2 at time 436689.55512962997
+new completion time 436735.5921930131
+expansion event created for 42.0 at time 436708.4303256171
+42.0 436708.4303256171 2.2454233531508296 101.573043
+remaining time 23.768167230766267
+job expansion 42.0 with cores 2 at time 436708.4303256171
+new completion time 436732.19849284785
+job allocation 43.0
+job added in job to start list 43.0 at time 444467.81678900006
+here 43.0
+completion event created with id & time 43.0 445125.36093900003 with resource 18.0
+job allocation 44.0
+job added in job to start list 44.0 at time 448485.481804
+here 44.0
+completion event created with id & time 44.0 537189.93879 with resource 3.0
+job allocation 45.0
+job added in job to start list 45.0 at time 468213.172405
+44.0 468213.172405 986.7613433764498 88704.456986
+remaining time 30367.271433891903
+job expansion 44.0 with cores 4.0 at time 468213.172405
+new completion time 498580.4438388919
+here 45.0
+completion event created with id & time 45.0 486487.188832 with resource 27.0
+job allocation 46.0
+job added in job to start list 46.0 at time 468325.060212
+here 46.0
+completion event created with id & time 46.0 468331.05193799996 with resource 3.0
+job allocation 47.0
+job added in job to start list 47.0 at time 496787.551474
+here 47.0
+completion event created with id & time 47.0 498068.14755999995 with resource 2.0
+job allocation 48.0
+job added in job to start list 48.0 at time 497029.682463
+here 48.0
+completion event created with id & time 48.0 499360.026622 with resource 2.0
+job allocation 49.0
+job added in job to start list 49.0 at time 502168.10692600004
+here 49.0
+completion event created with id & time 49.0 1633216.394409 with resource 8.0
+job allocation 50.0
+job added in job to start list 50.0 at time 503455.497975
+here 50.0
+completion event created with id & time 50.0 503463.78543 with resource 3.0
+job allocation 51.0
+job added in job to start list 51.0 at time 506262.21471499995
+here 51.0
+completion event created with id & time 51.0 506359.69372599997 with resource 2.0
+job allocation 52.0
+job added in job to start list 52.0 at time 517867.57099
+here 52.0
+completion event created with id & time 52.0 561956.580648 with resource 14.0
+job allocation 53.0
+job added in job to start list 53.0 at time 530265.412517
+here 53.0
+completion event created with id & time 53.0 552946.612824 with resource 2.0
+job allocation 54.0
+job added in job to start list 54.0 at time 530867.344187
+53.0 530867.344187 366.3366018887889 22681.200307
+remaining time 9139.625132025452
+job expansion 53.0 with cores 3.0 at time 530867.344187
+new completion time 540006.9693190254
+here 54.0
+completion event created with id & time 54.0 531089.707462 with resource 13.0
+job allocation 55.0
+job added in job to start list 55.0 at time 531589.582124
+here 55.0
+completion event created with id & time 55.0 578522.0521399999 with resource 12.0
+job allocation 56.0
+job added in job to start list 56.0 at time 546788.926654
+here 56.0
+completion event created with id & time 56.0 547426.3345229999 with resource 2.0
+job allocation 57.0
+job added in job to start list 57.0 at time 551608.9814180001
+here 57.0
+completion event created with id & time 57.0 551663.5349740001 with resource 14.0
+job allocation 58.0
+job added in job to start list 58.0 at time 559261.260935
+here 58.0
+completion event created with id & time 58.0 2982833.018765 with resource 9.0
+job allocation 59.0
+job added in job to start list 59.0 at time 575221.572531
+here 59.0
+completion event created with id & time 59.0 578148.458682 with resource 3.0
+job allocation 60.0
+job added in job to start list 60.0 at time 582686.01914
+here 60.0
+expansion event created for 60.0 at time 582698.4114976
+completion event created with id & time 60.0 582717.000034 with resource 2.0
+60.0 582698.4114976 1.6543473635697792 30.980894
+remaining time 13.877276244107634
+job expansion 60.0 with cores 1 at time 582698.4114976
+new completion time 582712.2887738441
+expansion event created for 60.0 at time 582704.1011808601
+60.0 582704.1011808601 1.2424094931283949 30.980894
+remaining time 6.8164106995100155
+job expansion 60.0 with cores 1 at time 582704.1011808601
+new completion time 582710.9175915596
+job allocation 61.0
+job added in job to start list 61.0 at time 583480.466156
+here 61.0
+completion event created with id & time 61.0 583499.469822 with resource 29.0
+job allocation 62.0
+job added in job to start list 62.0 at time 609585.361373
+here 62.0
+completion event created with id & time 62.0 967769.463467 with resource 2.0
+job allocation 63.0
+job added in job to start list 63.0 at time 615822.044928
+here 63.0
+completion event created with id & time 63.0 1072127.624223 with resource 6.0
+job allocation 64.0
+job added in job to start list 64.0 at time 624381.068125
+here 64.0
+completion event created with id & time 64.0 712206.875453 with resource 6.0
+job allocation 65.0
+job added in job to start list 65.0 at time 649696.776466
+here 65.0
+completion event created with id & time 65.0 649755.636728 with resource 5.0
+job allocation 66.0
+job added in job to start list 66.0 at time 662270.6038
+here 66.0
+completion event created with id & time 66.0 764706.815131 with resource 9.0
+job allocation 67.0
+job added in job to start list 67.0 at time 663519.938949
+here 67.0
+completion event created with id & time 67.0 663850.410394 with resource 2.0
+job allocation 68.0
+job added in job to start list 68.0 at time 666619.230917
+here 68.0
+completion event created with id & time 68.0 1675606.8111899998 with resource 17.0
+job allocation 69.0
+job added in job to start list 69.0 at time 688543.973412
+here 69.0
+completion event created with id & time 69.0 688701.278177 with resource 2.0
+job allocation 70.0
+job added in job to start list 70.0 at time 694373.86635
+here 70.0
+completion event created with id & time 70.0 694378.514493 with resource 3.0
+job allocation 71.0
+job added in job to start list 71.0 at time 707601.724555
+here 71.0
+completion event created with id & time 71.0 707621.72304 with resource 3.0
+job allocation 72.0
+job added in job to start list 72.0 at time 711025.223122
+here 72.0
+completion event created with id & time 72.0 3338208.7494409997 with resource 2.0
+job allocation 73.0
+job added in job to start list 73.0 at time 731316.0958680001
+72.0 731316.0958680001 38729.85755359234 2627183.526319
+remaining time 1075290.3247679628
+job expansion 72.0 with cores 3.0 at time 731316.0958680001
+new completion time 1806606.4206359629
+here 73.0
+expansion event created for 73.0 at time 731334.1367368001
+completion event created with id & time 73.0 731361.19804 with resource 13.0
+73.0 731334.1367368001 2.460410086234777 45.102171999999996
+remaining time 21.604578785598278
+job expansion 73.0 with cores 5 at time 731334.1367368001
+new completion time 731355.7413155857
+expansion event created for 73.0 at time 731342.7785683143
+73.0 731342.7785683143 2.2477722947129055 45.102171999999996
+remaining time 11.745973463868722
+job expansion 73.0 with cores 5 at time 731342.7785683143
+new completion time 731354.5245417781
+expansion event created for 73.0 at time 731347.5944174344
+73.0 731347.5944174344 2.9249677093961934 45.102171999999996
+remaining time 8.486914663459174
+job expansion 73.0 with cores 4 at time 731347.5944174344
+new completion time 731356.0813320979
+job allocation 74.0
+job added in job to start list 74.0 at time 734731.016167
+here 74.0
+completion event created with id & time 74.0 2202575.900958 with resource 28.0
+job allocation 75.0
+job added in job to start list 75.0 at time 755630.569089
+74.0 755630.569089 19499.451146786363 1467844.884791
+remaining time 751072.7138863857
+job expansion 74.0 with cores 27.0 at time 755630.569089
+new completion time 1506703.2829753857
+here 75.0
+completion event created with id & time 75.0 772362.956836 with resource 31.0
+job allocation 76.0
+job added in job to start list 76.0 at time 761496.647187
+here 76.0
+completion event created with id & time 76.0 805898.911635 with resource 3.0
+job allocation 77.0
+job added in job to start list 77.0 at time 772803.1008649999
+76.0 772803.1008649999 499.2780715332889 44402.264448
+remaining time 14591.738269353751
+job expansion 76.0 with cores 4.0 at time 772803.1008649999
+new completion time 787394.8391343537
+here 77.0
+completion event created with id & time 77.0 772817.997929 with resource 22.0
+job allocation 78.0
+job added in job to start list 78.0 at time 784322.663448
+here 78.0
+expansion event created for 78.0 at time 784386.46351356
+completion event created with id & time 78.0 784478.273364 with resource 17.0
+78.0 784386.46351356 2.7230579816989255 155.609916
+remaining time 69.83140254404861
+job expansion 78.0 with cores 6 at time 784386.46351356
+new completion time 784456.2949161041
+expansion event created for 78.0 at time 784414.3960745776
+78.0 784414.3960745776 2.9977548482198664 155.609916
+remaining time 35.502846122253686
+job expansion 78.0 with cores 6 at time 784414.3960745776
+new completion time 784449.8989206998
+expansion event created for 78.0 at time 784428.9522414877
+78.0 784428.9522414877 2.3100151689007102 155.609916
+remaining time 18.972312605474144
+job expansion 78.0 with cores 6 at time 784428.9522414877
+new completion time 784447.9245540932
+expansion event created for 78.0 at time 784436.5411665299
+78.0 784436.5411665299 4.126408981514416 155.609916
+remaining time 13.206473899655975
+job expansion 78.0 with cores 6 at time 784436.5411665299
+new completion time 784449.7476404295
+job allocation 79.0
+job added in job to start list 79.0 at time 799753.805341
+here 79.0
+completion event created with id & time 79.0 813439.102023 with resource 16.0
+job allocation 80.0
+job added in job to start list 80.0 at time 801528.272292
+79.0 801528.272292 199.83657979652648 13685.296682
+remaining time 6105.658276656526
+job expansion 79.0 with cores 16.0 at time 801528.272292
+new completion time 807633.9305686565
+here 80.0
+completion event created with id & time 80.0 827210.012094 with resource 15.0
+job allocation 81.0
+job added in job to start list 81.0 at time 809134.798499
+80.0 809134.798499 323.06963580500656 25681.739802
+remaining time 9280.199341639294
+job expansion 80.0 with cores 15.0 at time 809134.798499
+new completion time 818414.9978406393
+here 81.0
+expansion event created for 81.0 at time 1187433.39586593
+completion event created with id & time 81.0 1731814.304272 with resource 16.0
+job allocation 82.0
+job added in job to start list 82.0 at time 847350.517598
+here 82.0
+completion event created with id & time 82.0 3793969.472095 with resource 13.0
+job allocation 83.0
+job added in job to start list 83.0 at time 854328.219573
+82.0 854328.219573 37908.34800415875 2946618.954497
+remaining time 1498252.2162854
+job expansion 82.0 with cores 13.0 at time 854328.219573
+new completion time 2352580.4358584
+here 83.0
+completion event created with id & time 83.0 867194.275357 with resource 29.0
+job allocation 84.0
+job added in job to start list 84.0 at time 856685.2948220001
+here 84.0
+completion event created with id & time 84.0 899040.2286660001 with resource 6.0
+job allocation 85.0
+job added in job to start list 85.0 at time 883731.988164
+84.0 883731.988164 220.82739060848044 42354.933844
+remaining time 7239.465737513034
+job expansion 84.0 with cores 7.0 at time 883731.988164
+new completion time 890971.453901513
+here 85.0
+completion event created with id & time 85.0 1086216.130022 with resource 15.0
+job allocation 86.0
+job added in job to start list 86.0 at time 888851.32972
+here 86.0
+completion event created with id & time 86.0 933573.584453 with resource 4.0
+job allocation 87.0
+job added in job to start list 87.0 at time 894496.695292
+here 87.0
+completion event created with id & time 87.0 1144984.500793 with resource 4.0
+job allocation 88.0
+job added in job to start list 88.0 at time 902564.508384
+here 88.0
+completion event created with id & time 88.0 903064.596732 with resource 3.0
+job allocation 89.0
+job added in job to start list 89.0 at time 925198.407553
+here 89.0
+completion event created with id & time 89.0 957776.465821 with resource 3.0
+job allocation 90.0
+job added in job to start list 90.0 at time 933322.495019
+here 90.0
+completion event created with id & time 90.0 1335450.4157 with resource 13.0
+job allocation 91.0
+job added in job to start list 91.0 at time 934334.3014079999
+here 91.0
+completion event created with id & time 91.0 2924355.958585 with resource 3.0
+job allocation 92.0
+job added in job to start list 92.0 at time 934457.1312909999
+here 92.0
+completion event created with id & time 92.0 934582.293887 with resource 6.0
+job allocation 93.0
+job added in job to start list 93.0 at time 934513.768815
+here 93.0
+expansion event created for 93.0 at time 1571492.48331061
+completion event created with id & time 93.0 2488120.389536 with resource 5.0
+job allocation 94.0
+job added in job to start list 94.0 at time 938052.600808
+here 94.0
+completion event created with id & time 94.0 1220965.047639 with resource 10.0
+job allocation 95.0
+job added in job to start list 95.0 at time 949324.356568
+94.0 949324.356568 4575.098789186746 282912.446831
+remaining time 139251.98180674296
+job expansion 94.0 with cores 10.0 at time 949324.356568
+new completion time 1088576.338374743
+here 95.0
+completion event created with id & time 95.0 949330.1134540001 with resource 11.0
+job allocation 96.0
+job added in job to start list 96.0 at time 952577.33371
+here 96.0
+expansion event created for 96.0 at time 952578.72512413
+completion event created with id & time 96.0 952580.727403 with resource 28.0
+96.0 952578.72512413 3.198107526725248 3.393693
+remaining time 4.384411622770131
+job expansion 96.0 with cores 9 at time 952578.72512413
+new completion time 952583.1095357528
+expansion event created for 96.0 at time 952580.5227328953
+core needed 9
+core existing 0.0
+core current 0.0
+72.0 952580.5227328953 2285.4282680453493 2627183.526319
+job skrinked 72.0 with cores 3.0 at time 952580.5227328953
+new completion time 3075650.6781352083
+74.0 952580.5227328953 3590.67347676519 1467844.884791
+job skrinked 74.0 with cores 6.0 at time 952580.5227328953
+new completion time 1573626.3381437848
+96.0 952580.5227328953 2.714740300628231 3.393693
+remaining time 3.757955801207572
+job expansion 96.0 with cores 9 at time 952580.5227328953
+new completion time 952584.2806886965
+job allocation 97.0
+job added in job to start list 97.0 at time 961523.781542
+72.0 961523.781542 40984.69437934984 2627183.526319
+remaining time 880078.1378523641
+job expansion 72.0 with cores 3.0 at time 961523.781542
+new completion time 1841601.919394364
+74.0 961523.781542 4417.479776851963 1467844.884791
+remaining time 546241.6421258011
+job expansion 74.0 with cores 6.0 at time 961523.781542
+new completion time 1507765.423667801
+here 97.0
+completion event created with id & time 97.0 961934.973698 with resource 21.0
+job allocation 98.0
+job added in job to start list 98.0 at time 965083.8521489999
+here 98.0
+expansion event created for 98.0 at time 973002.9346453699
+completion event created with id & time 98.0 984398.6875059999 with resource 3.0
+job allocation 99.0
+job added in job to start list 99.0 at time 965889.317573
+here 99.0
+completion event created with id & time 99.0 965939.106349 with resource 29.0
+98.0 973002.9346453699 84.64954617135058 19314.835357
+remaining time 8584.245325539378
+job expansion 98.0 with cores 1 at time 973002.9346453699
+new completion time 981587.1799709093
+shrinkage event created for 98.0 at time 976522.4752288411
+98.0 976522.4752288411 21.11529471608556 19314.835357
+job skrinked 98.0 with cores 1 at time 976522.4752288411
+new completion time 983261.3493989641
+expansion event created for 98.0 at time 979218.0248968903
+98.0 979218.0248968903 32.48937567067904 19314.835357
+remaining time 3047.3069779769285
+job expansion 98.0 with cores 1 at time 979218.0248968903
+new completion time 982265.3318748672
+shrinkage event created for 98.0 at time 980436.9476880811
+job allocation 100.0
+job added in job to start list 100.0 at time 979239.193437
+here 100.0
+completion event created with id & time 100.0 979245.7873150001 with resource 5.0
+98.0 980436.9476880811 11.62482818211486 19314.835357
+job skrinked 98.0 with cores 1 at time 980436.9476880811
+new completion time 982868.152585064
+job allocation 101.0
+job added in job to start list 101.0 at time 987907.418525
+here 101.0
+completion event created with id & time 101.0 987985.947573 with resource 2.0
+job allocation 102.0
+job added in job to start list 102.0 at time 1005802.799475
+here 102.0
+completion event created with id & time 102.0 1210416.93684 with resource 17.0
+job allocation 103.0
+job added in job to start list 103.0 at time 1008941.004636
+102.0 1008941.004636 2693.106540175409 204614.137365
+remaining time 105769.30163438863
+job expansion 102.0 with cores 16.0 at time 1008941.004636
+new completion time 1114710.3062703887
+here 103.0
+completion event created with id & time 103.0 1013163.473767 with resource 9.0
+job queued malleable 104.0 2.0
+job queued malleable 104.0 2.0
+job queued 105.0 1.0 1015430.394258
+job queued malleable 104.0 2.0
+job queued 105.0 1.0 1027478.531266
+job allocation 106.0
+job added in job to start list 106.0 at time 1027478.531266
+job added in job to start list 104.0 at time 1027479.992755763
+job added in job to start list 105.0 at time 1027481.9571759562
+72.0 1027481.9571759562 2744.545927185699 2627183.526319
+job skrinked 72.0 with cores 3.0 at time 1027481.9571759562
+new completion time 3048376.3834488196
+74.0 1027481.9571759562 3016.1074897325666 1467844.884791
+job skrinked 74.0 with cores 7.0 at time 1027481.9571759562
+new completion time 1576867.2038296356
+74.0 1027481.9571759562 2921.904296966474 1467844.884791
+job skrinked 74.0 with cores 12.0 at time 1027481.9571759562
+new completion time 1757726.9701661428
+here 106.0
+completion event created with id & time 106.0 1027483.007888 with resource 3.0
+here 104.0
+completion event created with id & time 104.0 1027662.405601763 with resource 16.0
+here 105.0
+completion event created with id & time 105.0 1460510.3249129562 with resource 12.0
+job allocation 107.0
+job added in job to start list 107.0 at time 1040121.739665
+74.0 1040121.739665 6772.734652986478 1467844.884791
+remaining time 491079.0376643776
+job expansion 74.0 with cores 17.0 at time 1040121.739665
+new completion time 1531200.7773293776
+here 107.0
+completion event created with id & time 107.0 1040136.855304 with resource 2.0
+job allocation 108.0
+job added in job to start list 108.0 at time 1040228.541375
+here 108.0
+completion event created with id & time 108.0 1042852.4329070001 with resource 2.0
+job allocation 109.0
+job added in job to start list 109.0 at time 1053702.583427
+here 109.0
+completion event created with id & time 109.0 1058535.267133 with resource 2.0
+job queued 110.0 1.0 1065706.41027
+job queued 110.0 1.0 1066416.903647
+job allocation with min resource 111.0
+job added in job to start list 111.0 at time 1066416.903647
+111.0 1066416.903647 3629.9238358123152 818288.101286
+job added in job to start list 110.0 at time 1066417.543219368
+74.0 1066417.543219368 3222.216211919505 1467844.884791
+job skrinked 74.0 with cores 5.0 at time 1066417.543219368
+new completion time 1578913.5557129942
+here 111.0
+completion event created with id & time 111.0 2289311.6507812347 with resource 2.0
+here 110.0
+completion event created with id & time 110.0 1069352.701142368 with resource 5.0
+job queued 112.0 3.0 1073252.955941
+job queued 112.0 3.0 1077489.9927790002
+job allocation with min resource 113.0
+job added in job to start list 113.0 at time 1077489.9927790002
+113.0 1077489.9927790002 0.02499035432055651 5.524463
+job added in job to start list 112.0 at time 1077490.3221177964
+74.0 1077490.3221177964 2906.905720652275 1467844.884791
+job skrinked 74.0 with cores 10.0 at time 1077490.3221177964
+new completion time 1709140.69697682
+here 113.0
+completion event created with id & time 113.0 1077498.5509079786 with resource 9.0
+here 112.0
+completion event created with id & time 112.0 2275898.711990796 with resource 12.0
+job queued 114.0 1.0 1078023.393368
+job queued 114.0 1.0 1085529.219559
+job allocation 115.0
+job added in job to start list 115.0 at time 1085529.219559
+job added in job to start list 114.0 at time 1085529.3241870382
+74.0 1085529.3241870382 2754.2957675367625 1467844.884791
+job skrinked 74.0 with cores 13.0 at time 1085529.3241870382
+new completion time 2029817.40816809
+here 115.0
+completion event created with id & time 115.0 1085577.566397 with resource 2.0
+here 114.0
+completion event created with id & time 114.0 1353331.6431340382 with resource 20.0
+job allocation 116.0
+job added in job to start list 116.0 at time 1097734.531175
+74.0 1097734.531175 12194.18342652877 1467844.884791
+remaining time 433349.117380145
+job expansion 74.0 with cores 30.0 at time 1097734.531175
+new completion time 1531083.648555145
+here 116.0
+completion event created with id & time 116.0 1782306.17197 with resource 7.0
+job queued 117.0 1.0 1097897.2001
+job queued 117.0 1.0 1103748.040735
+job queued 118.0 1.0 1103748.040735
+job queued 117.0 1.0 1105467.524135
+job queued 118.0 1.0 1105467.524135
+job queued 119.0 1.0 1105467.524135
+job queued 117.0 1.0 1105996.448992
+job queued 118.0 1.0 1105996.448992
+job queued 119.0 1.0 1105996.448992
+job queued malleable 120.0 2.0
+job allocation 117.0
+job added in job to start list 117.0 at time 1114710.3062703887
+job allocation 118.0
+job added in job to start list 118.0 at time 1114710.3062703887
+job allocation 119.0
+job added in job to start list 119.0 at time 1114710.3062703887
+job queued malleable 120.0 2.0
+job added in job to start list 120.0 at time 1114710.8266225045
+74.0 1114710.8266225045 2563.627049954469 1467844.884791
+job skrinked 74.0 with cores 6.0 at time 1114710.8266225045
+new completion time 1581406.7621636493
+here 117.0
+completion event created with id & time 117.0 1138084.3053073888 with resource 21.0
+here 118.0
+completion event created with id & time 118.0 1238822.5472363885 with resource 3.0
+here 119.0
+completion event created with id & time 119.0 1942509.5681583886 with resource 8.0
+here 120.0
+completion event created with id & time 120.0 1119709.6002045046 with resource 7.0
+job allocation with min resource 121.0
+job added in job to start list 121.0 at time 1122945.746665
+121.0 1122945.746665 0.5953406378988686 127.544595
+here 121.0
+completion event created with id & time 121.0 1123145.2990994707 with resource 7.0
+job queued 122.0 3.0 1125894.9596219999
+job queued 122.0 3.0 1129005.741637
+job queued 123.0 1.0 1129005.741637
+job allocation 122.0
+job added in job to start list 122.0 at time 1138084.3053073888
+job queued 123.0 1.0 1138084.3053073888
+job added in job to start list 123.0 at time 1138085.0322859185
+74.0 1138085.0322859185 1779.8045896571848 1467844.884791
+job skrinked 74.0 with cores 16.0 at time 1138085.0322859185
+new completion time 1794215.1278415825
+here 122.0
+expansion event created for 122.0 at time 1144871.3002205067
+completion event created with id & time 122.0 1155050.7021223889 with resource 14.0
+here 123.0
+completion event created with id & time 123.0 1138228.7927359184 with resource 30.0
+job allocation 124.0
+job added in job to start list 124.0 at time 1142181.106231
+74.0 1142181.106231 8759.819967216912 1467844.884791
+remaining time 396827.4314245947
+job expansion 74.0 with cores 22.0 at time 1142181.106231
+new completion time 1539008.5376555948
+72.0 1142181.106231 29334.48291326697 2627183.526319
+remaining time 787119.3153081331
+job expansion 72.0 with cores 3.0 at time 1142181.106231
+new completion time 1929300.4215391332
+111.0 1142181.106231 13241.373924277372 818288.101286
+remaining time 583496.5713338768
+job expansion 111.0 with cores 2.0 at time 1142181.106231
+new completion time 1725677.6775648769
+here 124.0
+completion event created with id & time 124.0 1142207.237884 with resource 3.0
+job allocation 125.0
+job added in job to start list 125.0 at time 1143850.292751
+here 125.0
+completion event created with id & time 125.0 1144065.8668840001 with resource 3.0
+core needed 5
+core existing 0.0
+core current 0.0
+74.0 1144871.3002205067 1863.316731955343 1467844.884791
+job skrinked 74.0 with cores 5.0 at time 1144871.3002205067
+new completion time 1578035.2203665033
+122.0 1144871.3002205067 125.65354177725547 16966.396815
+remaining time 7558.402109479532
+job expansion 122.0 with cores 5 at time 1144871.3002205067
+new completion time 1152429.7023299863
+expansion event created for 122.0 at time 1147894.6610642986
+122.0 1147894.6610642986 48.618962910208154 16966.396815
+remaining time 3609.360912072938
+job expansion 122.0 with cores 5 at time 1147894.6610642986
+new completion time 1151504.0219763715
+expansion event created for 122.0 at time 1149338.4054291279
+core needed 5
+core existing 2.0
+core current 0.0
+74.0 1149338.4054291279 2509.075141745845 1467844.884791
+job skrinked 74.0 with cores 3.0 at time 1149338.4054291279
+new completion time 1605073.967564846
+122.0 1149338.4054291279 26.048744141238934 16966.396815
+remaining time 1801.4190210686065
+job expansion 122.0 with cores 5 at time 1149338.4054291279
+new completion time 1151139.8244501965
+expansion event created for 122.0 at time 1150058.9730375553
+core needed 5
+core existing 0.0
+core current 0.0
+74.0 1150058.9730375553 2750.0054466054053 1467844.884791
+job skrinked 74.0 with cores 5.0 at time 1150058.9730375553
+new completion time 1658553.4513144495
+122.0 1150058.9730375553 10.495202389935155 16966.396815
+remaining time 925.6938571131323
+job expansion 122.0 with cores 5 at time 1150058.9730375553
+new completion time 1150984.6668946685
+job allocation 126.0
+job added in job to start list 126.0 at time 1175104.128423
+74.0 1175104.128423 3635.831652492051 1467844.884791
+remaining time 370697.2490357347
+job expansion 74.0 with cores 13.0 at time 1175104.128423
+new completion time 1545801.3774587347
+111.0 1175104.128423 7330.6257238647795 818288.101286
+remaining time 319550.7410126552
+job expansion 111.0 with cores 3.0 at time 1175104.128423
+new completion time 1494654.8694356552
+here 126.0
+completion event created with id & time 126.0 1175604.916439 with resource 5.0
+job allocation 127.0
+job added in job to start list 127.0 at time 1176044.656586
+here 127.0
+expansion event created for 127.0 at time 1231266.81204568
+completion event created with id & time 127.0 1310732.840634 with resource 5.0
+81.0 1187433.39586593 5544.407234316248 922679.505773
+remaining time 417093.24791581417
+job expansion 81.0 with cores 5 at time 1187433.39586593
+new completion time 1604526.6437817442
+expansion event created for 81.0 at time 1354270.6950322557
+job allocation with min resource 128.0
+job added in job to start list 128.0 at time 1187640.493564
+128.0 1187640.493564 1.2150820483333205 291.81178700000004
+here 128.0
+completion event created with id & time 128.0 1188112.6942238894 with resource 8.0
+job queued 129.0 1.0 1214893.756866
+job queued 129.0 1.0 1222768.604161
+job allocation 130.0
+job added in job to start list 130.0 at time 1222768.604161
+job added in job to start list 129.0 at time 1222769.3867412792
+74.0 1222769.3867412792 1740.1053852211735 1467844.884791
+job skrinked 74.0 with cores 22.0 at time 1222769.3867412792
+new completion time 1758071.0195332093
+here 130.0
+completion event created with id & time 130.0 1222971.8375280001 with resource 7.0
+here 129.0
+completion event created with id & time 129.0 1387964.8800582793 with resource 23.0
+job allocation 131.0
+job added in job to start list 131.0 at time 1223228.304687
+74.0 1223228.304687 5387.936202409616 1467844.884791
+remaining time 465795.5083546457
+job expansion 74.0 with cores 5.0 at time 1223228.304687
+new completion time 1689023.8130416458
+here 131.0
+completion event created with id & time 131.0 1235983.5833520002 with resource 2.0
+job queued 132.0 3.0 1223494.03619
+job queued 132.0 3.0 1229126.9019
+job queued 133.0 1.0 1229126.9019
+core needed 2
+core existing 0.0
+core current 0.0
+74.0 1231266.81204568 3284.9393080020764 1467844.884791
+job skrinked 74.0 with cores 2.0 at time 1231266.81204568
+new completion time 1714084.2081651872
+127.0 1231266.81204568 694.3277915518858 134688.184048
+remaining time 57101.59218334872
+job expansion 127.0 with cores 2 at time 1231266.81204568
+new completion time 1288368.4042290286
+expansion event created for 127.0 at time 1254107.4489190194
+job queued 132.0 3.0 1231266.81204568
+job queued 133.0 1.0 1231266.81204568
+job queued 132.0 3.0 1231654.0809219999
+job queued 133.0 1.0 1231654.0809219999
+job queued 134.0 1.0 1231654.0809219999
+job queued 132.0 3.0 1233224.1301280002
+job queued 133.0 1.0 1233224.1301280002
+job queued 134.0 1.0 1233224.1301280002
+job queued malleable 135.0 2.0
+job queued 132.0 3.0 1235983.5833520002
+job queued 133.0 1.0 1235983.5833520002
+job queued 134.0 1.0 1235983.5833520002
+job allocation 135.0
+job added in job to start list 135.0 at time 1235983.5833520002
+job added in job to start list 132.0 at time 1235983.950040356
+job added in job to start list 133.0 at time 1235984.8507087734
+job added in job to start list 134.0 at time 1235986.4924701892
+74.0 1235986.4924701892 2249.1831839696306 1467844.884791
+job skrinked 74.0 with cores 4.0 at time 1235986.4924701892
+new completion time 1773251.9158901905
+74.0 1235986.4924701892 3103.814215939292 1467844.884791
+job skrinked 74.0 with cores 11.0 at time 1235986.4924701892
+new completion time 2050578.5933459005
+74.0 1235986.4924701892 3959.9577652851603 1467844.884791
+job skrinked 74.0 with cores 3.0 at time 1235986.4924701892
+new completion time 2184916.158560134
+here 135.0
+completion event created with id & time 135.0 1243246.4557440002 with resource 2.0
+here 132.0
+expansion event created for 132.0 at time 1236068.192836656
+completion event created with id & time 132.0 1236190.743386356 with resource 4.0
+here 133.0
+completion event created with id & time 133.0 1236206.3678147735 with resource 11.0
+here 134.0
+completion event created with id & time 134.0 1236215.1260451893 with resource 3.0
+core needed 2
+core existing 0.0
+core current 0.0
+74.0 1236068.192836656 7949.124010798915 1467844.884791
+job skrinked 74.0 with cores 1.0 at time 1236068.192836656
+new completion time 2239769.403640361
+72.0 1236068.192836656 4656.239660782622 2627183.526319
+job skrinked 72.0 with cores 1.0 at time 1236068.192836656
+new completion time 2099990.5194576094
+132.0 1236068.192836656 2.5621095896694186 206.79334599999999
+remaining time 83.18079159059562
+job expansion 132.0 with cores 2 at time 1236068.192836656
+new completion time 1236151.3736282466
+expansion event created for 132.0 at time 1236101.4651532923
+core needed 2
+core existing 0.0
+core current 0.0
+72.0 1236101.4651532923 3349.561625203223 2627183.526319
+job skrinked 72.0 with cores 2.0 at time 1236101.4651532923
+new completion time 2953835.2356110285
+132.0 1236101.4651532923 1.792889263531897 206.79334599999999
+remaining time 38.473137179156765
+job expansion 132.0 with cores 2 at time 1236101.4651532923
+new completion time 1236139.9382904714
+job allocation 136.0
+job added in job to start list 136.0 at time 1239175.27245
+74.0 1239175.27245 7688.669764105981 1467844.884791
+remaining time 945838.6299228463
+job expansion 74.0 with cores 1.0 at time 1239175.27245
+new completion time 2185013.9023728464
+here 136.0
+completion event created with id & time 136.0 1239225.039113 with resource 24.0
+job allocation 137.0
+job added in job to start list 137.0 at time 1242982.754515
+74.0 1242982.754515 13072.346021672585 1467844.884791
+remaining time 494088.28362644836
+job expansion 74.0 with cores 17.0 at time 1242982.754515
+new completion time 1737071.0381414483
+here 137.0
+completion event created with id & time 137.0 1242988.379118 with resource 7.0
+job allocation 138.0
+job added in job to start list 138.0 at time 1248280.398273
+here 138.0
+completion event created with id & time 138.0 1325357.340515 with resource 9.0
+core needed 2
+core existing 0.0
+core current 0.0
+74.0 1254107.4489190194 3676.385885726013 1467844.884791
+job skrinked 74.0 with cores 2.0 at time 1254107.4489190194
+new completion time 1765884.5752899267
+127.0 1254107.4489190194 319.62658294470657 134688.184048
+remaining time 26773.840032517444
+job expansion 127.0 with cores 2 at time 1254107.4489190194
+new completion time 1280881.2889515369
+expansion event created for 127.0 at time 1264816.9849320264
+job queued malleable 139.0 2.0
+core needed 2
+core existing 0.0
+core current 0.0
+74.0 1264816.9849320264 3454.667028727474 1467844.884791
+job skrinked 74.0 with cores 2.0 at time 1264816.9849320264
+new completion time 1797754.6163043927
+127.0 1264816.9849320264 173.67262034408813 134688.184048
+remaining time 13201.273983045015
+job expansion 127.0 with cores 2 at time 1264816.9849320264
+new completion time 1278018.2589150714
+job queued malleable 139.0 2.0
+job queued malleable 139.0 2.0
+job queued 140.0 1.0 1265451.330593
+job allocation 139.0
+job added in job to start list 139.0 at time 1278018.2589150714
+job queued 140.0 1.0 1278018.2589150714
+job added in job to start list 140.0 at time 1278018.435091941
+74.0 1278018.435091941 1769.5351698099137 1467844.884791
+job skrinked 74.0 with cores 14.0 at time 1278018.435091941
+new completion time 2221664.2896533813
+here 139.0
+completion event created with id & time 139.0 1283108.9862040714 with resource 5.0
+here 140.0
+completion event created with id & time 140.0 2948287.9801759413 with resource 20.0
+job queued 141.0 1.0 1280237.5500049999
+job allocation 141.0
+job added in job to start list 141.0 at time 1283108.9862040714
+74.0 1283108.9862040714 8102.66814449302 1467844.884791
+remaining time 800022.0706341367
+job expansion 74.0 with cores 3.0 at time 1283108.9862040714
+new completion time 2083131.056838208
+here 141.0
+completion event created with id & time 141.0 1284128.5398460715 with resource 2.0
+job queued 142.0 1.0 1285019.264731
+job queued 142.0 1.0 1295726.373617
+job allocation 143.0
+job added in job to start list 143.0 at time 1295726.373617
+job added in job to start list 142.0 at time 1295727.3085087666
+74.0 1295727.3085087666 4451.076323325059 1467844.884791
+job skrinked 74.0 with cores 3.0 at time 1295727.3085087666
+new completion time 2220376.5208739247
+111.0 1295727.3085087666 1012.743706657756 818288.101286
+job skrinked 111.0 with cores 1.0 at time 1295727.3085087666
+new completion time 1527445.238064322
+here 143.0
+expansion event created for 143.0 at time 1295746.2778710322
+completion event created with id & time 143.0 1295773.575246 with resource 2.0
+here 142.0
+completion event created with id & time 142.0 2373247.7425477663 with resource 4.0
+core needed 1
+core existing 0.0
+core current 0.0
+111.0 1295746.2778710322 1708.9899892584583 818288.101286
+job skrinked 111.0 with cores 1.0 at time 1295746.2778710322
+new completion time 1573034.7594032178
+143.0 1295746.2778710322 1.4694760771359017 47.201629
+remaining time 19.09274679538794
+job expansion 143.0 with cores 1 at time 1295746.2778710322
+new completion time 1295765.3706178276
+expansion event created for 143.0 at time 1295754.1058972185
+core needed 1
+core existing 0.0
+core current 0.0
+111.0 1295754.1058972185 1630.3162338469642 818288.101286
+job skrinked 111.0 with cores 1.0 at time 1295754.1058972185
+new completion time 1641439.0818819217
+143.0 1295754.1058972185 1.1863071586793417 47.201629
+remaining time 8.776746992021799
+job expansion 143.0 with cores 1 at time 1295754.1058972185
+new completion time 1295762.8826442105
+expansion event created for 143.0 at time 1295757.6165960152
+core needed 1
+core existing 0.0
+core current 0.0
+111.0 1295757.6165960152 1711.729137130717 818288.101286
+job skrinked 111.0 with cores 1.0 at time 1295757.6165960152
+new completion time 1755336.9694040858
+143.0 1295757.6165960152 1.2247422441179543 47.201629
+remaining time 4.889697779668495
+job expansion 143.0 with cores 1 at time 1295757.6165960152
+new completion time 1295762.5062937948
+expansion event created for 143.0 at time 1295759.6213721049
+core needed 1
+core existing 0.0
+core current 0.0
+111.0 1295759.6213721049 2110.1932797533177 818288.101286
+job skrinked 111.0 with cores 1.0 at time 1295759.6213721049
+new completion time 1982490.013514968
+143.0 1295759.6213721049 1.3305377622221262 47.201629
+remaining time 2.92563039297238
+job expansion 143.0 with cores 1 at time 1295759.6213721049
+new completion time 1295762.5470024978
+job queued 144.0 3.0 1305605.614049
+job queued 144.0 3.0 1307583.728342
+job queued 145.0 3.0 1307583.728342
+job queued 144.0 3.0 1313881.190292
+job queued 145.0 3.0 1313881.190292
+job queued 146.0 1.0 1313881.190292
+job allocation 144.0
+job added in job to start list 144.0 at time 1325357.340515
+job queued 145.0 3.0 1325357.340515
+job queued 146.0 1.0 1325357.340515
+job added in job to start list 146.0 at time 1325357.8607993517
+82.0 1325357.8607993517 5251.330434689442 2946618.954497
+job skrinked 82.0 with cores 5.0 at time 1325357.8607993517
+new completion time 2594362.339313997
+here 144.0
+completion event created with id & time 144.0 1327675.514937 with resource 11.0
+here 146.0
+completion event created with id & time 146.0 1337496.2155063518 with resource 9.0
+job queued 145.0 3.0 1325357.8607993517
+job queued 145.0 3.0 1327675.514937
+job queued 145.0 3.0 1335450.4157
+job allocation 145.0
+job added in job to start list 145.0 at time 1337496.2155063518
+74.0 1337496.2155063518 6434.87905384515 1467844.884791
+remaining time 791231.2672919373
+job expansion 74.0 with cores 2.0 at time 1337496.2155063518
+new completion time 2128727.482798289
+here 145.0
+expansion event created for 145.0 at time 1338564.9582923518
+completion event created with id & time 145.0 1340168.0724713518 with resource 31.0
+core needed 10
+core existing 0.0
+core current 0.0
+74.0 1338564.9582923518 4619.85390882109 1467844.884791
+job skrinked 74.0 with cores 2.0 at time 1338564.9582923518
+new completion time 2220538.589596918
+82.0 1338564.9582923518 6717.5206368794 2946618.954497
+job skrinked 82.0 with cores 8.0 at time 1338564.9582923518
+new completion time 3356353.060242438
+145.0 1338564.9582923518 18.020844098144174 2671.856965
+remaining time 1220.3545523809735
+job expansion 145.0 with cores 10 at time 1338564.9582923518
+new completion time 1339785.3128447328
+expansion event created for 145.0 at time 1339065.303658828
+core needed 10
+core existing 0.0
+job allocation 147.0
+job added in job to start list 147.0 at time 1340003.611469
+74.0 1340003.611469 21845.352256822855 1467844.884791
+remaining time 318702.16713423165
+job expansion 74.0 with cores 33.0 at time 1340003.611469
+new completion time 1658705.7786032318
+here 147.0
+expansion event created for 147.0 at time 1344974.1132438001
+completion event created with id & time 147.0 1352429.8659060001 with resource 8.0
+job queued 148.0 1.0 1342723.332101
+job queued 148.0 1.0 1343692.2380930001
+job queued 149.0 3.0 1343692.2380930001
+core needed 3
+core existing 0.0
+core current 0.0
+74.0 1344974.1132438001 2092.679401271674 1467844.884791
+job skrinked 74.0 with cores 3.0 at time 1344974.1132438001
+new completion time 1678459.759349808
+147.0 1344974.1132438001 79.20142230568402 12426.254437
+remaining time 5459.926542325644
+job expansion 147.0 with cores 3 at time 1344974.1132438001
+new completion time 1350434.0397861258
+expansion event created for 147.0 at time 1347212.6831261537
+job queued 148.0 1.0 1344974.1132438001
+job queued 149.0 3.0 1344974.1132438001
+core needed 3
+core existing 0.0
+core current 0.0
+74.0 1347212.6831261537 2331.3665344313745 1467844.884791
+job skrinked 74.0 with cores 3.0 at time 1347212.6831261537
+new completion time 1700720.5810916813
+147.0 1347212.6831261537 35.85220712314452 12426.254437
+remaining time 2545.4548734657
+job expansion 147.0 with cores 3 at time 1347212.6831261537
+new completion time 1349758.1379996194
+expansion event created for 147.0 at time 1348256.3196242745
+job queued 148.0 1.0 1347212.6831261537
+job queued 149.0 3.0 1347212.6831261537
+core needed 3
+core existing 0.0
+core current 0.0
+74.0 1348256.3196242745 1992.1875304345854 1467844.884791
+job skrinked 74.0 with cores 3.0 at time 1348256.3196242745
+new completion time 1726212.1912361437
+147.0 1348256.3196242745 14.502007133223563 12426.254437
+remaining time 1242.1018253425136
+job expansion 147.0 with cores 3 at time 1348256.3196242745
+new completion time 1349498.421449617
+shrinkage event created for 147.0 at time 1348765.581372665
+job queued 148.0 1.0 1348256.3196242745
+job queued 149.0 3.0 1348256.3196242745
+147.0 1348765.581372665 5.38805352418565 12426.254437
+job skrinked 147.0 with cores 3 at time 1348765.581372665
+new completion time 1349654.588057416
+job queued 148.0 1.0 1348765.581372665
+job queued 149.0 3.0 1348765.581372665
+job queued 148.0 1.0 1349654.588057416
+job allocation 149.0
+job added in job to start list 149.0 at time 1349654.588057416
+job added in job to start list 148.0 at time 1349654.807149995
+74.0 1349654.807149995 1823.8802703906597 1467844.884791
+job skrinked 74.0 with cores 11.0 at time 1349654.807149995
+new completion time 1862705.751200246
+here 149.0
+expansion event created for 149.0 at time 1350484.1954445576
+completion event created with id & time 149.0 1351677.705429416 with resource 5.0
+here 148.0
+completion event created with id & time 148.0 1396193.519025995 with resource 23.0
+core needed 2
+core existing 0.0
+core current 0.0
+74.0 1350484.1954445576 3058.0522281350063 1467844.884791
+job skrinked 74.0 with cores 2.0 at time 1350484.1954445576
+new completion time 1898843.4387505243
+149.0 1350484.1954445576 16.258738498701327 2023.117372
+remaining time 860.5527286010329
+job expansion 149.0 with cores 2 at time 1350484.1954445576
+new completion time 1351344.7481731586
+expansion event created for 149.0 at time 1350828.416535998
+core needed 2
+core existing 0.0
+core current 0.0
+74.0 1350828.416535998 3502.410440869758 1467844.884791
+job skrinked 74.0 with cores 2.0 at time 1350828.416535998
+new completion time 1940441.351300115
+149.0 1350828.416535998 5.977553676644841 2023.117372
+remaining time 404.1687553850934
+job expansion 149.0 with cores 2 at time 1350828.416535998
+new completion time 1351232.585291383
+job allocation 150.0
+job added in job to start list 150.0 at time 1353489.2878780002
+74.0 1353489.2878780002 5060.675504205485 1467844.884791
+remaining time 426332.08923944365
+job expansion 74.0 with cores 10.0 at time 1353489.2878780002
+new completion time 1779821.3771174438
+here 150.0
+expansion event created for 150.0 at time 1353602.5176448002
+completion event created with id & time 150.0 1353772.362295 with resource 19.0
+core needed 5
+core existing 0.0
+core current 0.0
+74.0 1354270.6950322557 3166.2002610382347 1467844.884791
+job skrinked 74.0 with cores 5.0 at time 1354270.6950322557
+new completion time 1847358.2693338508
+81.0 1354270.6950322557 1842.3270322222222 922679.505773
+remaining time 202771.15947338543
+job expansion 81.0 with cores 5 at time 1354270.6950322557
+new completion time 1557041.8545056412
+core needed 6
+core existing 0.0
+core current 0.0
+74.0 1353602.5176448002 3422.750966427508 1467844.884791
+job skrinked 74.0 with cores 6.0 at time 1353602.5176448002
+new completion time 1964023.234346882
+150.0 1353602.5176448002 4.034455768632171 283.074417
+remaining time 131.694900928298
+job expansion 150.0 with cores 6 at time 1353602.5176448002
+new completion time 1353734.2125457285
+expansion event created for 150.0 at time 1353656.5125541808
+core needed 6
+core existing 0.0
+core current 0.0
+74.0 1353656.5125541808 4043.145999115973 1467844.884791
+job skrinked 74.0 with cores 6.0 at time 1353656.5125541808
+new completion time 2153817.2412533388
+150.0 1353656.5125541808 3.84947362327593 283.074417
+remaining time 65.35206191893667
+job expansion 150.0 with cores 6 at time 1353656.5125541808
+new completion time 1353721.8646160997
+shrinkage event created for 150.0 at time 1353682.6533789483
+150.0 1353682.6533789483 3.7652798513864782 283.074417
+job skrinked 150.0 with cores 6 at time 1353682.6533789483
+new completion time 1353734.001120961
+job allocation 151.0
+job added in job to start list 151.0 at time 1365504.390139
+74.0 1365504.390139 8874.016446484884 1467844.884791
+remaining time 446631.105783995
+job expansion 74.0 with cores 15.0 at time 1365504.390139
+new completion time 1812135.495922995
+here 151.0
+expansion event created for 151.0 at time 1582935.2353858
+completion event created with id & time 151.0 1909081.503256 with resource 16.0
+job queued malleable 152.0 2.0
+job queued malleable 152.0 2.0
+job queued 153.0 3.0 1374219.259179
+job queued malleable 152.0 2.0
+job queued 153.0 3.0 1376955.246345
+job queued 154.0 3.0 1376955.246345
+job allocation 152.0
+job added in job to start list 152.0 at time 1387964.8800582793
+job queued 153.0 3.0 1387964.8800582793
+job queued 154.0 3.0 1387964.8800582793
+job added in job to start list 153.0 at time 1387965.5756767206
+74.0 1387965.5756767206 2746.497032703155 1467844.884791
+job skrinked 74.0 with cores 6.0 at time 1387965.5756767206
+new completion time 1901730.299911685
+here 152.0
+completion event created with id & time 152.0 1604480.3238752792 with resource 13.0
+here 153.0
+expansion event created for 153.0 at time 1387975.2215671206
+completion event created with id & time 153.0 1387989.6904027206 with resource 16.0
+job queued 154.0 3.0 1387965.5756767206
+core needed 5
+core existing 0.0
+core current 0.0
+74.0 1387975.2215671206 2185.3062014135376 1467844.884791
+job skrinked 74.0 with cores 5.0 at time 1387975.2215671206
+new completion time 2012365.2722989824
+153.0 1387975.2215671206 2.022611653564816 24.114726
+remaining time 12.005143007729203
+job expansion 153.0 with cores 5 at time 1387975.2215671206
+new completion time 1387987.2267101284
+expansion event created for 153.0 at time 1387980.1436757538
+job queued 154.0 3.0 1387975.2215671206
+core needed 5
+core existing 0.0
+core current 0.0
+74.0 1387980.1436757538 2936.0388096772926 1467844.884791
+job skrinked 74.0 with cores 5.0 at time 1387980.1436757538
+new completion time 2183951.402799082
+153.0 1387980.1436757538 2.7879689168606925 24.114726
+remaining time 7.722388584399596
+job expansion 153.0 with cores 5 at time 1387980.1436757538
+new completion time 1387987.8660643382
+expansion event created for 153.0 at time 1387983.3098550735
+job queued 154.0 3.0 1387980.1436757538
+core needed 5
+core existing 0.0
+core current 0.0
+74.0 1387983.3098550735 3994.3365271496705 1467844.884791
+job skrinked 74.0 with cores 1.0 at time 1387983.3098550735
+new completion time 2230291.2576947887
+82.0 1387983.3098550735 8853.607338312711 2946618.954497
+job skrinked 82.0 with cores 4.0 at time 1387983.3098550735
+new completion time 4221568.081068162
+153.0 1387983.3098550735 2.265715212172107 24.114726
+remaining time 5.211431737523526
+job expansion 153.0 with cores 5 at time 1387983.3098550735
+new completion time 1387988.521286811
+job queued 154.0 3.0 1387983.3098550735
+job allocation 154.0
+job added in job to start list 154.0 at time 1387988.521286811
+74.0 1387988.521286811 6883.510448516883 1467844.884791
+remaining time 625695.7017676651
+job expansion 74.0 with cores 6.0 at time 1387988.521286811
+new completion time 2013684.223054476
+here 154.0
+expansion event created for 154.0 at time 1388019.824030361
+completion event created with id & time 154.0 1388064.869441811 with resource 25.0
+core needed 8
+core existing 0.0
+core current 0.0
+74.0 1388019.824030361 3929.367380191421 1467844.884791
+job skrinked 74.0 with cores 6.0 at time 1388019.824030361
+new completion time 2231245.926882712
+82.0 1388019.824030361 18817.076527005054 2946618.954497
+job skrinked 82.0 with cores 1.0 at time 1388019.824030361
+new completion time 4570764.466827057
+152.0 1388019.824030361 1024.5068348797583 216515.44381700002
+job skrinked 152.0 with cores 1.0 at time 1388019.824030361
+new completion time 1622341.5410844532
+154.0 1388019.824030361 2.700109076076088 76.348155
+remaining time 35.57169261877425
+job expansion 154.0 with cores 8 at time 1388019.824030361
+new completion time 1388055.3957229797
+shrinkage event created for 154.0 at time 1388034.4084243346
+154.0 1388034.4084243346 2.8241747814221627 76.348155
+job skrinked 154.0 with cores 8 at time 1388034.4084243346
+new completion time 1388064.308492053
+job allocation 155.0
+job added in job to start list 155.0 at time 1396316.622383
+74.0 1396316.622383 18168.610982838683 1467844.884791
+remaining time 279216.2845347407
+job expansion 74.0 with cores 37.0 at time 1396316.622383
+new completion time 1675532.9069177408
+here 155.0
+completion event created with id & time 155.0 1403223.436922 with resource 19.0
+job allocation 156.0
+job added in job to start list 156.0 at time 1412127.776883
+here 156.0
+completion event created with id & time 156.0 2473919.471078 with resource 19.0
+job queued 157.0 1.0 1430645.041057
+job queued 157.0 1.0 1430915.8372809999
+job queued malleable 158.0 2.0
+job queued 157.0 1.0 1435892.5968129998
+job queued malleable 158.0 2.0
+job queued 159.0 1.0 1435892.5968129998
+job queued 157.0 1.0 1437300.911382
+job queued malleable 158.0 2.0
+job queued 159.0 1.0 1437300.911382
+job queued 160.0 1.0 1437300.911382
+job queued 157.0 1.0 1441307.707327
+job queued malleable 158.0 2.0
+job queued 159.0 1.0 1441307.707327
+job queued 160.0 1.0 1441307.707327
+job queued 161.0 1.0 1441307.707327
+job queued 157.0 1.0 1442705.991515
+job queued malleable 158.0 2.0
+job queued 159.0 1.0 1442705.991515
+job queued 160.0 1.0 1442705.991515
+job queued 161.0 1.0 1442705.991515
+job queued 162.0 1.0 1442705.991515
+job queued 157.0 1.0 1452390.524744
+job queued malleable 158.0 2.0
+job queued 159.0 1.0 1452390.524744
+job queued 160.0 1.0 1452390.524744
+job queued 161.0 1.0 1452390.524744
+job queued 162.0 1.0 1452390.524744
+job queued 163.0 1.0 1452390.524744
+job queued 157.0 1.0 1456026.935942
+job queued malleable 158.0 2.0
+job queued 159.0 1.0 1456026.935942
+job queued 160.0 1.0 1456026.935942
+job queued 161.0 1.0 1456026.935942
+job queued 162.0 1.0 1456026.935942
+job queued 163.0 1.0 1456026.935942
+job queued 164.0 1.0 1456026.935942
+job queued 157.0 1.0 1459513.645043
+job queued malleable 158.0 2.0
+job queued 159.0 1.0 1459513.645043
+job queued 160.0 1.0 1459513.645043
+job queued 161.0 1.0 1459513.645043
+job queued 162.0 1.0 1459513.645043
+job queued 163.0 1.0 1459513.645043
+job queued 164.0 1.0 1459513.645043
+job queued 165.0 1.0 1459513.645043
+job queued 157.0 1.0 1460510.3249129562
+job allocation 158.0
+job added in job to start list 158.0 at time 1460510.3249129562
+job queued 159.0 1.0 1460510.3249129562
+job allocation 160.0
+job added in job to start list 160.0 at time 1460510.3249129562
+job allocation 161.0
+job added in job to start list 161.0 at time 1460510.3249129562
+job queued 162.0 1.0 1460510.3249129562
+job queued 163.0 1.0 1460510.3249129562
+job queued 164.0 1.0 1460510.3249129562
+job queued 165.0 1.0 1460510.3249129562
+job added in job to start list 157.0 at time 1460510.8946936992
+job added in job to start list 159.0 at time 1460512.1442333343
+job added in job to start list 162.0 at time 1460513.7613283459
+job added in job to start list 163.0 at time 1460515.6738914163
+job added in job to start list 164.0 at time 1460518.4979628038
+job added in job to start list 165.0 at time 1460521.8873978404
+74.0 1460521.8873978404 834.9639582030968 1467844.884791
+job skrinked 74.0 with cores 19.0 at time 1460521.8873978404
+new completion time 1791104.351977271
+74.0 1460521.8873978404 1451.6923071887516 1467844.884791
+job skrinked 74.0 with cores 10.0 at time 1460521.8873978404
+new completion time 1921943.3065651988
+74.0 1460521.8873978404 3402.4782623496317 1467844.884791
+job skrinked 74.0 with cores 4.0 at time 1460521.8873978404
+new completion time 2008413.0678199902
+74.0 1460521.8873978404 3798.0342335797964 1467844.884791
+job skrinked 74.0 with cores 2.0 at time 1460521.8873978404
+new completion time 2065243.485957155
+74.0 1460521.8873978404 4338.756154693936 1467844.884791
+job skrinked 74.0 with cores 2.0 at time 1460521.8873978404
+new completion time 2135305.2796272864
+152.0 1460521.8873978404 1140.9930709547868 216515.44381700002
+job skrinked 152.0 with cores 1.0 at time 1460521.8873978404
+new completion time 1636833.6924901
+152.0 1460521.8873978404 775.5038195109329 216515.44381700002
+job skrinked 152.0 with cores 3.0 at time 1460521.8873978404
+new completion time 1702259.048771579
+156.0 1460521.8873978404 6239.590736605843 1061791.694195
+job skrinked 156.0 with cores 3.0 at time 1460521.8873978404
+new completion time 2661371.7581016636
+here 158.0
+completion event created with id & time 158.0 1461354.3443729563 with resource 5.0
+here 160.0
+completion event created with id & time 160.0 1460531.3337249563 with resource 3.0
+here 161.0
+completion event created with id & time 161.0 2679877.624751956 with resource 4.0
+here 157.0
+completion event created with id & time 157.0 1460828.9220266992 with resource 19.0
+here 159.0
+completion event created with id & time 159.0 1471503.2235083343 with resource 10.0
+here 162.0
+completion event created with id & time 162.0 1509732.6768333458 with resource 4.0
+here 163.0
+completion event created with id & time 163.0 1956118.4882424162 with resource 2.0
+here 164.0
+completion event created with id & time 164.0 1460559.8581328038 with resource 3.0
+here 165.0
+completion event created with id & time 165.0 1519147.4637108403 with resource 6.0
+job allocation 166.0
+job added in job to start list 166.0 at time 1465485.284673
+74.0 1465485.284673 9571.322294188498 1467844.884791
+remaining time 266936.95802297816
+job expansion 74.0 with cores 27.0 at time 1465485.284673
+new completion time 1732422.2426959781
+here 166.0
+expansion event created for 166.0 at time 1465505.3654146001
+completion event created with id & time 166.0 1465535.486527 with resource 3.0
+core needed 1
+core existing 0.0
+core current 0.0
+74.0 1465505.3654146001 2118.8530743267365 1467844.884791
+job skrinked 74.0 with cores 1.0 at time 1465505.3654146001
+new completion time 1738533.1012503675
+166.0 1465505.3654146001 1.4702012940870646 50.201854
+remaining time 23.302621368318796
+job expansion 166.0 with cores 1 at time 1465505.3654146001
+new completion time 1465528.6680359684
+expansion event created for 166.0 at time 1465514.919489361
+core needed 1
+core existing 0.0
+core current 0.0
+74.0 1465514.919489361 2150.500443503646 1467844.884791
+job skrinked 74.0 with cores 1.0 at time 1465514.919489361
+new completion time 1744934.6078474552
+166.0 1465514.919489361 1.3907534734357114 50.201854
+remaining time 11.503243605839089
+job expansion 166.0 with cores 1 at time 1465514.919489361
+new completion time 1465526.422732967
+job queued 167.0 3.0 1501490.905691
+job queued 167.0 3.0 1509732.6768333458
+job queued 167.0 3.0 1510411.344612
+job allocation 168.0
+job added in job to start list 168.0 at time 1510411.344612
+job added in job to start list 167.0 at time 1510411.8832508135
+74.0 1510411.8832508135 931.72568564619 1467844.884791
+job skrinked 74.0 with cores 18.0 at time 1510411.8832508135
+new completion time 1918911.5191685115
+here 168.0
+expansion event created for 168.0 at time 1510445.547456088
+completion event created with id & time 168.0 1510496.043764 with resource 12.0
+here 167.0
+expansion event created for 167.0 at time 1511779.8605300135
+completion event created with id & time 167.0 1513831.8264488135 with resource 25.0
+core needed 4
+core existing 0.0
+core current 0.0
+74.0 1510445.547456088 3013.995243784197 1467844.884791
+job skrinked 74.0 with cores 4.0 at time 1510445.547456088
+new completion time 1999282.4900613192
+168.0 1510445.547456088 2.000727523270445 84.699152
+remaining time 39.2323567729909
+job expansion 168.0 with cores 4 at time 1510445.547456088
+new completion time 1510484.779812861
+expansion event created for 168.0 at time 1510461.632722365
+core needed 4
+core existing 0.0
+core current 0.0
+74.0 1510461.632722365 2143.0656890157816 1467844.884791
+job skrinked 74.0 with cores 3.0 at time 1510461.632722365
+new completion time 2084723.9434950454
+156.0 1510461.632722365 6013.694521278536 1061791.694195
+job skrinked 156.0 with cores 1.0 at time 1510461.632722365
+new completion time 2737272.0616353797
+168.0 1510461.632722365 2.2241210530199416 84.699152
+remaining time 19.77800419763662
+job expansion 168.0 with cores 4 at time 1510461.632722365
+new completion time 1510481.4107265626
+expansion event created for 168.0 at time 1510469.741704086
+core needed 4
+core existing 0.0
+expansion event created for 168.0 at time 1510474.4093130766
+core needed 4
+core existing 0.0
+167.0 1511779.8605300135 20.121808910733836 3419.9431979999995
+remaining time 1564.6048386220355
+job expansion 167.0 with cores 8 at time 1511779.8605300135
+new completion time 1513344.4653686355
+expansion event created for 167.0 at time 1512405.7024654623
+167.0 1512405.7024654623 13.517268862615964 3419.9431979999995
+remaining time 762.4053388158791
+job expansion 167.0 with cores 8 at time 1512405.7024654623
+new completion time 1513168.1078042781
+expansion event created for 167.0 at time 1512710.6646009886
+core needed 8
+core existing 4.0
+expansion event created for 167.0 at time 1512898.2163143372
+core needed 8
+core existing 4.0
+job allocation 169.0
+job added in job to start list 169.0 at time 1518374.2707180001
+74.0 1518374.2707180001 8011.435417867569 1467844.884791
+remaining time 225632.72710031713
+job expansion 74.0 with cores 27.0 at time 1518374.2707180001
+new completion time 1744006.9978183173
+here 169.0
+completion event created with id & time 169.0 1518407.9258750002 with resource 18.0
+job allocation 170.0
+job added in job to start list 170.0 at time 1522953.9223129998
+74.0 1522953.9223129998 2170.687004407431 1467844.884791
+remaining time 177625.88517239224
+job expansion 74.0 with cores 11.0 at time 1522953.9223129998
+new completion time 1700579.807485392
+111.0 1522953.9223129998 12452.928041789126 818288.101286
+remaining time 142732.5133274491
+job expansion 111.0 with cores 5.0 at time 1522953.9223129998
+new completion time 1665686.435640449
+here 170.0
+completion event created with id & time 170.0 1523008.9814769998 with resource 8.0
+job allocation 171.0
+job added in job to start list 171.0 at time 1530426.7607790001
+72.0 1530426.7607790001 26403.742457751443 2627183.526319
+remaining time 591542.7377912139
+job expansion 72.0 with cores 3.0 at time 1530426.7607790001
+new completion time 2121969.498570214
+82.0 1530426.7607790001 22353.74672769278 2946618.954497
+remaining time 2221685.71606174
+job expansion 82.0 with cores 3.0 at time 1530426.7607790001
+new completion time 3752112.4768407405
+here 171.0
+completion event created with id & time 171.0 1536024.563521 with resource 2.0
+job allocation 172.0
+job added in job to start list 172.0 at time 1550931.241911
+here 172.0
+expansion event created for 172.0 at time 1552021.8342768
+completion event created with id & time 172.0 1553591.2232910001 with resource 2.0
+core needed 1
+core existing 0.0
+core current 0.0
+74.0 1552021.8342768 1255.4777472458384 1467844.884791
+job skrinked 74.0 with cores 1.0 at time 1552021.8342768
+new completion time 1703288.4547847172
+172.0 1552021.8342768 20.898657407621837 2659.98138
+remaining time 1057.533127955161
+job expansion 172.0 with cores 1 at time 1552021.8342768
+new completion time 1553079.3674047552
+shrinkage event created for 172.0 at time 1552455.4228592617
+172.0 1552455.4228592617 4.610206241201862 2659.98138
+job skrinked 172.0 with cores 1 at time 1552455.4228592617
+new completion time 1553387.517662107
+expansion event created for 172.0 at time 1552837.5817284284
+172.0 1552837.5817284284 5.518139030239513 2659.98138
+remaining time 369.76001118007116
+job expansion 172.0 with cores 1 at time 1552837.5817284284
+new completion time 1553207.3417396084
+93.0 1571492.48331061 10283.535351003236 1553606.620721
+remaining time 659771.7641472435
+job expansion 93.0 with cores 2 at time 1571492.48331061
+new completion time 2231264.2474578535
+expansion event created for 93.0 at time 1835401.1889695073
+job allocation 173.0
+job added in job to start list 173.0 at time 1576439.822184
+74.0 1576439.822184 896.5087589332662 1467844.884791
+remaining time 124579.18245892297
+job expansion 74.0 with cores 1.0 at time 1576439.822184
+new completion time 1701019.004642923
+82.0 1576439.822184 28313.09789812058 2946618.954497
+remaining time 1347317.6617700935
+job expansion 82.0 with cores 7.0 at time 1576439.822184
+new completion time 2923757.4839540934
+here 173.0
+completion event created with id & time 173.0 1577056.238678 with resource 19.0
+job queued 174.0 1.0 1578126.882553
+job queued 174.0 1.0 1578628.702762
+job allocation 175.0
+job added in job to start list 175.0 at time 1578628.702762
+job added in job to start list 174.0 at time 1578628.9142514428
+74.0 1578628.9142514428 740.4393672599479 1467844.884791
+job skrinked 74.0 with cores 17.0 at time 1578628.9142514428
+new completion time 1754968.8196309754
+here 175.0
+expansion event created for 175.0 at time 2700357.4765876653
+completion event created with id & time 175.0 4382950.320092 with resource 4.0
+here 174.0
+completion event created with id & time 174.0 1579393.2681624428 with resource 32.0
+job allocation 176.0
+job added in job to start list 176.0 at time 1581266.6308600002
+74.0 1581266.6308600002 1576.9743271939133 1467844.884791
+remaining time 120837.8789629403
+job expansion 74.0 with cores 17.0 at time 1581266.6308600002
+new completion time 1702104.5098229405
+82.0 1581266.6308600002 11299.860170026619 2946618.954497
+remaining time 1210390.3649366407
+job expansion 82.0 with cores 2.0 at time 1581266.6308600002
+new completion time 2791656.995796641
+here 176.0
+completion event created with id & time 176.0 1581989.067952 with resource 13.0
+core needed 5
+core existing 0.0
+core current 0.0
+74.0 1582935.2353858 977.3666271221659 1467844.884791
+job skrinked 74.0 with cores 5.0 at time 1582935.2353858
+new completion time 1713822.5419870017
+151.0 1582935.2353858 3347.6380724978058 543577.113117
+remaining time 249897.63288384397
+job expansion 151.0 with cores 5 at time 1582935.2353858
+new completion time 1832832.868269644
+expansion event created for 151.0 at time 1682894.2885393377
+job queued 177.0 1.0 1613872.891776
+job queued 177.0 1.0 1618007.9551
+job allocation 178.0
+job added in job to start list 178.0 at time 1618007.9551
+job added in job to start list 177.0 at time 1618008.6760430136
+74.0 1618008.6760430136 443.8180818651654 1467844.884791
+job skrinked 74.0 with cores 5.0 at time 1618008.6760430136
+new completion time 1724370.073064039
+here 178.0
+completion event created with id & time 178.0 1618049.0511599998 with resource 3.0
+here 177.0
+completion event created with id & time 177.0 1847720.2212390136 with resource 15.0
+job queued 179.0 1.0 1623481.41478
+job queued 179.0 1.0 1627183.642744
+job allocation 180.0
+job added in job to start list 180.0 at time 1627183.642744
+job added in job to start list 179.0 at time 1627183.9659528397
+74.0 1627183.9659528397 233.13377263490915 1467844.884791
+job skrinked 74.0 with cores 26.0 at time 1627183.9659528397
+new completion time 1856297.7154834121
+here 180.0
+expansion event created for 180.0 at time 1627223.7840688655
+completion event created with id & time 180.0 1627281.0833090001 with resource 3.0
+here 179.0
+completion event created with id & time 179.0 1862474.6551258396 with resource 26.0
+core needed 1
+core existing 0.0
+core current 0.0
+74.0 1627223.7840688655 1787.5877335385544 1467844.884791
+job skrinked 74.0 with cores 1.0 at time 1627223.7840688655
+new completion time 1868821.2841574943
+180.0 1627223.7840688655 1.9364113326775967 97.440565
+remaining time 43.69160279026255
+job expansion 180.0 with cores 1 at time 1627223.7840688655
+new completion time 1627267.4756716557
+expansion event created for 180.0 at time 1627241.2607099817
+core needed 1
+core existing 0.0
+core current 0.0
+74.0 1627241.2607099817 2001.528189762134 1467844.884791
+job skrinked 74.0 with cores 1.0 at time 1627241.2607099817
+new completion time 1882790.9349377123
+180.0 1627241.2607099817 1.6875736241309602 97.440565
+remaining time 21.832257424481213
+job expansion 180.0 with cores 1 at time 1627241.2607099817
+new completion time 1627263.0929674061
+expansion event created for 180.0 at time 1627250.2119355258
+core needed 1
+core existing 0.0
+core current 0.0
+72.0 1627250.2119355258 3524.4573689338827 2627183.526319
+job skrinked 72.0 with cores 1.0 at time 1627250.2119355258
+new completion time 2243668.4934165906
+180.0 1627250.2119355258 1.423146588808993 97.440565
+remaining time 11.451462337514386
+job expansion 180.0 with cores 1 at time 1627250.2119355258
+new completion time 1627261.6633978633
+job allocation with min resource 181.0
+job added in job to start list 181.0 at time 1636024.724312
+181.0 1636024.724312 82.13060464956966 19629.01954
+74.0 1636024.724312 2091.885202767063 1467844.884791
+remaining time 200485.3121644184
+job expansion 74.0 with cores 4.0 at time 1636024.724312
+new completion time 1836510.0364764184
+here 181.0
+completion event created with id & time 181.0 1667303.0318327467 with resource 10.0
+job queued 182.0 3.0 1648055.545053
+job queued 182.0 3.0 1665686.435640449
+job allocation 182.0
+job added in job to start list 182.0 at time 1667303.0318327467
+74.0 1667303.0318327467 1243.7179309637575 1467844.884791
+remaining time 161628.5862495061
+job expansion 74.0 with cores 1.0 at time 1667303.0318327467
+new completion time 1828931.6180822528
+here 182.0
+expansion event created for 182.0 at time 1669604.2623239467
+completion event created with id & time 182.0 1673056.1080607467 with resource 16.0
+core needed 5
+core existing 0.0
+core current 0.0
+74.0 1669604.2623239467 971.1169109558203 1467844.884791
+job skrinked 74.0 with cores 5.0 at time 1669604.2623239467
+new completion time 1875139.8225870933
+182.0 1669604.2623239467 32.07463223050798 5753.076228
+remaining time 2643.689219275024
+job expansion 182.0 with cores 5 at time 1669604.2623239467
+new completion time 1672247.9515432217
+expansion event created for 182.0 at time 1670688.1749038494
+core needed 5
+core existing 0.0
+core current 0.0
+72.0 1670688.1749038494 1475.4789640077204 2627183.526319
+job skrinked 72.0 with cores 2.0 at time 1670688.1749038494
+new completion time 2812224.7465311443
+82.0 1670688.1749038494 5447.935555305433 2946618.954497
+job skrinked 82.0 with cores 3.0 at time 1670688.1749038494
+new completion time 2987384.2969668433
+182.0 1670688.1749038494 15.9894498015764 5753.076228
+remaining time 1265.7812494358514
+job expansion 182.0 with cores 5 at time 1670688.1749038494
+new completion time 1671953.9561532852
+job allocation 183.0
+job added in job to start list 183.0 at time 1682414.203909
+74.0 1682414.203909 3587.4491748335204 1467844.884791
+remaining time 71394.74258451164
+job expansion 74.0 with cores 31.0 at time 1682414.203909
+new completion time 1753808.9464935116
+here 183.0
+completion event created with id & time 183.0 1682419.924444 with resource 12.0
+core needed 5
+core existing 0.0
+core current 0.0
+74.0 1682894.2885393377 370.83113599274424 1467844.884791
+job skrinked 74.0 with cores 5.0 at time 1682894.2885393377
+new completion time 1761968.1253273762
+151.0 1682894.2885393377 1367.3071136376152 543577.113117
+remaining time 121580.44062605617
+job expansion 151.0 with cores 5 at time 1682894.2885393377
+new completion time 1804474.7291653939
+expansion event created for 151.0 at time 1732742.2691960207
+job allocation 184.0
+job added in job to start list 184.0 at time 1690263.9186860002
+74.0 1690263.9186860002 747.998271311116 1467844.884791
+remaining time 59532.657447869424
+job expansion 74.0 with cores 9.0 at time 1690263.9186860002
+new completion time 1749796.5761338696
+here 184.0
+completion event created with id & time 184.0 1692140.835876 with resource 3.0
+job queued 185.0 3.0 1691908.355652
+job allocation 185.0
+job added in job to start list 185.0 at time 1692140.835876
+74.0 1692140.835876 530.7973399620397 1467844.884791
+remaining time 56592.80047867214
+job expansion 74.0 with cores 1.0 at time 1692140.835876
+new completion time 1748733.6363546723
+here 185.0
+expansion event created for 185.0 at time 1692188.22846972
+completion event created with id & time 185.0 1692256.427568 with resource 2.0
+core needed 1
+core existing 0.0
+core current 0.0
+74.0 1692188.22846972 293.52494109364653 1467844.884791
+job skrinked 74.0 with cores 1.0 at time 1692188.22846972
+new completion time 1749815.1485798499
+185.0 1692188.22846972 1.587964994387326 115.591692
+remaining time 46.046548146987334
+job expansion 185.0 with cores 1 at time 1692188.22846972
+new completion time 1692234.275017867
+expansion event created for 185.0 at time 1692206.647088979
+core needed 1
+core existing 0.0
+core current 0.0
+74.0 1692206.647088979 502.32235593734134 1467844.884791
+job skrinked 74.0 with cores 1.0 at time 1692206.647088979
+new completion time 1750929.9823736518
+185.0 1692206.647088979 1.8506461125580795 115.591692
+remaining time 21.619891634676605
+job expansion 185.0 with cores 1 at time 1692206.647088979
+new completion time 1692228.2669806136
+job queued malleable 186.0 2.0
+job queued malleable 186.0 2.0
+job queued malleable 187.0 2.0
+job queued malleable 186.0 2.0
+job allocation with min resource 187.0
+job added in job to start list 187.0 at time 1702259.048771579
+187.0 1702259.048771579 4.412608500872177 1158.514442
+job added in job to start list 186.0 at time 1702259.540638797
+74.0 1702259.540638797 222.5182015209711 1467844.884791
+job skrinked 74.0 with cores 22.0 at time 1702259.540638797
+new completion time 1787394.735083444
+here 187.0
+completion event created with id & time 187.0 1704182.0615375775 with resource 9.0
+here 186.0
+completion event created with id & time 186.0 1704052.283005797 with resource 25.0
+job allocation 188.0
+job added in job to start list 188.0 at time 1714293.012362
+74.0 1714293.012362 620.7392100559396 1467844.884791
+remaining time 43668.30764300609
+job expansion 74.0 with cores 20.0 at time 1714293.012362
+new completion time 1757961.3200050062
+here 188.0
+completion event created with id & time 188.0 1902778.344767 with resource 14.0
+job queued 189.0 1.0 1718693.041218
+job queued 189.0 1.0 1719062.7480150003
+job queued 190.0 3.0 1719062.7480150003
+job queued 189.0 1.0 1726493.002886
+job queued 190.0 3.0 1726493.002886
+job queued 191.0 1.0 1726493.002886
+core needed 5
+core existing 0.0
+core current 0.0
+74.0 1732742.2691960207 143.21487308495463 1467844.884791
+job skrinked 74.0 with cores 5.0 at time 1732742.2691960207
+new completion time 1760799.2698030875
+151.0 1732742.2691960207 758.1576621921171 543577.113117
+remaining time 60389.68506309623
+job expansion 151.0 with cores 5 at time 1732742.2691960207
+new completion time 1793131.954259117
+job queued 189.0 1.0 1732742.2691960207
+job queued 190.0 3.0 1732742.2691960207
+job queued 191.0 1.0 1732742.2691960207
+job queued 189.0 1.0 1735306.443931
+job queued 190.0 3.0 1735306.443931
+job queued 191.0 1.0 1735306.443931
+job queued malleable 192.0 2.0
+job queued 189.0 1.0 1742412.8039060002
+job queued 190.0 3.0 1742412.8039060002
+job queued 191.0 1.0 1742412.8039060002
+job queued malleable 192.0 2.0
+job queued 193.0 1.0 1742412.8039060002
+job queued 189.0 1.0 1742854.9800689998
+job queued 190.0 3.0 1742854.9800689998
+job queued 191.0 1.0 1742854.9800689998
+job queued malleable 192.0 2.0
+job queued 193.0 1.0 1742854.9800689998
+job queued 194.0 1.0 1742854.9800689998
+job allocation 189.0
+job added in job to start list 189.0 at time 1760799.2698030875
+job allocation 190.0
+job added in job to start list 190.0 at time 1760799.2698030875
+job allocation 191.0
+job added in job to start list 191.0 at time 1760799.2698030875
+job allocation 192.0
+job added in job to start list 192.0 at time 1760799.2698030875
+job queued 193.0 1.0 1760799.2698030875
+job allocation 194.0
+job added in job to start list 194.0 at time 1760799.2698030875
+job added in job to start list 193.0 at time 1760800.362580936
+82.0 1760800.362580936 4584.264649886703 2946618.954497
+job skrinked 82.0 with cores 9.0 at time 1760800.362580936
+new completion time 4351179.852978435
+156.0 1760800.362580936 5288.345347997864 1061791.694195
+job skrinked 156.0 with cores 3.0 at time 1760800.362580936
+new completion time 2978417.509545824
+188.0 1760800.362580936 622.2894073269482 188485.332405
+job skrinked 188.0 with cores 2.0 at time 1760800.362580936
+new completion time 1926218.1946140784
+here 189.0
+completion event created with id & time 189.0 4941622.932175088 with resource 20.0
+here 190.0
+expansion event created for 190.0 at time 1824236.1596901966
+completion event created with id & time 190.0 1919389.8553540874 with resource 3.0
+here 191.0
+completion event created with id & time 191.0 1760812.7414960875 with resource 13.0
+here 192.0
+completion event created with id & time 192.0 1760984.0760540874 with resource 4.0
+here 194.0
+completion event created with id & time 194.0 1762011.7839580874 with resource 4.0
+here 193.0
+completion event created with id & time 193.0 1760806.012537936 with resource 14.0
+job allocation 195.0
+job added in job to start list 195.0 at time 1761618.5935
+72.0 1761618.5935 17149.047189793662 2627183.526319
+remaining time 434647.8615353056
+job expansion 72.0 with cores 3.0 at time 1761618.5935
+new completion time 2196266.4550353056
+82.0 1761618.5935 74685.63395839068 2946618.954497
+remaining time 864403.076235848
+job expansion 82.0 with cores 18.0 at time 1761618.5935
+new completion time 2626021.669735848
+156.0 1761618.5935 13829.818252018016 1061791.694195
+remaining time 818883.2576509519
+job expansion 156.0 with cores 6.0 at time 1761618.5935
+new completion time 2580501.851150952
+here 195.0
+completion event created with id & time 195.0 1761987.132036 with resource 4.0
+job allocation 196.0
+job added in job to start list 196.0 at time 1777230.384478
+156.0 1777230.384478 6193.667752460295 1061791.694195
+remaining time 690163.3804688049
+job expansion 156.0 with cores 3.0 at time 1777230.384478
+new completion time 2467393.764946805
+here 196.0
+completion event created with id & time 196.0 3704786.603646 with resource 5.0
+job queued 197.0 3.0 1777890.615282
+job allocation 197.0
+job added in job to start list 197.0 at time 1782306.17197
+156.0 1782306.17197 4216.344691868806 1061791.694195
+remaining time 600441.6962552425
+job expansion 156.0 with cores 3.0 at time 1782306.17197
+new completion time 2382747.8682252425
+here 197.0
+expansion event created for 197.0 at time 2352878.8014108
+completion event created with id & time 197.0 3208737.745572 with resource 4.0
+job queued 198.0 1.0 1792948.59052
+job allocation 198.0
+job added in job to start list 198.0 at time 1793131.954259117
+156.0 1793131.954259117 6490.69936146692 1061791.694195
+remaining time 376291.3168782864
+job expansion 156.0 with cores 14.0 at time 1793131.954259117
+new completion time 2169423.2711374033
+188.0 1793131.954259117 1342.2867240623248 188485.332405
+remaining time 94617.57412330131
+job expansion 188.0 with cores 5.0 at time 1793131.954259117
+new completion time 1887749.5283824182
+here 198.0
+completion event created with id & time 198.0 1793140.735792117 with resource 12.0
+core needed 1
+core existing 0.0
+core current 0.0
+72.0 1824236.1596901966 2093.151260844176 2627183.526319
+job skrinked 72.0 with cores 1.0 at time 1824236.1596901966
+new completion time 2288097.8593318886
+190.0 1824236.1596901966 962.6879960311253 158590.585551
+remaining time 71786.44285239116
+job expansion 190.0 with cores 1 at time 1824236.1596901966
+new completion time 1896022.6025425878
+expansion event created for 190.0 at time 1852950.736831153
+job allocation 199.0
+job added in job to start list 199.0 at time 1825809.291082
+72.0 1825809.291082 3712.2153886265182 2627183.526319
+remaining time 371168.199813148
+job expansion 72.0 with cores 1.0 at time 1825809.291082
+new completion time 2196977.490895148
+188.0 1825809.291082 658.960887127372 188485.332405
+remaining time 46082.18334571365
+job expansion 188.0 with cores 6.0 at time 1825809.291082
+new completion time 1871891.4744277135
+here 199.0
+completion event created with id & time 199.0 1825814.6476919998 with resource 5.0
+job queued malleable 200.0 2.0
+93.0 1835401.1889695073 4220.805382150398 1553606.620721
+remaining time 309561.7536421409
+job expansion 93.0 with cores 2 at time 1835401.1889695073
+new completion time 2144962.9426116482
+expansion event created for 93.0 at time 1959225.8904263638
+job queued malleable 200.0 2.0
+job allocation 200.0
+job added in job to start list 200.0 at time 1847720.2212390136
+188.0 1847720.2212390136 224.2654764181121 188485.332405
+remaining time 19929.21870891936
+job expansion 188.0 with cores 5.0 at time 1847720.2212390136
+new completion time 1867649.439947933
+here 200.0
+completion event created with id & time 200.0 1933957.8368930137 with resource 13.0
+core needed 1
+core existing 0.0
+core current 0.0
+72.0 1852950.736831153 1744.9179908755725 2627183.526319
+job skrinked 72.0 with cores 1.0 at time 1852950.736831153
+new completion time 2282003.140103239
+190.0 1852950.736831153 448.25541776388314 158590.585551
+remaining time 34618.714254474966
+job expansion 190.0 with cores 1 at time 1852950.736831153
+new completion time 1887569.451085628
+93.0 1959225.8904263638 1881.5652844435806 1553606.620721
+remaining time 152589.3326134598
+job expansion 93.0 with cores 2 at time 1959225.8904263638
+new completion time 2111815.2230398236
+expansion event created for 93.0 at time 2020261.6234717476
+93.0 2020261.6234717476 638.5153951628145 1553606.620721
+remaining time 77650.27920805756
+job expansion 93.0 with cores 2 at time 2020261.6234717476
+new completion time 2097911.902679805
+197.0 2352878.8014108 9100.177278982283 1426431.573602
+remaining time 575628.5191963268
+job expansion 197.0 with cores 2 at time 2352878.8014108
+new completion time 2928507.3206071267
+expansion event created for 197.0 at time 2588886.494281294
+197.0 2588886.494281294 3648.009072258774 1426431.573602
+remaining time 256312.15956015885
+job expansion 197.0 with cores 2 at time 2588886.494281294
+new completion time 2845198.6538414527
+shrinkage event created for 197.0 at time 2691411.3581053573
+197.0 2691411.3581053573 746.9917058717026 1426431.573602
+job skrinked 197.0 with cores 2 at time 2691411.3581053573
+new completion time 2895882.6756547885
+175.0 2700357.4765876653 21158.235685397984 2804321.61733
+remaining time 1133483.598112462
+job expansion 175.0 with cores 2 at time 2700357.4765876653
+new completion time 3833841.0747001274
+shrinkage event created for 175.0 at time 3153750.91583265
+175.0 3153750.91583265 3983.7562050487722 2804321.61733
+job skrinked 175.0 with cores 2 at time 3153750.91583265
+new completion time 4168909.849157102
+expansion event created for 175.0 at time 3559814.4891624306
+175.0 3559814.4891624306 5152.248387921455 2804321.61733
+remaining time 408926.2006673729
+job expansion 175.0 with cores 2 at time 3559814.4891624306
+new completion time 3968740.6898298035
+shrinkage event created for 175.0 at time 3723384.96942938
+175.0 3723384.96942938 1279.8646383693763 2804321.61733
+job skrinked 175.0 with cores 2 at time 3723384.96942938
+new completion time 4089821.694019239

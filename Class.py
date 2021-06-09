@@ -2,12 +2,12 @@ import random
 
 max_adaptation_cost = 0.005
 min_adaptation_cost = 0.009
-max_synchronization_cost = 0.9
-min_synchronization_cost = 1.5
+max_synchronization_cost = 0.2
+min_synchronization_cost = 0.15
 max_alpha = 0.1
 min_alpha = 0.05
-max_beta = 10.0
-min_beta = 8.0
+max_beta = 0.1
+min_beta = 0.05
 submission_event = 0
 expansion_event = 1
 shrinkage_event = 2
@@ -125,7 +125,7 @@ class Job:
         synchronization_cost = random.uniform(min_synchronization_cost, max_synchronization_cost)
         self.c_time = sim_clock + time_required + datadistribution_cost + synchronization_cost
         self.current_resources = self.current_resources + cores
-        print(self.id, sim_clock, overhead + datadistribution_cost + synchronization_cost)
+        #print(self.id, sim_clock, overhead + datadistribution_cost + synchronization_cost)
         return self.c_time
 
 

@@ -422,6 +422,14 @@ def calculate_utilization(complete_job_list, span, total_processor):
     return total_cost/total_clk_cycle
 
 
+def calculate_util2(processor_df, span, total_processors):
+    cores = processor_df['cores'].values.tolist()
+    time = processor_df['time'].values.tolist()
+    cost = 0
+    for i in range(len(time) - 1):
+        cost += cores[i] * (time[i+1] - time[i])
+    total = span * total_processors
+    return cost/total
 
 
 def main():
@@ -431,10 +439,10 @@ def main():
     complete_job_list: Dict[int, Job] = {}
     queued_job_list: Dict[int, Job] = {}
     job_to_start_list: Dict[int, Job] = {}
-    pending_job_list, event_list = initialize_event("synthetic/workload8/mal/workload_synthetic_mal100.csv", pending_job_list, event_list)
+    pending_job_list, event_list = initialize_event("synthetic/workload12/rigid/workload_synthetic_rigid.csv", pending_job_list, event_list)
     #pending_job_list, event_list = initialize_event("shrinked/workload/mal/mal20_2016_15k_40k.csv", pending_job_list, event_list)
 
-    total_processor = 90
+    total_processor = 85
     state = initialize_system(total_processor)
 
     sim_clock = 0
@@ -543,15 +551,15 @@ def main():
     #processor_df.to_csv('shrinked/result/mal/processor_mal20_2016_15k_40k.csv', index=False)
     #res_avg = open(r"shrinked/result/mal/average_mal20_2016_15k_40k.txt", "w")
     avg_wait_time, avg_turn_time, span, avg_run_time = get_average_result(result_df)
-    utilization = calculate_utilization(complete_job_list, span, total_processor)
+    utilization = calculate_util2(processor_df, span, total_processor)
     #res_avg.write(str(avg_wait_time)+'\n')
     #res_avg.write(str(avg_turn_time)+'\n')
     #res_avg.write(str(span)+'\n')
     #res_avg.write(str(utilization)+'\n')
     #res_avg.write(str(avg_run_time) + '\n')
-    print(avg_wait_time, avg_turn_time, span, utilization)
+    print(avg_wait_time, avg_turn_time, span, utilization, avg_run_time)
     #res_avg.close()
-    #res_proc.close()
+    #res_proc.close() hi I am Jento
 
 
 if __name__ == '__main__':
