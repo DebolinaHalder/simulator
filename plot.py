@@ -25,7 +25,7 @@ def draw_plot(malleable1, malleable2, malleable3, rigid, label, name):
     top_side = ax.spines["top"]
     top_side.set_visible(False)
     #plt.show()
-    name = "unshrinked/plots1/" + name + ".png"
+    name = "unit_test/result_application/plots/" + name + ".png"
     plt.savefig(name)
     return
 
@@ -54,7 +54,7 @@ def main():
     span4 = []
     utilization4 = []
     exe4 = []
-    rigid = open(r"unshrinked/result4/resource/rigid/average_rigid_2016_1k.txt", "r")
+    rigid = open(r"unit_test/result_application/expansion/rigid/average_rigid.txt", "r")
     lines = rigid.readlines()
     wait_time_rigid = float(lines[0])
     turn_around_time_rigid = float(lines[1])
@@ -62,7 +62,7 @@ def main():
     utilization_rigid = float(lines[3])
     exe_rigid = float(lines[4])
     for i in range(10, 110, 10):
-        location = "unshrinked/result4/resource/mal/" + "average_mal" + str(i) +"_2016_1k.txt"
+        location = "unit_test/result_application/resource/mal/" + "average_mal" + str(i) +".txt"
         malleable = open(location, "r")
         lines = malleable.readlines()
         wait_time.append(float(lines[0]))
@@ -71,7 +71,7 @@ def main():
         utilization.append(float(lines[3]))
         exe.append(float(lines[4]))
     for i in range(10, 110, 10):
-        location = "unshrinked/result4/expansion/mal/" + "average_mal" + str(i) +"_2016_1k.txt"
+        location = "unit_test/result_application/expansion/mal/" + "average_mal" + str(i) +".txt"
         evol = open(location, "r")
         lines = evol.readlines()
         wait_time2.append(float(lines[0]))
@@ -80,7 +80,7 @@ def main():
         utilization2.append(float(lines[3]))
         exe2.append(float(lines[4]))
     for i in range(10, 110, 10):
-        location = "unshrinked/result4/time/mal/" + "average_mal" + str(i) +"_2016_1k.txt"
+        location = "unit_test/result_application/time/mal/" + "average_mal" + str(i) +".txt"
         evol = open(location, "r")
         lines = evol.readlines()
         wait_time3.append(float(lines[0]))
@@ -88,6 +88,8 @@ def main():
         span3.append(float(lines[2]))
         utilization3.append(float(lines[3]))
         exe3.append(float(lines[4]))
+
+
 
     draw_plot(turn_around_time, turn_around_time2, turn_around_time3, turn_around_time_rigid, "Average Turnaround Time","Turnaround time")
     draw_plot(wait_time, wait_time2, wait_time3, wait_time_rigid, "Average wait Time",

@@ -51,19 +51,19 @@ def gen_malleable(m, e, k, df, exp_m, shrk_m, exp_e, shrk_e):
 
 
 def main():
-    dataframe = pd.read_csv("synthetic/synthetic1.csv")
+    dataframe = pd.read_csv("synthetic/synthetic2.csv")
     dataframe.to_csv('synthetic/workload12/rigid/workload_synthetic_rigid.csv', index=False)
     #print(len(dataframe))
     #dataframe = dataframe.iloc[15000:40000:]
     #dataframe = dataframe.iloc[15000:40000:]
     for i in range(10, 110, 10):
         #dataframe = gen_malleable(i, 0, i, dataframe, 35, 40, 60, 20)
-        df = gen_malleable(i, 0, i, dataframe, 50, 20, 60, 20)
+        df = gen_malleable(i, 0, i, dataframe, 200, 30, 60, 20)
         name = 'synthetic/workload12/mal/workload_synthetic_mal'+str(i)+'.csv'
         df.to_csv(name, index=False)
     for i in range(10, 110, 10):
         #df = gen_malleable(i/2, i/2, i, dataframe, 35, 40, 60, 20)
-        df = gen_malleable(i/2, i/2, i, dataframe, 50, 20, 60, 20)
+        df = gen_malleable(i/2, i/2, i, dataframe, 200, 30, 60, 20)
         name = 'synthetic/workload12/mal_evol/workload_synthetic_mal_evol'+str(i)+'.csv'
         df.to_csv(name, index=False)
     #dataframe = gen_malleable(20, 0, 20, dataframe, 35, 40, 60, 20)

@@ -1,7 +1,7 @@
 import random
 
-max_adaptation_cost = 0.005
-min_adaptation_cost = 0.009
+max_adaptation_cost = 0.05
+min_adaptation_cost = 0.005
 max_synchronization_cost = 0.2
 min_synchronization_cost = 0.15
 max_alpha = 0.1
@@ -38,6 +38,11 @@ class Job:
         self.requested_expansion = 0
         self.requested_shrinkage = 0
         self.priority = 0
+        self.gain = 0
+        self.adaptation = random.uniform(min_adaptation_cost, max_adaptation_cost)
+        self.alpha = random.uniform(max_alpha, min_alpha)
+        self.beta = random.uniform(max_beta, min_beta)
+        self.synchronization = random.uniform(max_synchronization_cost, min_synchronization_cost)
 
 
     def updateStatus(self, status):
@@ -50,7 +55,7 @@ class Job:
         elif self.current_resources < self.cores:
             if(self.current_resources == 0):
                 print("divide by zero here", self.id)
-            perc = random.uniform(min_adaptation_cost, max_adaptation_cost)
+            perc = self.adaptation
             overhead = self.exe_time * perc
             cost = self.exe_time - overhead
             overhead = overhead * self.current_resources / self.cores
@@ -58,6 +63,7 @@ class Job:
             remaining_cost = work_remaining/self.current_resources + overhead
 
             self.c_time = sim_clk + remaining_cost
+            self.gain = self.current_resources - self.cores
             print(self.id, sim_clk, overhead)
         else:
             perc = random.uniform(min_adaptation_cost, max_adaptation_cost)
@@ -67,6 +73,7 @@ class Job:
             work_remaining = cost * self.cores
             remaining_cost = work_remaining / self.current_resources + overhead
             self.c_time = sim_clk + remaining_cost
+            self.gain = self.cores - self.current_resources
             print(self.id, sim_clk, overhead)
 
     def updateStart(self, sim_clk):
@@ -77,9 +84,10 @@ class Job:
         self.extra_resources = self.max_resource - self.remaining_resources
 
     def get_adaptationCost(self, typ, cost, cores):
-        perc = random.uniform(min_adaptation_cost, max_adaptation_cost)
+        perc = self.adaptation
         overhead = cost * perc
         comp = cost - overhead
+        print("computation", comp)
         work_remaining = comp * self.current_resources
         print(self.current_resources)
         if typ == 'e':
@@ -92,8 +100,8 @@ class Job:
 
 
     def get_dataRedistributionCost(self, cores) -> float:
-        alpha = random.uniform(min_alpha, max_alpha)
-        beta = random.uniform(min_beta, max_beta)
+        alpha = self.alpha
+        beta = self.beta
         difference = abs(self.current_resources - cores)
         total = self.current_resources + cores
         x = alpha*difference + beta/total
@@ -104,14 +112,16 @@ class Job:
 
     def updateSkrinkage(self, cores, sim_clock, negotiation_overhead):
         time_rem = self.c_time - sim_clock - negotiation_overhead
+        print("rem_time", time_rem)
         time, overhead = self.get_adaptationCost('s', time_rem, cores)
         time_required = time + overhead
         datadistribution_cost = self.get_dataRedistributionCost(cores)
         synchronization_cost = random.uniform(min_synchronization_cost, max_synchronization_cost)
         self.c_time = sim_clock + time_required + datadistribution_cost + synchronization_cost
         self.current_resources = self.current_resources - cores
-        #print("completion time", self.c_time)
+        print("completion time", self.c_time)
         print(self.id, sim_clock, overhead+datadistribution_cost+synchronization_cost)
+        self.gain = self.gain - cores
         return self.c_time
 
 
@@ -126,6 +136,7 @@ class Job:
         self.c_time = sim_clock + time_required + datadistribution_cost + synchronization_cost
         self.current_resources = self.current_resources + cores
         #print(self.id, sim_clock, overhead + datadistribution_cost + synchronization_cost)
+        self.gain = self.gain + cores
         return self.c_time
 
 

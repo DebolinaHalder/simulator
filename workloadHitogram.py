@@ -13,8 +13,8 @@ def plot(name,dest):
     plt.savefig(dest)
 
 def main():
-    name = "shrinked/workload5/rigid/workload_rigid_2016_1k.csv"
-    dest = "unshrinked/plots1/workload.png"
+    name = "synthetic/workload13/rigid/workload_synthetic_rigid.csv"
+    dest = "synthetic/result13/plots/workload.png"
     plot(name,dest)
 
 

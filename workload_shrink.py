@@ -43,16 +43,16 @@ def main():
     for i in range(10, 110, 10):
         name = 'synthetic/workload12/mal_evol/workload_synthetic_mal_evol' + str(i) + '.csv'
         dataframe = pd.read_csv(name)
-        dataframe = shrinkinterval(dataframe, 0.5)
+        dataframe = shrinkinterval(dataframe, 1)
         #dest = 'shrinked/workload5/mal_evol/workload_mal_evol' + str(i) + '_2016_1k.csv'
         dataframe.to_csv(name, index=False)
         name = 'synthetic/workload12/mal/workload_synthetic_mal' + str(i) + '.csv'
         dataframe = pd.read_csv(name)
-        dataframe = shrinkinterval(dataframe, 0.5)
+        dataframe = shrinkinterval(dataframe, 1)
         #dest = 'shrinked/workload5/mal/workload_mal' + str(i) + '_2016_1k.csv'
         dataframe.to_csv(name, index=False)
     dataframe = pd.read_csv('synthetic/workload12/rigid/workload_synthetic_rigid.csv')
-    dataframe = shrinkinterval(dataframe, 0.5)
+    dataframe = shrinkinterval(dataframe, 1)
     dataframe.to_csv('synthetic/workload12/rigid/workload_synthetic_rigid.csv', index=False)
     #print(len(dataframe))
     #dataframe = dataframe.iloc[15000:16000:]
