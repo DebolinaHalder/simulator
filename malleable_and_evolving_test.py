@@ -5,6 +5,8 @@
 import pandas as pd
 from Class import Job, Event, System, Agreement, Phase
 from typing import Dict
+from gen_workload import gen_malleable_random
+from workload_shrink import shrinkinterval
 import operator
 import random
 import numpy as np
@@ -13,10 +15,10 @@ import math
 
 
 
-max_no_of_phase = 4
-min_no_of_phase = 2
-max_time = 41
-min_time = 40
+max_no_of_phase = 3
+min_no_of_phase = 1
+max_time = 60
+min_time = 20
 exp_probability = 0.8
 
 submission_event = 0
@@ -30,18 +32,17 @@ rigid = 1
 malleable = 2
 evolving = 3
 
-max_expansion_percentage = 31
+max_expansion_percentage = 40
 min_expansion_percentage = 30
-max_shrinkage_percentage = 31
-mim_shrinkage_percentage = 30
+max_shrinkage_percentage = 20
+mim_shrinkage_percentage = 10
 
 
 input_location = "workload/rigid"
 output_location = "result/rigid"
 #res_proc = open(r"result3/mal/mal10_2016_15k_40k.txt", "w")
 
-random.seed(123)
-total_processor = 0
+random.seed(1)
 
 def jobEntry(job_to_start_list, job, event, state, event_counter, event_list, sim_clock):
     #print("job added in job to start list", job.id, "at time", sim_clock)
@@ -158,8 +159,6 @@ def find_agreement_evolving(running_malleable_job, sim_clock, event, state, queu
     negotiation_overhead = 0
     agreement_list = []
     agreement_to_be = []
-    if not check_request_qualification(event, queued_job_list):
-        return sim_clock, negotiation_overhead, agreement_list, state
     #print("core needed", event.core)
     #print("core existing", state.cores)
 
@@ -205,16 +204,27 @@ def qualify(job, sim_clk):
     else:
         return 1
 
+
+def add_to_agreement(agreement_to_be, agreement):
+    flag = 0
+    for i in agreement_to_be:
+        if i.job == agreement.job:
+            i.cores += agreement.cores
+            flag = 1
+    if flag == 0:
+        agreement_to_be.append(agreement)
+    return agreement_to_be
+
 def find_agreement(queued_job_list, running_malleable_job, job_to_start_list, state, event_list, sim_clock):
     agreement_list = []
     agreement_to_be = []
     negotiation_overhead = 0
     for key, value in queued_job_list.items():
         next_time, next_cores = find_next_complition(event_list)
-        if state.cores / total_processor < 0.2:
-            if next_time - sim_clock < 3:
+        #if state.cores / total_processor < 0.2:
+        if next_time - sim_clock < 5:
                 #print(sim_clock,"sim_clock here")
-                return agreement_list, job_to_start_list, sim_clock, negotiation_overhead, state
+            return agreement_list, job_to_start_list, sim_clock, negotiation_overhead, state
         if value.current_resources > state.cores:
             needed = value.current_resources - state.cores
         else:
@@ -230,7 +240,7 @@ def find_agreement(queued_job_list, running_malleable_job, job_to_start_list, st
                 else:
                     cores = i.remaining_resources
                 a = Agreement('s', cores, i)
-                agreement_to_be.append(a)
+                agreement_to_be = add_to_agreement(agreement_to_be, a)
                 needed = needed - cores
         if needed == 0:
             for i in agreement_to_be:
@@ -260,6 +270,7 @@ def find_agreement(queued_job_list, running_malleable_job, job_to_start_list, st
             if i.extra_resources != 0:
                 cores = i.extra_resources if i.extra_resources < state.cores else state.cores
                 a = Agreement('e', cores, i)
+
                 agreement_list.append(a)
                 index = running_malleable_job.index(i)
                 running_malleable_job[index].extra_resources = running_malleable_job[
@@ -394,6 +405,8 @@ def create_evolving_events(event_list, J, sim_clk):
             total_cores = J.current_resources - cores
         if total_cores < J.min_resource:
             return event_list
+        if total_cores > J.max_resource:
+            return event_list
         e = Event(J, time, type)
         e.setCore(cores)
         event_list.append(e)
@@ -407,7 +420,7 @@ def create_evolving_events(event_list, J, sim_clk):
 
 def initialize_event(fileName, pending_job_list, event_list):
     data = pd.read_csv(fileName)
-    #data = data.iloc[0:200:]
+    #data = data.iloc[0:10000:]
     for index, row in data.iterrows():
         J = Job(row['type'], row['S_ime'], row['Processors'], row['R_time'], row['id'], row['Min_resource'],
                 row['Max_resource'])
@@ -434,7 +447,6 @@ def clear_list(event_list, job):
 
 
 def get_average_result(dataframe):
-    #dataframe = dataframe.iloc[100:2000:]
     W_time = dataframe['Wait_time']
     Turn_time = dataframe['Turn_around_time']
     C_time = dataframe['Completion']
@@ -484,10 +496,11 @@ def main():
     complete_job_list: Dict[int, Job] = {}
     queued_job_list: Dict[int, Job] = {}
     job_to_start_list: Dict[int, Job] = {}
-    pending_job_list, event_list = initialize_event("synthetic/workload12/mal_evol/workload_synthetic_mal_evol10.csv", pending_job_list, event_list)
+    pending_job_list, event_list = initialize_event("unit_test/workload/mal_evol/workload_synthetic_mal_evol10.csv"
+                                                    , pending_job_list, event_list)
     #pending_job_list, event_list = initialize_event("shrinked/workload/mal/mal20_2016_15k_40k.csv", pending_job_list, event_list)
 
-    total_processor = 1024
+    total_processor = 2048
     state = initialize_system(total_processor)
 
     sim_clock = 0
@@ -518,6 +531,7 @@ def main():
                 event_list, sim_clock, state, processor_df = scheduler(job_to_start_list, pending_job_list, running_job_list, event_list,
                                             queued_job_list, state, sim_clock, processor_df)
                 event_counter = 0
+
             sim_clock = event.time
             cores = event.core
             job = event.job
@@ -550,6 +564,7 @@ def main():
                 event_list = sorted(event_list, key=operator.attrgetter('time'))
                 event_counter = 0
             else:
+                #if sim_clock <= event.time:
                 sim_clock = event.time
                 running_job_list, complete_job_list = runningToComplete(running_job_list, complete_job_list, event)
                 state.cores = state.cores + event.job.current_resources
@@ -596,7 +611,7 @@ def main():
     #processor_df.to_csv('shrinked/result/mal/processor_mal20_2016_15k_40k.csv', index=False)
     #res_avg = open(r"shrinked/result/mal/average_mal20_2016_15k_40k.txt", "w")
     avg_wait_time, avg_turn_time, span, avg_run_time = get_average_result(result_df)
-    utilization = calculate_util2(processor_df, span, total_processor)
+    utilization = calculate_utilization(complete_job_list, span, total_processor)
     #res_avg.write(str(avg_wait_time)+'\n')
     #res_avg.write(str(avg_turn_time)+'\n')
     #res_avg.write(str(span)+'\n')

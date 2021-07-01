@@ -9,8 +9,8 @@ evolving = 3
 random.seed(123)
 
 def shrinkinterval(dataframe, rate):
-    #value = dataframe.iloc[0]
-    #dataframe['S_ime'] = dataframe['S_ime'] - value['S_ime']
+    value = dataframe.iloc[0]
+    dataframe['S_ime'] = dataframe['S_ime'] - value['S_ime']
     dataframe['S_ime'] = dataframe['S_ime'] * rate
     return dataframe
 
@@ -41,19 +41,19 @@ def gen_malleable(m, e, k, df, exp_m, shrk_m, exp_e, shrk_e):
 
 def main():
     for i in range(10, 110, 10):
-        name = 'synthetic/workload12/mal_evol/workload_synthetic_mal_evol' + str(i) + '.csv'
+        name = 'final_test/workload2/mal_evol/workload_mal_evol'+str(i)+'LLNL.csv'
         dataframe = pd.read_csv(name)
-        dataframe = shrinkinterval(dataframe, 1)
+        dataframe = shrinkinterval(dataframe, 0.97)
         #dest = 'shrinked/workload5/mal_evol/workload_mal_evol' + str(i) + '_2016_1k.csv'
         dataframe.to_csv(name, index=False)
-        name = 'synthetic/workload12/mal/workload_synthetic_mal' + str(i) + '.csv'
+        name = 'final_test/workload2/mal/workload_mal'+str(i)+'LLNL.csv'
         dataframe = pd.read_csv(name)
-        dataframe = shrinkinterval(dataframe, 1)
+        dataframe = shrinkinterval(dataframe, 0.97)
         #dest = 'shrinked/workload5/mal/workload_mal' + str(i) + '_2016_1k.csv'
         dataframe.to_csv(name, index=False)
-    dataframe = pd.read_csv('synthetic/workload12/rigid/workload_synthetic_rigid.csv')
-    dataframe = shrinkinterval(dataframe, 1)
-    dataframe.to_csv('synthetic/workload12/rigid/workload_synthetic_rigid.csv', index=False)
+    dataframe = pd.read_csv('final_test/workload2/rigid/workload_rigidLLNL.csv')
+    dataframe = shrinkinterval(dataframe, 0.97)
+    dataframe.to_csv('final_test/workload2/rigid/workload_rigidLLNL.csv', index=False)
     #print(len(dataframe))
     #dataframe = dataframe.iloc[15000:16000:]
     #dataframe = dataframe.iloc[1:15000:]

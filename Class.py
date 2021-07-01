@@ -1,13 +1,13 @@
 import random
 
-max_adaptation_cost = 0.05
-min_adaptation_cost = 0.005
-max_synchronization_cost = 0.2
-min_synchronization_cost = 0.15
-max_alpha = 0.1
-min_alpha = 0.05
-max_beta = 0.1
-min_beta = 0.05
+max_adaptation_cost = 0.001
+min_adaptation_cost = 0.0005
+max_synchronization_cost = 0.05
+min_synchronization_cost = 0.015
+max_alpha = 0.05
+min_alpha = 0.005
+max_beta = 0.05
+min_beta = 0.005
 submission_event = 0
 expansion_event = 1
 shrinkage_event = 2
@@ -84,7 +84,7 @@ class Job:
         self.extra_resources = self.max_resource - self.remaining_resources
 
     def get_adaptationCost(self, typ, cost, cores):
-        perc = self.adaptation
+        perc = random.uniform(min_adaptation_cost, max_adaptation_cost)
         overhead = cost * perc
         comp = cost - overhead
         print("computation", comp)
@@ -100,8 +100,8 @@ class Job:
 
 
     def get_dataRedistributionCost(self, cores) -> float:
-        alpha = self.alpha
-        beta = self.beta
+        alpha = random.uniform(min_alpha, max_alpha)
+        beta = random.uniform(min_beta, max_beta)
         difference = abs(self.current_resources - cores)
         total = self.current_resources + cores
         x = alpha*difference + beta/total
@@ -135,7 +135,7 @@ class Job:
         synchronization_cost = random.uniform(min_synchronization_cost, max_synchronization_cost)
         self.c_time = sim_clock + time_required + datadistribution_cost + synchronization_cost
         self.current_resources = self.current_resources + cores
-        #print(self.id, sim_clock, overhead + datadistribution_cost + synchronization_cost)
+        print(self.id, sim_clock, overhead, datadistribution_cost, synchronization_cost)
         self.gain = self.gain + cores
         return self.c_time
 

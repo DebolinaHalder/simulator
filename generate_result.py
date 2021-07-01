@@ -83,5 +83,6 @@ def main():
     draw_plot(exe, exe_evol, exe_rigid, "Average Execution Time",
               "execution")
 
+
 if __name__ == '__main__':
     main()

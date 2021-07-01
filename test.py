@@ -32,37 +32,26 @@ def put_comma(old, new):
 
 def convert_to_csv(old,new):
     text = pd.read_csv(old, header=None)
-    text.columns = ['id', 'S_time', 'W_time', 'R_time', 'Processors', 'Avg_CPU', 'Memory', 'Req_proc', 'Req_time'
+    text.columns = ['id', 'S_ime', 'W_time', 'R_time', 'Processors', 'Avg_CPU', 'Memory', 'Req_proc', 'Req_time'
                     , 'Req_mem', 'Status', 'U_id', 'G_id', 'Exe_num', 'Q_num', 'Part_num', 'Proc_job_no', 'Irre']
     text.to_csv(new, index=None)
     return
 
 
 def main():
-    discard_white_space("modified.txt", "LLNL_256.txt")
+    discard_white_space("modified.txt", "LLNL2006.txt")
     put_comma("workload_wspace.txt", "workload_final.txt")
     convert_to_csv("workload_final.txt", "workload_all_LLNL_256.csv")
     dataframe = pd.read_csv("workload_all_LLNL_256.csv")
-    dataframe = dataframe[['S_time', 'W_time', 'R_time', 'Processors']]
+    dataframe = dataframe[['S_ime', 'W_time', 'R_time', 'Processors']]
+
     dataframe.insert(4, 'id', dataframe.index+1)
     dataframe.insert(5, "type", 1)
     dataframe.insert(6, "Max_resource", dataframe['Processors'])
     dataframe.insert(7, "Min_resource", dataframe['Processors'])
     dataframe.insert(8, "Total_cost", dataframe['Processors']*dataframe['R_time'])
     print(dataframe.head())
-    dataframe.to_csv('workload_all_LLNL_256.csv', index=False)
-
-
-
-    for i in range(10, 110, 10):
-        location = "unshrinked/result1/expansion/mal/" + "average_mal" + str(i) +"_2016_1k.txt"
-        evol = open(location, "r")
-        lines = evol.readlines()
-        wait_time4.append(float(lines[0]))
-        turn_around_time4.append(float(lines[1]))
-        span4.append(float(lines[2]))
-        utilization4.append(float(lines[3]))
-        exe4.append(float(lines[4]))
+    dataframe.to_csv('workload_all_LLNL_2006.csv', index=False)
 
 
 
