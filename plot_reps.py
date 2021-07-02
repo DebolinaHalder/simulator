@@ -3,52 +3,66 @@ import pandas as pd
 import numpy as np
 
 def gen_plot(key, name):
-    df = pd.read_csv("final_test/result4/result_application/result_mal_evol.csv")
+    df = pd.read_csv("final_test/result5/result_system/result_mal_evol.csv")
     perc = np.linspace(10, 100, 10)
     value_adaptation_med = []
+    value_adaptation_var = []
     value_adaptation_25_quantile = []
     value_adaptation_75_quantile = []
     value_expansion_med = []
+    value_expansion_var = []
     value_expansion_25_quantile = []
     value_expansion_75_quantile = []
     value_gain_med = []
+    value_gain_var = []
     value_gain_25_quantile = []
     value_gain_75_quantile = []
     value_resource_med = []
+    value_resource_var = []
     value_resource_25_quantile = []
     value_resource_75_quantile = []
     value_time_med = []
+    value_time_var = []
     value_time_25_quantile = []
     value_time_75_quantile = []
 
     for p in perc:
         col = "adp_" + key
         res_adp = df[col][df['perc'] == p]
-        value_adaptation_med.append(np.median(res_adp))
+        value_adaptation_med.append(np.mean(res_adp))
+        print("value ", res_adp)
+        value_adaptation_var.append(np.sqrt(np.var(res_adp, ddof=1)))
+        print(np.sqrt(np.var(res_adp, ddof=1)))
         value_adaptation_25_quantile.append(np.quantile(res_adp, [.25])[0])
         value_adaptation_75_quantile.append(np.quantile(res_adp, [.75])[0])
 
         col = "exp_" + key
         res_adp = df[col][df['perc'] == p]
-        value_expansion_med.append(np.median(res_adp))
+        value_expansion_med.append(np.mean(res_adp))
+        value_expansion_var.append(np.sqrt(np.var(res_adp, ddof=1)))
         value_expansion_25_quantile.append(np.quantile(res_adp, [.25])[0])
         value_expansion_75_quantile.append(np.quantile(res_adp, [.75])[0])
 
         col = "gain_" + key
         res_adp = df[col][df['perc'] == p]
-        value_gain_med.append(np.median(res_adp))
+        value_gain_med.append(np.mean(res_adp))
+        value_gain_var.append(np.sqrt(np.var(res_adp, ddof=1)))
+        print("value ", res_adp)
+        print(np.var(res_adp, ddof=1))
         value_gain_25_quantile.append(np.quantile(res_adp, [.25])[0])
         value_gain_75_quantile.append(np.quantile(res_adp, [.75])[0])
 
         col = "resr_" + key
         res_adp = df[col][df['perc'] == p]
-        value_resource_med.append(np.median(res_adp))
+        value_resource_med.append(np.mean(res_adp))
+        value_resource_var.append(np.sqrt(np.var(res_adp, ddof=1)))
         value_resource_25_quantile.append(np.quantile(res_adp, [.25])[0])
         value_resource_75_quantile.append(np.quantile(res_adp, [.75])[0])
 
         col = "time_" + key
         res_adp = df[col][df['perc'] == p]
-        value_time_med.append(np.median(res_adp))
+        value_time_med.append(np.mean(res_adp))
+        value_time_var.append(np.sqrt(np.var(res_adp, ddof=1)))
         value_time_25_quantile.append(np.quantile(res_adp, [.25])[0])
         value_time_75_quantile.append(np.quantile(res_adp, [.75])[0])
 
@@ -59,11 +73,11 @@ def gen_plot(key, name):
     ax.plot(perc, value_gain_med, c="b", label='Gain')
     ax.plot(perc, value_resource_med, c="k", label='Resource')
     ax.plot(perc, value_time_med, c="y", label='Time')
-    #ax.fill_between(perc, value_adaptation_25_quantile, value_adaptation_75_quantile, facecolor='r', alpha=.3)
-    #ax.fill_between(perc, value_expansion_25_quantile, value_expansion_75_quantile, facecolor='g', alpha=.3)
-    #ax.fill_between(perc, value_gain_25_quantile, value_gain_75_quantile, facecolor='b', alpha=.3)
-    #ax.fill_between(perc, value_resource_25_quantile, value_resource_75_quantile, facecolor='k', alpha=.3)
-    #ax.fill_between(perc, value_time_25_quantile, value_time_75_quantile, facecolor='y', alpha=.3)
+    ax.fill_between(perc, np.array(value_adaptation_med) - 1.96*np.array(value_adaptation_var), np.array(value_adaptation_med) + 1.96*np.array(value_adaptation_var), facecolor='r', alpha=.3)
+    ax.fill_between(perc, np.array(value_expansion_med) - 1.96*np.array(value_expansion_var), np.array(value_expansion_med) + 1.96*np.array(value_expansion_var), facecolor='g', alpha=.3)
+    ax.fill_between(perc, np.array(value_gain_med) - 1.96*np.array(value_gain_var), np.array(value_gain_med) + 1.96*np.array(value_gain_var), facecolor='b', alpha=.3)
+    ax.fill_between(perc, np.array(value_resource_med) - 1.96*np.array(value_resource_var), np.array(value_resource_med) + 1.96*np.array(value_resource_var), facecolor='k', alpha=.3)
+    ax.fill_between(perc, np.array(value_time_med) - 1.96*np.array(value_time_var), np.array(value_time_med) + 1.96*np.array(value_time_var), facecolor='y', alpha=.3)
     #ax.fill_between(sample_size, dist_rf_25_quantile, dist_rf_75_quantile, facecolor='k', alpha=.3)
 
     ax.set_xticks(range(10, 110, 10))
@@ -79,7 +93,7 @@ def gen_plot(key, name):
 
 
 def main():
-    gen_plot("util", "average turn")
+    gen_plot("turn", "average turnaround time (*1000)")
 
 
 if __name__ == '__main__':

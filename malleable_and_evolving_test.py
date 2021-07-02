@@ -496,11 +496,11 @@ def main():
     complete_job_list: Dict[int, Job] = {}
     queued_job_list: Dict[int, Job] = {}
     job_to_start_list: Dict[int, Job] = {}
-    pending_job_list, event_list = initialize_event("unit_test/workload/mal_evol/workload_synthetic_mal_evol10.csv"
+    pending_job_list, event_list = initialize_event("final_test/workload1/mal_evol/workload_mal_evol102016.csv"
                                                     , pending_job_list, event_list)
     #pending_job_list, event_list = initialize_event("shrinked/workload/mal/mal20_2016_15k_40k.csv", pending_job_list, event_list)
 
-    total_processor = 2048
+    total_processor = 24048
     state = initialize_system(total_processor)
 
     sim_clock = 0

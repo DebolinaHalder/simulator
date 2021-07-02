@@ -61,7 +61,7 @@ def find_malleable(running_job_list, sim_clock):
             value.calculateRemaining()
             value.remaining_time = value.remaining_time - (sim_clock - value.s_time)
             running_malleable_job.append(value)
-    running_malleable_job = sorted(running_malleable_job, key=operator.attrgetter('gain', 'remaining_resources'), reverse=True)
+    #running_malleable_job = sorted(running_malleable_job, key=operator.attrgetter('gain', 'remaining_resources'), reverse=True)
     #running_malleable_job = sorted(running_malleable_job, key=operator.attrgetter("remaining_resources"), reverse=True)
     return running_malleable_job
 
@@ -259,13 +259,13 @@ def find_agreement(queued_job_list, running_malleable_job, job_to_start_list, st
             agreement_to_be.clear()
         else:
             agreement_to_be.clear()
-        running_malleable_job = sorted(running_malleable_job, key=operator.attrgetter('gain', 'remaining_resources'), reverse=True)
+        #running_malleable_job = sorted(running_malleable_job, key=operator.attrgetter('gain', 'remaining_resources'), reverse=True)
         #running_malleable_job = sorted(running_malleable_job, key=operator.attrgetter("remaining_resources"),reverse=True)
     for key in job_to_start_list:
         if key in queued_job_list:
             queued_job_list.pop(key)
-    running_malleable_job = sorted(running_malleable_job, key=operator.attrgetter('gain'))
-    running_malleable_job = sorted(running_malleable_job, key=operator.attrgetter("current_resources"), reverse=True)
+    #running_malleable_job = sorted(running_malleable_job, key=operator.attrgetter('gain'))
+    #running_malleable_job = sorted(running_malleable_job, key=operator.attrgetter("current_resources"), reverse=True)
     if state.cores != 0:
         for i in running_malleable_job:
             if i.extra_resources != 0:
@@ -495,10 +495,10 @@ def main():
     complete_job_list: Dict[int, Job] = {}
     queued_job_list: Dict[int, Job] = {}
     job_to_start_list: Dict[int, Job] = {}
-    pending_job_list, event_list = initialize_event("synthetic/workload1/mal_evol/workload_mal_evol20_synthetic1_256.csv", pending_job_list, event_list)
+    pending_job_list, event_list = initialize_event("final_test/workload1/mal_evol/workload_mal_evol102016.csv", pending_job_list, event_list)
     #pending_job_list, event_list = initialize_event("shrinked/workload/mal/mal20_2016_15k_40k.csv", pending_job_list, event_list)
 
-    total_processor = 256
+    total_processor = 24048
     state = initialize_system(total_processor)
 
     sim_clock = 0

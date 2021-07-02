@@ -50,21 +50,28 @@ def gen_malleable(m, e, k, df, exp_m, shrk_m, exp_e, shrk_e):
     return df
 
 
+def shrinkinterval(dataframe, rate):
+    value = dataframe.iloc[0]
+    dataframe['S_ime'] = dataframe['S_ime'] - value['S_ime']
+    dataframe['S_ime'] = dataframe['S_ime'] * rate
+    return dataframe
+
 def main():
-    dataframe = pd.read_csv("synthetic/synthetic2.csv")
+    dataframe = pd.read_csv("workload_final_2016.csv")
     #dataframe.to_csv('synthetic/workload12/rigid/workload_synthetic_rigid.csv', index=False)
     #print(len(dataframe))
+    dataframe = dataframe.iloc[10000:20000:]
+    dataframe = shrinkinterval(dataframe, 0.65)
     #dataframe = dataframe.iloc[15000:40000:]
-    #dataframe = dataframe.iloc[15000:40000:]
-    dataframe.to_csv('final_test/workload4/rigid/workload_rigidsynthetic1.csv')
+    dataframe.to_csv('final_test/workload1/rigid/workload_rigid2016.csv')
     #dataframe = dataframe[dataframe['Processors'] != -1]
     #dataframe = dataframe[dataframe['Processors'] <= 9216]
     #dataframe = dataframe.iloc[5000:15000]
     #dataframe.to_csv('final_test/workload2/rigid/workload_rigidLLNL.csv', index=False)
     for i in range(10, 110, 10):
         #df = gen_malleable(i/2, i/2, i, dataframe, 35, 40, 60, 20)
-        df = gen_malleable(i/2, i/2, i, dataframe, 60, 30, 60, 20)
-        name = 'final_test/workload4/mal_evol/workload_mal_evol'+str(i)+'synthetic1.csv'
+        df = gen_malleable(i/2, i/2, i, dataframe, 100, 50, 100, 50)
+        name = 'final_test/workload1/mal_evol/workload_mal_evol'+str(i)+'2016.csv'
         df.to_csv(name, index=False)
     #dataframe = gen_malleable(20, 0, 20, dataframe, 35, 40, 60, 20)
     #dataframe = dataframe.sort_values(by='Processors', ascending=False)
